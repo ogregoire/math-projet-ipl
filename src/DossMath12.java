@@ -34,7 +34,11 @@ public class DossMath12 {
 		System.out.println("Réponse 1.2");
 		lister(CPT.arrivee().moins(CPT.image()), "QUALIFICATIONS");
 		System.out.println("Réponse 1.3");
-		System.out.println(SUP.);
+		if(SUP.acyclique()) System.out.println("La relation SUP est acyclique");
+		else System.out.println("La relation SUP n'est pas acyclique");
+		System.out.println("Réponse 1.4");
+		Relation LAP = CCN.apres(CPT); // Pas sur
+		
 		// TO DO
 	}
 	
