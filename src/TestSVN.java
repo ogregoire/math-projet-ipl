@@ -1,7 +1,8 @@
 
 public class TestSVN {
 	private String mathieu;
-
+	private String monCu;
+	
 	public String getMathieu() {
 		return mathieu;
 	}
