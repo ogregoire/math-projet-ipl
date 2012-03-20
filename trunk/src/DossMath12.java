@@ -37,7 +37,7 @@ public class DossMath12 {
 		if(SUP.acyclique()) System.out.println("La relation SUP est acyclique");
 		else System.out.println("La relation SUP n'est pas acyclique");
 		System.out.println("Réponse 1.4");
-		Relation LAP = CCN.apres(CPT); // Pas sur
+		Relation LAP = (CCN.reciproque()).apres(CPT); // Pas sur
 		System.out.println("Réponse 1.5");
 		lister(LAP.imageReciproque(new Elt(numéro("Antoinet", "PROJETS"))), "PERSONNELS");
 		// TO DO
