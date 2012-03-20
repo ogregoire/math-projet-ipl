@@ -23,8 +23,37 @@ public class DossMath12 {
 	
 
 	public static void main(String[] args) throws MathException {
-
+		
 	} // main
+	
+	public static void question1(){
+		// TO DO
+	}
+	
+	public static void question2(){
+		// TO DO
+	}
+
+	public static void question3(){
+		// TO DO
+	}
+
+	public static void question4(){
+		// TO DO
+	}
+
+	public static void question5(){
+		// TO DO
+	}
+
+	public static void question6(){
+		// TO DO
+	}
+
+	public static void question7(){
+		// TO DO
+	}
+	
 
 
 	// affiche à l'écran les éléments de e, interprétés selon contexte
