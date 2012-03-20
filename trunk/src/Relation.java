@@ -94,6 +94,7 @@ public class Relation extends RelationDeBase {
 		return imageRec;
 	}
 	
+	/** Renvoie l'image reciproque de x par la Relation Courante */
 	public Ensemble imageReciproque(Elt x)
 	{
 		if (x == null)
@@ -435,6 +436,37 @@ public class Relation extends RelationDeBase {
 				}
 			}
 		}
+	}
+	
+	/** Renvoie true si acyclique */
+	public boolean acyclique()
+	{
+		Relation clone = this.clone();
+		clone.cloTrans();
+		return clone.antireflexive();
+	}
+
+	/** Renvoie true si faiblement connexe */
+	public boolean faiblementConnexe()
+	{
+		Relation clone = this.clone();
+		clone.cloSym();
+		clone.cloTrans();
+		return clone.complementaire().estVide();
+	}
+
+	/** Renvoie true si fortement connexe */
+	public boolean fortementConnexe()
+	{
+		Relation clone = this.clone();
+		clone.cloTrans();
+		return clone.complementaire().estVide();
+	}
+
+	/** Renvoie true si connexe */
+	public boolean connexe()
+	{
+		return this.symetrique() && this.fortementConnexe();
 	}
 
 
