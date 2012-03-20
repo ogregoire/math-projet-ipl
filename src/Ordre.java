@@ -57,7 +57,6 @@ public class Ordre implements RelationInterface {
 
 	@Override
 	public void enlever(Couple c) {
-		
 
 	}
 
