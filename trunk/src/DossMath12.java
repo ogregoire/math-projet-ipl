@@ -23,10 +23,12 @@ public class DossMath12 {
 	
 
 	public static void main(String[] args) throws MathException {
-		
+			question1();
 	} // main
 	
 	public static void question1(){
+		
+		
 		// TO DO
 	}
 	
