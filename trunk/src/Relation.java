@@ -84,20 +84,37 @@ public class Relation extends RelationDeBase {
 	
 	/** Renvoie l’image reciproque de e par la Relation courante */
 	public Ensemble imageReciproque(EnsembleInterface e){
-		Ensemble ens = new Ensemble();
-		Iterator<Elt> itE = e.iterator();
-		while(itE.hasNext()){
-			Elt eltE = itE.next();
-			Iterator<Elt> itD = this.depart().iterator();
-			while(itD.hasNext()){
-				Elt eltD = itD.next();
-				if(this.contient(eltD, eltE)){
-					ens.ajouter(eltD);
-					break;
-				}
+		Ensemble imageRec = new Ensemble();
+		Iterator<Elt> it1 = e.iterator();
+		while (it1.hasNext())
+		{
+			Elt x = it1.next();
+			imageRec.ajouter(imageReciproque(x));
+		}
+		return imageRec;
+	}
+	
+	public Ensemble imageReciproque(Elt x)
+	{
+		if (x == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (!this.arrivee().contient(x))
+		{
+			throw new IllegalArgumentException("L'Elt entré n'est pas dans l'ensemble d'arrivée.");
+		}
+		Ensemble imageRéciproque = new Ensemble();
+		Iterator<Elt> it = this.depart().iterator();
+		while (it.hasNext())
+		{
+			Elt e = it.next();
+			if (this.contient(e, x))
+			{
+				imageRéciproque.ajouter(e);
 			}
 		}
-		return ens;
+		return imageRéciproque;
 	}
 	
 	/** Renvoie l’image de la Relation courante */
