@@ -27,32 +27,50 @@ public class DossMath12 {
 	} // main
 	
 	public static void question1(){
-		
-		
+		System.out.println("Question 1");
+		System.out.println("******************************************************************************************");
+		System.out.println("Réponse 1.1");
+		lister(COL.depart().moins(COL.domaine()), "PERSONNELS");
+		System.out.println("Réponse 1.2");
+		lister(CPT.arrivee().moins(CPT.image()), "QUALIFICATIONS");
+		System.out.println("Réponse 1.3");
+		System.out.println(SUP.);
 		// TO DO
 	}
 	
 	public static void question2(){
+		System.out.println("Question 2");
+		System.out.println("******************************************************************************************");
 		// TO DO
 	}
 
 	public static void question3(){
+		System.out.println("Question 3");
+		System.out.println("******************************************************************************************");
 		// TO DO
 	}
 
 	public static void question4(){
+		System.out.println("Question 4");
+		System.out.println("******************************************************************************************");
 		// TO DO
 	}
 
 	public static void question5(){
+		System.out.println("Question 5");
+		System.out.println("******************************************************************************************");
 		// TO DO
 	}
 
 	public static void question6(){
+		System.out.println("Question 6");
+		System.out.println("******************************************************************************************");
 		// TO DO
 	}
 
 	public static void question7(){
+		System.out.println("Question 7");
+		System.out.println("******************************************************************************************");
 		// TO DO
 	}
 	
