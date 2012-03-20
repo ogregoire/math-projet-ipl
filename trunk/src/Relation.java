@@ -27,6 +27,20 @@ public class Relation extends RelationDeBase {
 	public Relation clone() {
 		return (Relation) super.clone();
 	}
+
+	
+	/** Construit l'identité */
+	public static Relation identite(EnsembleInterface e)
+	{
+		Relation id = new Relation(e, e);
+		Iterator<Elt> it = e.iterator();
+		while (it.hasNext())
+		{
+			Elt x = it.next();
+			id.ajouter(x, x);
+		}
+		return id;
+	}
 	
 	/** Renvoie le degré de sortie de x pour la Relation courante */
 	public int degreDeSortie(Elt x) {
