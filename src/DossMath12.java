@@ -47,7 +47,6 @@ public class DossMath12 {
 		System.out.println("Question 2");
 		System.out.println("******************************************************************************************");
 		// TO DO
-		System.out.println("Bête test pour le svn");
 	}
 
 	public static void question3(){
