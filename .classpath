@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry excluding="class/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Users/JokerLand/Dropbox/IPL_2011_2012/Mathématique/Classes_Java/semestre2/semestre2"/>
+	<classpathentry kind="lib" path="class_folder"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
