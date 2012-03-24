@@ -40,7 +40,8 @@ public class DossMath12 {
 		Relation LAP = (CCN.reciproque()).apres(CPT); // Pas sur
 		System.out.println("Réponse 1.5");
 		lister(LAP.imageReciproque(new Elt(numéro("Antoinet", "PROJETS"))), "PERSONNELS");
-		// TO DO
+		//Question 1.6, je m'en charge mtn ! (24/03/2012)
+		//TO DO 
 	}
 	
 	public static void question2(){
