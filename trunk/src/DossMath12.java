@@ -42,6 +42,7 @@ public class DossMath12 {
 		lister(LAP.imageReciproque(new Elt(numéro("Antoinet", "PROJETS"))), "PERSONNELS");
 		//Question 1.6, je m'en charge mtn ! (24/03/2012)
 		System.out.println("Réponse 1.6");
+		//J'aoute un truc juste comme ça :D
 		
 		//TO DO 
 	}
