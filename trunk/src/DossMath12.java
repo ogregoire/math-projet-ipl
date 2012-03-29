@@ -85,6 +85,17 @@ public class DossMath12 {
 		System.out.println("Question 3");
 		System.out.println("******************************************************************************************");
 		// TO DO
+		Relation PSF = new Relation(FIN.depart().clone(), CCN.arrivee().clone());
+		Iterator<Couple> itFin = FIN.iterator();
+		//Iterator<Couple> it = CCN.iterator();
+
+		while(itFin.hasNext()){
+			Couple couple = itFin.next();
+			ELT pers 
+			Elt projet = couple.; // y désigne le domaine de qualification
+			
+		}
+		
 	}
 
 	public static void question4(){
