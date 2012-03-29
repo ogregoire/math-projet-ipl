@@ -21,7 +21,9 @@ public class DossMath12 {
 	private static final String[] tQual = Io.chargerDta("Qual.dta");
 	private static final int nbQual = Integer.parseInt(tQual[0]);// nombre de cours
 	
-
+	private static Relation LAP;
+	private static Relation affImpossible;
+	
 	public static void main(String[] args) throws MathException {
 			question1();
 	} // main
@@ -37,7 +39,7 @@ public class DossMath12 {
 		if(SUP.acyclique()) System.out.println("La relation SUP est acyclique");
 		else System.out.println("La relation SUP n'est pas acyclique");
 		System.out.println("Réponse 1.4");
-		Relation LAP = (CCN.reciproque()).apres(CPT); // Pas sur
+		LAP = (CCN.reciproque()).apres(CPT); // Pas sur
 		System.out.println("Réponse 1.5");
 		lister(LAP.imageReciproque(new Elt(numéro("Antoinet", "PROJETS"))), "PERSONNELS");
 		//Question 1.6, je m'en charge mtn ! (24/03/2012)
@@ -45,11 +47,37 @@ public class DossMath12 {
 		//J'aoute un truc juste comme ça :D
 		
 		//TO DO 
+		System.out.println("Réponse 1.7");
+		affImpossible = COL.clone();
+		affImpossible.enlever(LAP);
+		Iterator<Couple> it = affImpossible.iterator();
+		System.out.println("Liste des membres du personnel collaborant à un projet ne figurant pas dans la liste de leurs affectations possibles : ");
+		if(affImpossible.cardinal()!=0){
+			while(it.hasNext()){
+				Couple c = it.next();
+				lister(affImpossible.imageReciproque(c.getx()), "PERSONNELS");
+				System.out.println("Collaborant aux projets : ");
+				lister(affImpossible.imageDirecte(c.gety()),"PROJETS");
+			}
+		}else{
+			System.out.println("Aucun membre du personnel ne collabore à un projet ne faisant pas partie de ses affectations possibles.");
+		}
 	}
 	
 	public static void question2(){
 		System.out.println("Question 2");
 		System.out.println("******************************************************************************************");
+		System.out.println("Réponse 2.1");
+		/** Utiliser LAP 
+		 * CAT 1 = Membres sans fleche vers un projet dans FIN
+		 * CAT 2 = FIN-LAP ( investissement non lucide )
+		 * CAT 3 = Membre dans FIN-LAP et a des fleches supp a cause de FIN-LAP
+		 * CAT 4 = Membre qui avait des fleches avant FIN-LAP et qui n'en a plus
+		 */
+		
+		Ensemble cat1 = FIN.depart().clone();
+		cat1.enlever(FIN.domaine());
+		Ensemble cat2 = FIN.depart().clone();
 		// TO DO
 	}
 
