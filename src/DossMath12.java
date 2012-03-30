@@ -28,6 +28,7 @@ public class DossMath12 {
 	
 	public static void main(String[] args) throws MathException {
 			question1();
+			question2();
 	} // main
 	
 	public static void question1(){
@@ -52,9 +53,9 @@ public class DossMath12 {
 		System.out.println("Réponse 1.7");
 		affImpossible = COL.clone();
 		affImpossible.enlever(LAP);
-		Iterator<Couple> it = affImpossible.iterator();
-		System.out.println("Liste des membres du personnel collaborant à un projet ne figurant pas dans la liste de leurs affectations possibles : ");
 		if(affImpossible.cardinal()!=0){
+			Iterator<Couple> it = affImpossible.iterator();
+			System.out.println("Liste des membres du personnel collaborant à un projet ne figurant pas dans la liste de leurs affectations possibles : ");
 			while(it.hasNext()){
 				Couple c = it.next();
 				lister(affImpossible.imageReciproque(c.getx()), "PERSONNELS");
@@ -77,10 +78,58 @@ public class DossMath12 {
 		 * CAT 4 = Membre qui avait des fleches avant FIN-LAP et qui n'en a plus
 		 */
 		
+		Relation finLu = new Relation(FIN.depart(), FIN.arrivee());
+		Iterator<Couple> itLu = FIN.iterator();
+		while(itLu.hasNext()){
+			Couple c = itLu.next();
+			if(LAP.contient(c)){
+				finLu.ajouter(c);
+			}
+		}
+		
 		Ensemble cat1 = FIN.depart().clone();
 		cat1.enlever(FIN.domaine());
-		Ensemble cat2 = FIN.depart().clone();
-		// TO DO
+		
+		Ensemble cat2 = FIN.domaine().clone();
+		Iterator<Couple> it = FIN.iterator();
+		while(it.hasNext()){
+			Couple c = it.next();
+			if(LAP.contient(c)){
+				cat2.enlever(c.getx());
+			}
+		}
+		
+		Ensemble cat3 = new Ensemble();
+		it = FIN.iterator();
+		while(it.hasNext() ){
+			Couple c = it.next();
+			if(LAP.contient(c) && FIN.degreDeSortie(c.getx())>finLu.degreDeSortie(c.getx())){
+				cat3.ajouter(c.getx());
+			}
+		}
+		
+		Ensemble cat4 = new Ensemble();
+		it = FIN.iterator();
+		while(it.hasNext() ){
+			Couple c = it.next();
+			if(LAP.contient(c) && FIN.degreDeSortie(c.getx())==finLu.degreDeSortie(c.getx())){
+				cat4.ajouter(c.getx());
+			}
+		}
+		
+		
+		System.out.println("Catégorie 1 : ");
+		lister(cat1, "PERSONNELS");
+		System.out.println("Catégorie 2 : ");
+		lister(cat2, "PERSONNELS");
+		System.out.println("Catégorie 3 : ");
+		lister(cat3, "PERSONNELS");
+		System.out.println("Catégorie 4 : ");
+		lister(cat4, "PERSONNELS");
+		
+		System.out.println("Réponse 2.2");
+		
+		
 	}
 
 	public static void question3(){

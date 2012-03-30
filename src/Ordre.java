@@ -68,6 +68,15 @@ public class Ordre implements RelationInterface {
 			return false;
 		}
 		
+		Iterator<Elt> it = this.depart().moins(new Ensemble(x, y)).iterator();
+		while (it.hasNext())
+		{
+			Elt z = it.next();
+			if (this.contient(new Couple(x, z)) && this.contient(new Couple(z, y)))
+			{
+				return false;
+			}
+		}
 		return true;
 		
 	}
