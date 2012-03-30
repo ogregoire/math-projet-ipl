@@ -129,6 +129,39 @@ public class DossMath12 {
 		
 		System.out.println("Réponse 2.2");
 		
+		int compteur1f =0;
+		int compteur2f =0;
+		int compteur3f =0;
+		int compteur4f =0;
+		
+		Elt femme = new Elt(2);
+		Iterator<Couple> itSex = SEX.iterator();
+		while(itSex.hasNext()){
+			Couple c = itSex.next();
+			if(cat1.contient(c.getx())){
+				if(c.gety().estEgalA(femme)){
+					compteur1f++;
+				}
+			}
+			if(cat2.contient(c.getx())){
+				if(c.gety().estEgalA(femme)){
+					compteur2f++;
+				}
+			}
+			if(cat3.contient(c.getx())){
+				if(c.gety().estEgalA(femme)){
+					compteur3f++;
+				}
+			}
+			if(cat4.contient(c.getx())){
+				if(c.gety().estEgalA(femme)){
+					compteur4f++;
+				}
+			}
+		}
+		
+		System.out.println("La catégorie comportant le plus grand nombre de femme");
+		System.out.println("test : " + compteur1f + " - " + compteur2f + " - " + compteur3f + " - " + compteur4f);
 		
 	}
 
