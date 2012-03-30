@@ -24,6 +24,8 @@ public class DossMath12 {
 	private static Relation LAP;
 	private static Relation affImpossible;
 	
+	private static Relation PSF;
+	
 	public static void main(String[] args) throws MathException {
 			question1();
 	} // main
@@ -85,17 +87,38 @@ public class DossMath12 {
 		System.out.println("Question 3");
 		System.out.println("******************************************************************************************");
 		// TO DO
-		Relation PSF = new Relation(FIN.depart().clone(), CCN.arrivee().clone());
+		System.out.println("Question 3.1");
+		peutSuivreLaFormationEn();
+		System.out.println("peut suivre la formation en (Relation PSF) Initialisé");
+				
+	}
+	
+	private static void peutSuivreLaFormationEn(){
+		PSF = new Relation(FIN.depart().clone(), CCN.arrivee().clone());
 		Iterator<Couple> itFin = FIN.iterator();
 		//Iterator<Couple> it = CCN.iterator();
+		
 
 		while(itFin.hasNext()){
 			Couple couple = itFin.next();
-			ELT pers 
-			Elt projet = couple.; // y désigne le domaine de qualification
+			Elt pers = couple.getx();
+			Elt projet = couple.gety(); // y désigne le domaine de qualification
+			// Regarder les qualifications demandés pour le projet
+			Ensemble qualifProjet = CCN.imageDirecte(projet);
+			// Regarder les qualifications du personnel
+			Ensemble qualifPers = COL.imageDirecte(pers);
+			Iterator<Elt> itQualifProjet = qualifPers.iterator();
+			int compteur = 0;
+			while(itQualifProjet.hasNext()){
+				Elt x = itQualifProjet.next();
+				if(!qualifPers.contient(x)){
+					PSF.ajouter(pers, x);
+				}
+				
+			}
 			
 		}
-		
+
 	}
 
 	public static void question4(){
