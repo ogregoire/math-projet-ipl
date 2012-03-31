@@ -1,0 +1,202 @@
+### Eclipse Workspace Patch 1.0
+#P ProjetDeMath
+Index: src/DossMath12.java
+===================================================================
+--- src/DossMath12.java	(revision 36)
++++ src/DossMath12.java	(working copy)
+@@ -29,6 +29,8 @@
+ 	public static void main(String[] args) throws MathException {
+ 			question1();
+ 			question2();
++			question3();
++			
+ 	} // main
+ 	
+ 	public static void question1(){
+@@ -53,9 +55,9 @@
+ 		System.out.println("Réponse 1.7");
+ 		affImpossible = COL.clone();
+ 		affImpossible.enlever(LAP);
++		Iterator<Couple> it = affImpossible.iterator();
++		System.out.println("Liste des membres du personnel collaborant à un projet ne figurant pas dans la liste de leurs affectations possibles : ");
+ 		if(affImpossible.cardinal()!=0){
+-			Iterator<Couple> it = affImpossible.iterator();
+-			System.out.println("Liste des membres du personnel collaborant à un projet ne figurant pas dans la liste de leurs affectations possibles : ");
+ 			while(it.hasNext()){
+ 				Couple c = it.next();
+ 				lister(affImpossible.imageReciproque(c.getx()), "PERSONNELS");
+@@ -71,107 +73,17 @@
+ 		System.out.println("Question 2");
+ 		System.out.println("******************************************************************************************");
+ 		System.out.println("Réponse 2.1");
++		/** Utiliser LAP 
++		 * CAT 1 = Membres sans fleche vers un projet dans FIN
++		 * CAT 2 = FIN-LAP ( investissement non lucide )
++		 * CAT 3 = Membre dans FIN-LAP et a des fleches supp a cause de FIN-LAP
++		 * CAT 4 = Membre qui avait des fleches avant FIN-LAP et qui n'en a plus
++		 */
+ 		
+-		Relation finLu = new Relation(FIN.depart(), FIN.arrivee());
+-		Iterator<Couple> itLu = FIN.iterator();
+-		while(itLu.hasNext()){
+-			Couple c = itLu.next();
+-			if(LAP.contient(c)){
+-				finLu.ajouter(c);
+-			}
+-		}
+-		
+ 		Ensemble cat1 = FIN.depart().clone();
+ 		cat1.enlever(FIN.domaine());
+-		
+-		Ensemble cat2 = FIN.domaine().clone();
+-		Iterator<Couple> it = FIN.iterator();
+-		while(it.hasNext()){
+-			Couple c = it.next();
+-			if(LAP.contient(c)){
+-				cat2.enlever(c.getx());
+-			}
+-		}
+-		
+-		Ensemble cat3 = new Ensemble();
+-		it = FIN.iterator();
+-		while(it.hasNext() ){
+-			Couple c = it.next();
+-			if(LAP.contient(c) && FIN.degreDeSortie(c.getx())>finLu.degreDeSortie(c.getx())){
+-				cat3.ajouter(c.getx());
+-			}
+-		}
+-		
+-		Ensemble cat4 = new Ensemble();
+-		it = FIN.iterator();
+-		while(it.hasNext() ){
+-			Couple c = it.next();
+-			if(LAP.contient(c) && FIN.degreDeSortie(c.getx())==finLu.degreDeSortie(c.getx())){
+-				cat4.ajouter(c.getx());
+-			}
+-		}
+-		
+-		
+-		System.out.println("Catégorie 1 : ");
+-		lister(cat1, "PERSONNELS");
+-		System.out.println("Catégorie 2 : ");
+-		lister(cat2, "PERSONNELS");
+-		System.out.println("Catégorie 3 : ");
+-		lister(cat3, "PERSONNELS");
+-		System.out.println("Catégorie 4 : ");
+-		lister(cat4, "PERSONNELS");
+-		
+-		System.out.println("Réponse 2.2");
+-		
+-		int compteur1f =0;
+-		int compteur2f =0;
+-		int compteur3f =0;
+-		int compteur4f =0;
+-		
+-		Elt femme = new Elt(2);
+-		Iterator<Couple> itSex = SEX.iterator();
+-		while(itSex.hasNext()){
+-			Couple c = itSex.next();
+-			if(cat1.contient(c.getx())){
+-				if(c.gety().estEgalA(femme)){
+-					compteur1f++;
+-				}
+-			}else{
+-				if(cat2.contient(c.getx())){
+-					if(c.gety().estEgalA(femme)){
+-						compteur2f++;
+-					}
+-				}else{
+-					if(cat3.contient(c.getx())){
+-						if(c.gety().estEgalA(femme)){
+-							compteur3f++;
+-						}
+-					}else{
+-						if(cat4.contient(c.getx())){
+-							if(c.gety().estEgalA(femme)){
+-								compteur4f++;
+-							}
+-						}
+-					}
+-				}
+-			}
+-		}
+-		
+-		System.out.println("La/les catégorie(s) comportant le plus grand nombre de femme est/sont : ");
+-		int max = Math.max(Math.max(Math.max(compteur1f, compteur2f), compteur3f), compteur4f);
+-		if(compteur1f==max){
+-			System.out.println("Catégorie 1");
+-		}
+-		if(compteur2f==max){
+-			System.out.println("Catégorie 2");
+-		}
+-		if(compteur3f==max){
+-			System.out.println("Catégorie 3");
+-		}
+-		if(compteur4f==max){
+-			System.out.println("Catégorie 4");
+-		}
+-		
++		Ensemble cat2 = FIN.depart().clone();
++		// TO DO
+ 	}
+ 
+ 	public static void question3(){
+@@ -179,27 +91,29 @@
+ 		System.out.println("******************************************************************************************");
+ 		// TO DO
+ 		System.out.println("Question 3.1");
+-		peutSuivreLaFormationEn();
++		peutSuivreLaFormationEnInit();
+ 		System.out.println("peut suivre la formation en (Relation PSF) Initialisé");
+-				
++		System.out.println("Question 3.2");
++		lister(PSF.imageDirecte(numéro("KOEKELBERG Basile", "PERSONNELS")), "QUALIFICATIONS");
++		System.out.println("Question 3.3");
++		//lister(PSF.complementaire().depart(), "PERSONNELS");
+ 	}
+ 	
+-	private static void peutSuivreLaFormationEn(){
+-		PSF = new Relation(FIN.depart().clone(), CCN.arrivee().clone());
+-		Iterator<Couple> itFin = FIN.iterator();
++	private static void peutSuivreLaFormationEnInit(){
++		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
++		Iterator<Couple> itCol = COL.iterator();
+ 		//Iterator<Couple> it = CCN.iterator();
+ 		
+ 
+-		while(itFin.hasNext()){
+-			Couple couple = itFin.next();
++		while(itCol.hasNext()){
++			Couple couple = itCol.next();
+ 			Elt pers = couple.getx();
+ 			Elt projet = couple.gety(); // y désigne le domaine de qualification
+ 			// Regarder les qualifications demandés pour le projet
+ 			Ensemble qualifProjet = CCN.imageDirecte(projet);
+ 			// Regarder les qualifications du personnel
+-			Ensemble qualifPers = COL.imageDirecte(pers);
+-			Iterator<Elt> itQualifProjet = qualifPers.iterator();
+-			int compteur = 0;
++			Ensemble qualifPers = CPT.imageDirecte(pers);
++			Iterator<Elt> itQualifProjet = qualifProjet.iterator();
+ 			while(itQualifProjet.hasNext()){
+ 				Elt x = itQualifProjet.next();
+ 				if(!qualifPers.contient(x)){
+@@ -215,17 +129,7 @@
+ 	public static void question4(){
+ 		System.out.println("Question 4");
+ 		System.out.println("******************************************************************************************");
+-		System.out.println("Réponse 4.1 : ");
+-		
+-		Relation aPourChef = new Relation(COL.depart(), COL.arrivee());
+-		Iterator<Couple> it = SUP.iterator();
+-		while(it.hasNext()){
+-			
+-		}
+-		
+-		System.out.println("Réponse 4.2 : ");
+-		System.out.println("Réponse 4.3 : ");
+-		
++		// TO DO
+ 	}
+ 
+ 	public static void question5(){
