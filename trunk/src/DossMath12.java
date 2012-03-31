@@ -71,12 +71,6 @@ public class DossMath12 {
 		System.out.println("Question 2");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 2.1");
-		/** Utiliser LAP 
-		 * CAT 1 = Membres sans fleche vers un projet dans FIN
-		 * CAT 2 = FIN-LAP ( investissement non lucide )
-		 * CAT 3 = Membre dans FIN-LAP et a des fleches supp a cause de FIN-LAP
-		 * CAT 4 = Membre qui avait des fleches avant FIN-LAP et qui n'en a plus
-		 */
 		
 		Relation finLu = new Relation(FIN.depart(), FIN.arrivee());
 		Iterator<Couple> itLu = FIN.iterator();
@@ -142,26 +136,41 @@ public class DossMath12 {
 				if(c.gety().estEgalA(femme)){
 					compteur1f++;
 				}
-			}
-			if(cat2.contient(c.getx())){
-				if(c.gety().estEgalA(femme)){
-					compteur2f++;
-				}
-			}
-			if(cat3.contient(c.getx())){
-				if(c.gety().estEgalA(femme)){
-					compteur3f++;
-				}
-			}
-			if(cat4.contient(c.getx())){
-				if(c.gety().estEgalA(femme)){
-					compteur4f++;
+			}else{
+				if(cat2.contient(c.getx())){
+					if(c.gety().estEgalA(femme)){
+						compteur2f++;
+					}
+				}else{
+					if(cat3.contient(c.getx())){
+						if(c.gety().estEgalA(femme)){
+							compteur3f++;
+						}
+					}else{
+						if(cat4.contient(c.getx())){
+							if(c.gety().estEgalA(femme)){
+								compteur4f++;
+							}
+						}
+					}
 				}
 			}
 		}
 		
-		System.out.println("La catégorie comportant le plus grand nombre de femme");
-		System.out.println("test : " + compteur1f + " - " + compteur2f + " - " + compteur3f + " - " + compteur4f);
+		System.out.println("La/les catégorie(s) comportant le plus grand nombre de femme est/sont : ");
+		int max = Math.max(Math.max(Math.max(compteur1f, compteur2f), compteur3f), compteur4f);
+		if(compteur1f==max){
+			System.out.println("Catégorie 1");
+		}
+		if(compteur2f==max){
+			System.out.println("Catégorie 2");
+		}
+		if(compteur3f==max){
+			System.out.println("Catégorie 3");
+		}
+		if(compteur4f==max){
+			System.out.println("Catégorie 4");
+		}
 		
 	}
 
@@ -206,7 +215,17 @@ public class DossMath12 {
 	public static void question4(){
 		System.out.println("Question 4");
 		System.out.println("******************************************************************************************");
-		// TO DO
+		System.out.println("Réponse 4.1 : ");
+		
+		Relation aPourChef = new Relation(COL.depart(), COL.arrivee());
+		Iterator<Couple> it = SUP.iterator();
+		while(it.hasNext()){
+			
+		}
+		
+		System.out.println("Réponse 4.2 : ");
+		System.out.println("Réponse 4.3 : ");
+		
 	}
 
 	public static void question5(){
