@@ -123,10 +123,10 @@ public class DossMath12 {
 		
 		System.out.println("Réponse 2.2");
 		
-		int compteur1f =0;
-		int compteur2f =0;
-		int compteur3f =0;
-		int compteur4f =0;
+		double compteur1f =0;
+		double compteur2f =0;
+		double compteur3f =0;
+		double compteur4f =0;
 		
 		Elt femme = new Elt(2);
 		Iterator<Couple> itSex = SEX.iterator();
@@ -157,19 +157,24 @@ public class DossMath12 {
 			}
 		}
 		
-		System.out.println("La/les catégorie(s) comportant le plus grand nombre de femme est/sont : ");
-		int max = Math.max(Math.max(Math.max(compteur1f, compteur2f), compteur3f), compteur4f);
+		compteur1f = compteur1f/cat1.cardinal();
+		compteur2f = compteur2f/cat2.cardinal();
+		compteur3f = compteur3f/cat3.cardinal();
+		compteur4f = compteur4f/cat4.cardinal();
+		
+		System.out.println("La/les catégorie(s) comportant la plus grande proportion de femmes est/sont : ");
+		double max = Math.max(Math.max(Math.max(compteur1f, compteur2f), compteur3f), compteur4f);
 		if(compteur1f==max){
-			System.out.println("Catégorie 1");
+			System.out.println("Catégorie 1 : Aucun financement ");
 		}
 		if(compteur2f==max){
-			System.out.println("Catégorie 2");
+			System.out.println("Catégorie 2 : Aucun soutien financier lucide");
 		}
 		if(compteur3f==max){
-			System.out.println("Catégorie 3");
+			System.out.println("Catégorie 3 : Des soutiens financiers lucides et d'autres soutiens financiers ");
 		}
 		if(compteur4f==max){
-			System.out.println("Catégorie 4");
+			System.out.println("Catégorie 4 : Seulement des soutiens financiers lucides");
 		}
 		
 	}
@@ -219,12 +224,18 @@ public class DossMath12 {
 		
 		Relation aPourChef = new Relation(COL.depart(), COL.arrivee());
 		Iterator<Couple> it = SUP.iterator();
-		while(it.hasNext()){
-			
-		}
+		// TO DO 
 		
 		System.out.println("Réponse 4.2 : ");
+		lister(COL.arrivee().moins(aPourChef.image()),"PROJETS");
 		System.out.println("Réponse 4.3 : ");
+		Iterator<Elt> itMP = aPourChef.domaine().iterator();
+		while(itMP.hasNext()){
+			if(aPourChef.degreDeSortie(itMP.next())>1){
+				System.out.println("Il existe un membre du personnel chef de plusieurs projets");
+				break;
+			}
+		}
 		
 	}
 
