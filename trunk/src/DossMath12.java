@@ -29,6 +29,7 @@ public class DossMath12 {
 	public static void main(String[] args) throws MathException {
 			question1();
 			question2();
+			question3();
 	} // main
 	
 	public static void question1(){
@@ -184,27 +185,29 @@ public class DossMath12 {
 		System.out.println("******************************************************************************************");
 		// TO DO
 		System.out.println("Question 3.1");
-		peutSuivreLaFormationEn();
+		peutSuivreLaFormationEnInit();
 		System.out.println("peut suivre la formation en (Relation PSF) Initialisé");
-				
+		System.out.println("Question 3.2");
+		lister(PSF.imageDirecte(numéro("KOEKELBERG Basile", "PERSONNELS")), "QUALIFICATIONS");
+		System.out.println("Question 3.3");
+		//lister(PSF.complementaire().depart(), "PERSONNELS");
 	}
 	
-	private static void peutSuivreLaFormationEn(){
-		PSF = new Relation(FIN.depart().clone(), CCN.arrivee().clone());
-		Iterator<Couple> itFin = FIN.iterator();
+	private static void peutSuivreLaFormationEnInit(){
+		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
+		Iterator<Couple> itCol = COL.iterator();
 		//Iterator<Couple> it = CCN.iterator();
 		
 
-		while(itFin.hasNext()){
-			Couple couple = itFin.next();
+		while(itCol.hasNext()){
+			Couple couple = itCol.next();
 			Elt pers = couple.getx();
 			Elt projet = couple.gety(); // y désigne le domaine de qualification
 			// Regarder les qualifications demandés pour le projet
 			Ensemble qualifProjet = CCN.imageDirecte(projet);
 			// Regarder les qualifications du personnel
-			Ensemble qualifPers = COL.imageDirecte(pers);
-			Iterator<Elt> itQualifProjet = qualifPers.iterator();
-			int compteur = 0;
+			Ensemble qualifPers = CPT.imageDirecte(pers);
+			Iterator<Elt> itQualifProjet = qualifProjet.iterator();
 			while(itQualifProjet.hasNext()){
 				Elt x = itQualifProjet.next();
 				if(!qualifPers.contient(x)){
