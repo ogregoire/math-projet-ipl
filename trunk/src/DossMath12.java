@@ -308,6 +308,7 @@ public class DossMath12 {
 	    int niveau=0;
 	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1) return 1;
 	        Ensemble ens = hierarchie.major(new Ensemble(elem));
+	        ens = ens.moins(new Ensemble(elem));
 	        niveau++;
 	        Iterator<Elt> it = ens.iterator();
 	        while(it.hasNext()){
