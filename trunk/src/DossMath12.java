@@ -281,10 +281,16 @@ public class DossMath12 {
 		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 5.1 : ");
-		Ordre or = new Ordre(SUP.reciproque());
-		lister(or.maximaux(SUP.depart()),"PERSONNELS");
+		hierarchie = new Ordre(SUP);
+		lister(hierarchie.maximaux(SUP.depart()),"PERSONNELS");
 		System.out.println("Réponse 5.2 : ");
 		// TO DO
+		Iterator<Elt> it = SUP.depart().iterator();
+		while(it.hasNext()){
+			Elt elem = it.next();
+//			double salaire = BASE * Math.pow(supChemin(elem), -1.00);
+			System.out.println("Test " + supChemin(elem));
+		}
 	}
 
 	public static void question6(){
@@ -293,9 +299,22 @@ public class DossMath12 {
 		System.out.println("Réponse 6.1 : ");
 		
 		System.out.println("Réponse 6.2 : ");
-		System.out.println("Cet ordre n'est pas total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
+		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
 		System.out.println("Réponse 6.3 : ");
 		
+	}
+	
+	public static int supChemin(Elt elem){
+	    int niveau=0;
+	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1) return 1;
+	        Ensemble ens = hierarchie.major(new Ensemble(elem));
+	        niveau++;
+	        Iterator<Elt> it = ens.iterator();
+	        while(it.hasNext()){
+	            Elt el = it.next();   
+	            niveau += supChemin(el);
+	        }
+	        return niveau;
 	}
 
 	public static void question7(){
@@ -303,6 +322,7 @@ public class DossMath12 {
 		System.out.println("******************************************************************************************");
 		// TO DO
 	}
+	
 	
 
 
