@@ -5,6 +5,11 @@ public class Ordre implements RelationInterface {
 	
 	private Relation or;
 	
+	public Ordre()
+	{
+		this.or = new Relation();
+	}
+	
 	// construit l'identité sur e
 	public Ordre(EnsembleInterface e){
 		this.or = Relation.identite(e);
@@ -37,21 +42,24 @@ public class Ordre implements RelationInterface {
 		return this.or.contient(c);
 	}
 
+	public void ajouter(Elt x)
+	{
+		this.or.ajouter(x, x);
+	}
+	
 	@Override
 	public void ajouter(Couple c) {
-		if(!this.depart().contient(c.getx())){
-			throw new MathException("Impossible d'ajouter");
-		}
-		if(!this.depart().contient(c.gety())){
-			throw new MathException("Impossible d'ajouter");
-		}
-		if(!this.contient(c)){
-			if(this.or.contient(c.gety(), c.getx())){
-				throw new MathException("Impossible d'ajouter");
+		if (!this.contient(new Couple(c.getx(),c.gety())))
+		{
+			if (this.contient(new Couple(c.gety(),c.getx())))
+			{
+				throw new MathException("Ajout impossible");
 			}
-			this.or.ajouter(c);
-			this.or.cloTrans();
 		}
+		this.ajouter(c.getx());
+		this.ajouter(c.gety());
+		this.or.ajouter(c.getx(), c.gety());
+		this.or.cloTrans();
 
 	}
 
@@ -177,6 +185,17 @@ public class Ordre implements RelationInterface {
 		Ensemble min = this.minimaux(b);
 		if (min.cardinal() == 1) return min.unElement();
 		return null;
+	}
+	
+	public Ensemble major(EnsembleInterface b)
+	{
+		Ensemble major = (Ensemble) this.depart();
+		Iterator<Elt> it = this.maximaux(b).iterator();
+		while (it.hasNext())
+		{
+			major.intersecter(this.or.imageDirecte(it.next()));
+		}
+		return (major.cardinal() != 0) ? major : null;
 	}
 	
 
