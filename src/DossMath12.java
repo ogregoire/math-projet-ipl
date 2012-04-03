@@ -203,7 +203,15 @@ public class DossMath12 {
 		System.out.println("Question 3.2");
 		lister(PSF.imageDirecte(numéro("KOEKELBERG Basile", "PERSONNELS")), "QUALIFICATIONS");
 		System.out.println("Question 3.3");
-		//lister(PSF.complementaire().depart(), "PERSONNELS");
+		Ensemble quest33 = new Ensemble();
+		Iterator<Elt> it = PSF.depart().iterator();
+		while(it.hasNext()){
+			Elt el = it.next();
+			if(PSF.degreDeSortie(el) == 0){
+				quest33.ajouter(el);
+			}
+		}
+		lister(quest33,"PERSONNELS");
 	}
 	
 	private static void peutSuivreLaFormationEnInit(){
