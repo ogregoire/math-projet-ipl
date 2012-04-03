@@ -57,7 +57,7 @@ public class Ordre implements RelationInterface {
 
 	@Override
 	public void enlever(Couple c) {
-
+		
 	}
 
 	public boolean estUneAreteDeHasse(Elt x, Elt y){
@@ -123,7 +123,7 @@ public class Ordre implements RelationInterface {
 				{
 					ok = false;
 				}
-				if (this.contient(new Couple(x, y)))
+				if (this.contient(new Couple(y, x)))
 				{
 					max.enlever(y);
 				}
@@ -140,6 +140,42 @@ public class Ordre implements RelationInterface {
 	{
 		Ensemble max = this.maximaux(b);
 		if (max.cardinal() == 1) return max.unElement();
+		return null;
+	}
+	
+	public Ensemble minimaux(EnsembleInterface b)
+	{
+		Ensemble min = new Ensemble();
+		Iterator<Elt> it1 = b.iterator();
+		while (it1.hasNext())
+		{
+			Elt x = it1.next();
+			boolean ok = true;
+			Iterator<Elt> it2 = new Ensemble(min).iterator();
+			while (it2.hasNext() && ok)
+			{
+				Elt y = it2.next();
+				if (this.contient(new Couple(y, x)))
+				{
+					min.enlever(y);
+				}
+				if (this.contient(new Couple(y, x)))
+				{
+					ok = false;
+				}
+			}
+			if (ok)
+			{
+				min.ajouter(x);
+			}
+		}
+		return min;
+	}
+	
+	public Elt minimum(EnsembleInterface b)
+	{
+		Ensemble min = this.minimaux(b);
+		if (min.cardinal() == 1) return min.unElement();
 		return null;
 	}
 	

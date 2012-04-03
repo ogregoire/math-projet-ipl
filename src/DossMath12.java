@@ -30,6 +30,7 @@ public class DossMath12 {
 			question1();
 			question2();
 			question3();
+			question4();
 	} // main
 	
 	public static void question1(){
@@ -225,20 +226,31 @@ public class DossMath12 {
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 4.1 : ");
 		
-		Relation aPourChef = new Relation(COL.depart(), COL.arrivee());
-		Iterator<Couple> it = SUP.iterator();
-		// TO DO 
+		Relation aPourChef = new Relation(COL.arrivee(), COL.depart());
+		Ordre or = new Ordre(SUP.reciproque());
+		Iterator<Elt> it = COL.arrivee().iterator();
+         while(it.hasNext()){
+             Elt elem = it.next();
+             Elt max = or.maximum(COL.imageReciproque(elem));
+             if( max != null){
+                 aPourChef.ajouter(elem,max);
+             }
+         }
+		
 		
 		System.out.println("Réponse 4.2 : ");
-		lister(COL.arrivee().moins(aPourChef.image()),"PROJETS");
+		lister(COL.arrivee().moins(aPourChef.domaine()),"PROJETS");
 		System.out.println("Réponse 4.3 : ");
-		Iterator<Elt> itMP = aPourChef.domaine().iterator();
+		Iterator<Elt> itMP = aPourChef.image().iterator();
 		while(itMP.hasNext()){
-			if(aPourChef.degreDeSortie(itMP.next())>1){
+			if(aPourChef.degreDEntree(itMP.next())>1){
 				System.out.println("Il existe un membre du personnel chef de plusieurs projets");
 				break;
 			}
+			
 		}
+		System.out.println("Il n'y a pas de membre du personnel chef de plusieurs projets");
+		
 		
 	}
 
@@ -251,7 +263,8 @@ public class DossMath12 {
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
-		// TO DO
+		
+		
 	}
 
 	public static void question7(){
