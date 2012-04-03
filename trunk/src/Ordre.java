@@ -18,13 +18,13 @@ public class Ordre implements RelationInterface {
 	// Construit le plus petit ordre contenant r
 	// génère une MathException si cette construction est impossible
 	public Ordre(Relation r){
-		Relation relATest = r.clone();
-		relATest.cloTrans();
-		if(relATest.antisymetrique()){
-			 relATest.cloReflex();
-			 this.or=relATest.clone();
+		this.or = r.clone();
+		this.or.cloTrans();
+		if (this.or.symetrique())
+		{
+			throw new IllegalArgumentException("La relation passée en paramètre est cyclique");
 		}
-		throw new MathException();
+		this.or.cloReflex();
 	}
 	
 	@Override
@@ -106,5 +106,42 @@ public class Ordre implements RelationInterface {
 	public void enleveDuSouSJacent(Elt x){
 		
 	}
+	
+	public Ensemble maximaux(EnsembleInterface b)
+	{
+		Ensemble max = new Ensemble();
+		Iterator<Elt> it1 = b.iterator();
+		while (it1.hasNext())
+		{
+			Elt x = it1.next();
+			boolean ok = true;
+			Iterator<Elt> it2 = new Ensemble(max).iterator();
+			while (it2.hasNext() && ok)
+			{
+				Elt y = it2.next();
+				if (this.contient(new Couple(x, y)))
+				{
+					ok = false;
+				}
+				if (this.contient(new Couple(x, y)))
+				{
+					max.enlever(y);
+				}
+			}
+			if (ok)
+			{
+				max.ajouter(x);
+			}
+		}
+		return max;
+	}
+	
+	public Elt maximum(EnsembleInterface b)
+	{
+		Ensemble max = this.maximaux(b);
+		if (max.cardinal() == 1) return max.unElement();
+		return null;
+	}
+	
 
 }
