@@ -31,6 +31,7 @@ public class DossMath12 {
 			question2();
 			question3();
 			question4();
+			question5();
 	} // main
 	
 	public static void question1(){
@@ -49,9 +50,20 @@ public class DossMath12 {
 		lister(LAP.imageReciproque(new Elt(numéro("Antoinet", "PROJETS"))), "PERSONNELS");
 		//Question 1.6, je m'en charge mtn ! (24/03/2012)
 		System.out.println("Réponse 1.6");
-		//J'aoute un truc juste comme ça :D
+		int max = 0;
+		Iterator<Elt> itMax = LAP.domaine().iterator();
+		while(itMax.hasNext()){
+			max = Math.max(max, LAP.degreDeSortie(itMax.next()));
+		}
+		itMax=LAP.domaine().iterator();
+		Ensemble ens = new Ensemble();
+		while(itMax.hasNext()){
+			Elt elem = itMax.next();
+			if(LAP.degreDeSortie(elem) == max) ens.ajouter(elem);
+		}
+		System.out.println("Membres du personnel ayant le maximum d'affectations possibles");
+		lister(ens, "PERSONNELS");
 		
-		//TO DO 
 		System.out.println("Réponse 1.7");
 		affImpossible = COL.clone();
 		affImpossible.enlever(LAP);
@@ -70,7 +82,7 @@ public class DossMath12 {
 	}
 	
 	public static void question2(){
-		System.out.println("Question 2");
+		System.out.println("\nQuestion 2");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 2.1");
 		
@@ -182,7 +194,7 @@ public class DossMath12 {
 	}
 
 	public static void question3(){
-		System.out.println("Question 3");
+		System.out.println("\nQuestion 3");
 		System.out.println("******************************************************************************************");
 		// TO DO
 		System.out.println("Question 3.1");
@@ -222,7 +234,7 @@ public class DossMath12 {
 	}
 
 	public static void question4(){
-		System.out.println("Question 4");
+		System.out.println("\nQuestion 4");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 4.1 : ");
 		
@@ -242,21 +254,29 @@ public class DossMath12 {
 		lister(COL.arrivee().moins(aPourChef.domaine()),"PROJETS");
 		System.out.println("Réponse 4.3 : ");
 		Iterator<Elt> itMP = aPourChef.image().iterator();
+		boolean chefPlPro = true;
 		while(itMP.hasNext()){
 			if(aPourChef.degreDEntree(itMP.next())>1){
 				System.out.println("Il existe un membre du personnel chef de plusieurs projets");
+				chefPlPro = true;
 				break;
+			}else{
+				chefPlPro = false;
 			}
 			
 		}
-		System.out.println("Il n'y a pas de membre du personnel chef de plusieurs projets");
+		if(!chefPlPro) System.out.println("Il n'y a pas de membre du personnel chef de plusieurs projets");
 		
 		
 	}
 
 	public static void question5(){
-		System.out.println("Question 5");
+		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
+		System.out.println("Réponse 5.1 : ");
+		Ordre or = new Ordre(SUP.reciproque());
+		lister(or.maximaux(SUP.depart()),"PERSONNELS");
+		System.out.println("Réponse 5.2 : ");
 		// TO DO
 	}
 
