@@ -281,7 +281,7 @@ public class DossMath12 {
 		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 5.1 : ");
-		hierarchie = new Ordre(SUP);
+		hierarchie = new Ordre(SUP.reciproque());
 		lister(hierarchie.maximaux(SUP.depart()),"PERSONNELS");
 		System.out.println("Réponse 5.2 : ");
 		// TO DO
@@ -290,6 +290,8 @@ public class DossMath12 {
 			Elt elem = it.next();
 //			double salaire = BASE * Math.pow(supChemin(elem), -1.00);
 			System.out.println("Test " + supChemin(elem));
+			
+			
 		}
 	}
 
@@ -306,16 +308,17 @@ public class DossMath12 {
 	
 	public static int supChemin(Elt elem){
 	    int niveau=0;
-	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1) return 1;
+	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+	    	return 1;
+	    }
 	        Ensemble ens = hierarchie.major(new Ensemble(elem));
 	        ens = ens.moins(new Ensemble(elem));
-	        niveau++;
-	        Iterator<Elt> it = ens.iterator();
+	        Iterator<Elt> it = ens.moins(new Ensemble(elem)).iterator();
 	        while(it.hasNext()){
 	            Elt el = it.next();   
-	            niveau += supChemin(el);
+	            niveau = supChemin(el);
 	        }
-	        return niveau;
+	        return 1+niveau;
 	}
 
 	public static void question7(){
