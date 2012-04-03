@@ -25,6 +25,7 @@ public class DossMath12 {
 	private static Relation affImpossible;
 	
 	private static Relation PSF;
+	private static Ordre hierarchie;
 	
 	public static void main(String[] args) throws MathException {
 			question1();
@@ -247,11 +248,11 @@ public class DossMath12 {
 		System.out.println("Réponse 4.1 : ");
 		
 		Relation aPourChef = new Relation(COL.arrivee(), COL.depart());
-		Ordre or = new Ordre(SUP.reciproque());
+		hierarchie = new Ordre(SUP.reciproque());
 		Iterator<Elt> it = COL.arrivee().iterator();
          while(it.hasNext()){
              Elt elem = it.next();
-             Elt max = or.maximum(COL.imageReciproque(elem));
+             Elt max = hierarchie.maximum(COL.imageReciproque(elem));
              if( max != null){
                  aPourChef.ajouter(elem,max);
              }
@@ -274,8 +275,6 @@ public class DossMath12 {
 			
 		}
 		if(!chefPlPro) System.out.println("Il n'y a pas de membre du personnel chef de plusieurs projets");
-		
-		
 	}
 
 	public static void question5(){
@@ -291,7 +290,11 @@ public class DossMath12 {
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
+		System.out.println("Réponse 6.1 : ");
 		
+		System.out.println("Réponse 6.2 : ");
+		System.out.println("Cet ordre n'est pas total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
+		System.out.println("Réponse 6.3 : ");
 		
 	}
 
