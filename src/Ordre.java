@@ -155,7 +155,7 @@ public class Ordre implements RelationInterface {
 			while (it2.hasNext() && ok)
 			{
 				Elt y = it2.next();
-				if (this.contient(new Couple(y, x)))
+				if (this.contient(new Couple(x, y)))
 				{
 					min.enlever(y);
 				}
