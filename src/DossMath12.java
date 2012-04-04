@@ -298,6 +298,24 @@ public class DossMath12 {
 		}
 	}
 
+	public static double bonus(Elt elem){
+		double bonus = 0;
+		if(FIN.depart().contient(elem)){
+			Ensemble proj = FIN.imageDirecte(elem);
+			Iterator<Elt> it = proj.iterator();
+			while(it.hasNext()){
+				Elt el = it.next();
+				bonus+= 250 * COL.imageReciproque(el).cardinal();
+				if(FIN.imageReciproque(el).cardinal() !=0){
+					bonus = bonus / (FIN.imageReciproque(el).cardinal());
+				}else{
+					bonus = 0;
+				}
+			}
+			
+		}
+		return bonus;
+	}
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
