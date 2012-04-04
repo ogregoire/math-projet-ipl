@@ -287,10 +287,11 @@ public class DossMath12 {
 		// TO DO
 		Iterator<Elt> it = SUP.depart().iterator();
 		String[] t = tPers;
+		Ordre or =  new Ordre(SUP.reciproque());
 		while(it.hasNext()){
 			Elt elem = it.next();
 			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
-			salaire += SUP.degreDEntree(elem)*PRIME;
+			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME;
 			salaire += bonus(elem);
 			//lister(new Ensemble(elem), "PERSONNELS");
 			System.out.println("Salaire de " +t[elem.val()]+" : "+ salaire);
