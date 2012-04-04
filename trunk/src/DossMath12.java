@@ -286,13 +286,14 @@ public class DossMath12 {
 		System.out.println("Réponse 5.2 : ");
 		// TO DO
 		Iterator<Elt> it = SUP.depart().iterator();
+		String[] t = tPers;
 		while(it.hasNext()){
 			Elt elem = it.next();
 			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
 			salaire += SUP.degreDEntree(elem)*PRIME;
 			salaire += bonus(elem);
-			lister(new Ensemble(elem), "PERSONNELS");
-			System.out.println("Salaire : " + salaire);
+			//lister(new Ensemble(elem), "PERSONNELS");
+			System.out.println("Salaire de " +t[elem.val()]+" : "+ salaire);
 			
 			
 		}
