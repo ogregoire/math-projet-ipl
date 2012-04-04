@@ -290,9 +290,9 @@ public class DossMath12 {
 			Elt elem = it.next();
 			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
 			salaire += SUP.degreDEntree(elem)*PRIME;
-			
-			int nbCollabo = COL.degreDEntree(COL.imageDirecte(elem)) * BONUS;
-			System.out.println("Test " + supChemin(elem));
+			salaire += bonus(elem);
+			lister(new Ensemble(elem), "PERSONNELS");
+			System.out.println("Salaire : " + salaire);
 			
 			
 		}
