@@ -198,5 +198,16 @@ public class Ordre implements RelationInterface {
 		return (major.cardinal() != 0) ? major : null;
 	}
 	
+	public Ensemble minor(EnsembleInterface b)
+	{
+		Ensemble minor = (Ensemble) this.arrivee();
+		Iterator<Elt> it = this.minimaux(b).iterator();
+		while (it.hasNext())
+		{
+			minor.intersecter(this.or.imageReciproque(it.next()));
+		}
+		return (minor.cardinal() != 0) ? minor : null;
+	}
+	
 
 }
