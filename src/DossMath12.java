@@ -290,9 +290,10 @@ public class DossMath12 {
 		Ordre or =  new Ordre(SUP.reciproque());
 		while(it.hasNext()){
 			Elt elem = it.next();
-			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
-			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME;
+			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1); // Ligne OK les patrons on comme salaire 3800
+			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME; // la prime me semble ok
 			salaire += bonus(elem);
+			
 			//lister(new Ensemble(elem), "PERSONNELS");
 			System.out.println("Salaire de " +t[elem.val()]+" : "+ salaire);
 			
@@ -300,21 +301,20 @@ public class DossMath12 {
 		}
 	}
 
+
 	public static double bonus(Elt elem){
 		double bonus = 0;
+		double temp=0;
 		if(FIN.depart().contient(elem)){
 			Ensemble proj = FIN.imageDirecte(elem);
 			Iterator<Elt> it = proj.iterator();
 			while(it.hasNext()){
 				Elt el = it.next();
-				bonus+= 250 * COL.imageReciproque(el).cardinal();
+				temp = 250 * COL.imageReciproque(el).cardinal();
 				if(FIN.imageReciproque(el).cardinal() !=0){
-					bonus = bonus / (FIN.imageReciproque(el).cardinal());
-				}else{
-					bonus = 0;
+					bonus += temp / (FIN.imageReciproque(el).cardinal());
 				}
-			}
-			
+			}	
 		}
 		return bonus;
 	}
