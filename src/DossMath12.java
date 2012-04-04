@@ -288,7 +288,10 @@ public class DossMath12 {
 		Iterator<Elt> it = SUP.depart().iterator();
 		while(it.hasNext()){
 			Elt elem = it.next();
-//			double salaire = BASE * Math.pow(supChemin(elem), -1.00);
+			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
+			salaire += SUP.degreDEntree(elem)*PRIME;
+			
+			int nbCollabo = COL.degreDEntree(COL.imageDirecte(elem)) * BONUS;
 			System.out.println("Test " + supChemin(elem));
 			
 			
