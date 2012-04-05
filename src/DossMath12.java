@@ -33,6 +33,7 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
+			test();
 	} // main
 	
 	public static void question1(){
@@ -318,6 +319,22 @@ public class DossMath12 {
 		}
 		return bonus;
 	}
+	
+	public static void test(){
+		Iterator<Couple> it = SUP.iterator();
+		while(it.hasNext()){
+			Couple c = it.next();
+			System.out.println("Relation de " + c.getx().val() + " vers " + c.gety().val());
+		}
+		
+		Iterator<Elt> ite = SUP.depart().iterator();
+		while(ite.hasNext()){
+			Elt elem = ite.next();
+			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
+		}
+		
+	}
+	
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
@@ -336,7 +353,7 @@ public class DossMath12 {
 	    }
 	        Ensemble ens = hierarchie.major(new Ensemble(elem));
 	        ens = ens.moins(new Ensemble(elem));
-	        Iterator<Elt> it = ens.moins(new Ensemble(elem)).iterator();
+	        Iterator<Elt> it = ens.iterator();
 	        while(it.hasNext()){
 	            Elt el = it.next();   
 	            niveau = supChemin(el);
