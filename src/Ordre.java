@@ -233,6 +233,7 @@ public class Ordre implements RelationInterface {
 /** Ex 9.1 comparable */
 public boolean comparable(Elt x, Elt y)
 {
+	
 	return this.or.contient(x, y) || this.or.contient(y, x);
 }
 
