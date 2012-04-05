@@ -214,7 +214,7 @@ public class Ordre implements RelationInterface {
 	{
 		
 		if (!this.comparable(x, y)) return 0;
-		if (x.equals(y)) return 1;
+		if (x.estEgalA(y)) return 1;
 		ArrayList<Suite> listeChemins = this.or.liestDesChemins(x, y, new Ensemble());
 		Iterator<Suite> it = listeChemins.iterator();
 		int min  = 50;
