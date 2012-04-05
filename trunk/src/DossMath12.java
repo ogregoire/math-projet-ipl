@@ -35,6 +35,7 @@ public class DossMath12 {
 			question5();
 //			test();
 			question6();
+			question7();
 	} // main
 	
 	public static void question1(){
@@ -409,7 +410,12 @@ public class DossMath12 {
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse question 7.1");
 		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétriquet et transitive. Ce qui est le cas de la relation 'proche'");
-		
+		System.out.println("Réponse question 7.2");
+		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
+//		lister(EST_PROCHE_DE.depart(), "PROJETS");
+//		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
+		System.out.println("Réponse question 7.3");
+		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL", "PROJETS"))),"PROJETS");
 		// TO DO
 	}
 	
