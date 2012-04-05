@@ -333,6 +333,10 @@ public class DossMath12 {
 			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
 		}
 		
+		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
+		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
+		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
+		
 	}
 	
 	public static void question6(){
@@ -360,6 +364,8 @@ public class DossMath12 {
 	        }
 	        return 1+niveau;
 	}
+	
+
 
 	public static void question7(){
 		System.out.println("Question 7");
