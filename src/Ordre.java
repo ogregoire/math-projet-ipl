@@ -213,7 +213,7 @@ public class Ordre implements RelationInterface {
 	public int nombreDeSommetEntre(Elt x, Elt y)
 	{
 		
-		if (!this.comparable(x, y)) return 0;
+		if (!this.comparable(x, y)) return Integer.MAX_VALUE;
 		if (x.estEgalA(y)) return 1;
 		ArrayList<Suite> listeChemins = this.or.liestDesChemins(x, y, new Ensemble());
 		Iterator<Suite> it = listeChemins.iterator();
