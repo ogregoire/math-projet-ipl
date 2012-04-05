@@ -33,6 +33,7 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
+//			test();
 			question6();
 	} // main
 	
@@ -346,25 +347,27 @@ public class DossMath12 {
 		Iterator<Elt> it = prio.depart().iterator();
 		while(it.hasNext()){
 			Elt elem = it.next();
-			int priorite = CCN.imageReciproque(elem).cardinal()/CPT.imageReciproque(elem).cardinal();
+			double priorite = (double) CCN.imageReciproque(elem).cardinal()/CPT.imageReciproque(elem).cardinal();
 			Iterator<Elt> it2 = prio.depart().iterator();
 			while(it2.hasNext()){
 				Elt elem2 = it2.next();
-				int priorite2 = CCN.imageReciproque(elem2).cardinal()/CPT.imageReciproque(elem2).cardinal();
-				if(priorite<priorite2) prio.ajouter(elem,elem2);
-				if(priorite2<priorite) prio.ajouter(elem2,elem);
+				double priorite2 = (double) CCN.imageReciproque(elem2).cardinal()/CPT.imageReciproque(elem2).cardinal();
+				
+				if(priorite<priorite2){
+					prio.ajouter(elem,elem2);
+				}
+				if(priorite2<priorite){
+					prio.ajouter(elem2,elem);
+				}
 			}
 		}
 		prio.cloTrans();
 		Ordre moinsPrio = new Ordre(prio.reciproque());
+		System.out.println("Ordre initialisé !");
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
 		System.out.println("Réponse 6.3 : ");
-		Iterator<Couple> itTest = prio.iterator();
-		while(itTest.hasNext()){
-			Couple c = itTest.next();
-			System.out.println("Relation de " + c.getx() + " vers " + c.gety());
-		}
+		
 		
 	}
 	
@@ -372,7 +375,7 @@ public class DossMath12 {
 		int min = Integer.MAX_VALUE;
 		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
 		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
-		return min+1;
+		return min;
 	}
 	
 
