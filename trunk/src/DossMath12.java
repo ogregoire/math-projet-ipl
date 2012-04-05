@@ -33,7 +33,7 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
-			test();
+			question6();
 	} // main
 	
 	public static void question1(){
@@ -216,6 +216,7 @@ public class DossMath12 {
 		lister(quest33,"PERSONNELS");
 	}
 	
+	
 	private static void peutSuivreLaFormationEnInit(){
 		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
 		Iterator<Couple> itCol = COL.iterator();
@@ -240,7 +241,6 @@ public class DossMath12 {
 			}
 			
 		}
-
 	}
 
 	public static void question4(){
@@ -308,6 +308,7 @@ public class DossMath12 {
 		double temp=0;
 		if(FIN.depart().contient(elem)){
 			Ensemble proj = FIN.imageDirecte(elem);
+			
 			Iterator<Elt> it = proj.iterator();
 			while(it.hasNext()){
 				Elt el = it.next();
@@ -333,36 +334,45 @@ public class DossMath12 {
 			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
 		}
 		
-		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
-		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
-		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
-		
+
+
 	}
 	
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 6.1 : ");
-		
+		Relation prio = new Relation(CPT.arrivee(),CPT.arrivee());
+		Iterator<Elt> it = prio.depart().iterator();
+		while(it.hasNext()){
+			Elt elem = it.next();
+			int priorite = CCN.imageReciproque(elem).cardinal()/CPT.imageReciproque(elem).cardinal();
+			Iterator<Elt> it2 = prio.depart().iterator();
+			while(it2.hasNext()){
+				Elt elem2 = it2.next();
+				int priorite2 = CCN.imageReciproque(elem2).cardinal()/CPT.imageReciproque(elem2).cardinal();
+				if(priorite<priorite2) prio.ajouter(elem,elem2);
+				if(priorite2<priorite) prio.ajouter(elem2,elem);
+			}
+		}
+		prio.cloTrans();
+		Ordre moinsPrio = new Ordre(prio.reciproque());
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
 		System.out.println("Réponse 6.3 : ");
+		Iterator<Couple> itTest = prio.iterator();
+		while(itTest.hasNext()){
+			Couple c = itTest.next();
+			System.out.println("Relation de " + c.getx() + " vers " + c.gety());
+		}
 		
 	}
 	
 	public static int supChemin(Elt elem){
-	    int niveau=0;
-	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
-	    	return 1;
-	    }
-	        Ensemble ens = hierarchie.major(new Ensemble(elem));
-	        ens = ens.moins(new Ensemble(elem));
-	        Iterator<Elt> it = ens.iterator();
-	        while(it.hasNext()){
-	            Elt el = it.next();   
-	            niveau = supChemin(el);
-	        }
-	        return 1+niveau;
+		int min = Integer.MAX_VALUE;
+		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
+		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
+		return min+1;
 	}
 	
 
