@@ -438,6 +438,48 @@ public class Relation extends RelationDeBase {
 		}
 	}
 	
+	public void afficherChemins(Elt a, Elt b)
+	{
+		if (a == null || b == null || !this.depart().contient(a) || !this.arrivee().contient(b))
+		{
+			throw new IllegalArgumentException();
+		}
+		ArrayList<Suite> listeChemins = this.liestDesChemins(a, b, new Ensemble());
+		for (int i = 0; i < listeChemins.size(); i++)
+		{
+			System.out.println(listeChemins.get(i));
+		}
+	}
+
+	/** Méthode récursive de recherche de tous les chemins */
+	public ArrayList<Suite> liestDesChemins(Elt a, Elt b, Ensemble interdits)
+	{
+		ArrayList<Suite> chemins = new ArrayList<Suite>();
+		if (this.contient(a, b))
+		{
+			Suite chem = new Suite();
+			chem.ajouter(b);
+			chem.ajouter(a);
+			chemins.add(chem);
+		}
+		Iterator<Elt> it = this.depart().moins(interdits).iterator();
+		while (it.hasNext())
+		{
+			Elt next = it.next();
+			if (this.contient(a, next))
+			{
+				ArrayList<Suite> autresChem = this.liestDesChemins(next, b, interdits.union(new Ensemble(a)));
+				for (int i = 0; i < autresChem.size(); i++)
+				{
+					Suite tmp = autresChem.get(i);
+					tmp.ajouter(a);
+					chemins.add(tmp);
+				}
+			}
+		}
+		return chemins;
+	}
+	
 	/** Renvoie true si acyclique */
 	public boolean acyclique()
 	{

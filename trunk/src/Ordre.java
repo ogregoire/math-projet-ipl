@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -209,5 +210,32 @@ public class Ordre implements RelationInterface {
 		return (minor.cardinal() != 0) ? minor : null;
 	}
 	
+	public int nombreDeSommetEntre(Elt x, Elt y)
+	{
+		
+		if (!this.comparable(x, y)) return 0;
+		if (x.equals(y)) return 1;
+		ArrayList<Suite> listeChemins = this.or.liestDesChemins(x, y, new Ensemble());
+		Iterator<Suite> it = listeChemins.iterator();
+		int min  = 50;
+		while (it.hasNext())
+		{
+			Suite temp = it.next();
+			if (temp.longueur() < min)
+			{
+				min = temp.longueur();
+			}
+		}
+		return min;
+	}
+
+
+/** Ex 9.1 comparable */
+public boolean comparable(Elt x, Elt y)
+{
+	return this.or.contient(x, y) || this.or.contient(y, x);
+}
 
 }
+
+
