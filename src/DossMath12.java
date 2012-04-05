@@ -335,8 +335,17 @@ public class DossMath12 {
 			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
 		}
 		
+		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
+		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
+		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
+		System.out.println("Nombre de somment entre 12 et 33 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(33)));
+		System.out.println("Nombre de somment entre 9 et 9 " + hierarchie.nombreDeSommetEntre(new Elt(9), new Elt(9)));
+		System.out.println("Nombre de somment entre 8 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(8), new Elt(15)));
+		System.out.println("Nombre de somment entre 4 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(4), new Elt(15)));
+		
 
 
+		
 	}
 	
 	public static void question6(){
@@ -372,6 +381,21 @@ public class DossMath12 {
 	}
 	
 	public static int supChemin(Elt elem){
+	  /*  int min= 100;
+	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+	    	return 1;
+	    }
+	        Ensemble ens = hierarchie.major(new Ensemble(elem));
+	        ens = ens.moins(new Ensemble(elem));
+	        Iterator<Elt> it = ens.iterator();
+	        while(it.hasNext()){
+	            Elt el = it.next();   
+	            int niveau = supChemin(el);
+	            if(niveau < min){
+	            	min = niveau;
+	            }
+	        }
+	        return 1 +min;*/
 		int min = Integer.MAX_VALUE;
 		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
 		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
@@ -383,6 +407,9 @@ public class DossMath12 {
 	public static void question7(){
 		System.out.println("Question 7");
 		System.out.println("******************************************************************************************");
+		System.out.println("Réponse question 7.1");
+		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétriquet et transitive. Ce qui est le cas de la relation 'proche'");
+		
 		// TO DO
 	}
 	
