@@ -421,22 +421,7 @@ public class DossMath12 {
 		//Stratégie : Plus le dégré d'entrée est grand, plus l'élément est prioritaire, l'inverse marche aussi, plus le degrée de sortie est faible, plus l'élément est le moins prioritaire.
 		
 		it = moinsPrio.arrivee().iterator();
-//		ArrayList<Ensemble> ens = new ArrayList<Ensemble>();
-//		int index = 0; // = la priorité
-//		while(it.hasNext()){
-//			Elt elemPrio = it.next();
-//			if(index == 0){
-//				ens.add(1,new Ensemble(elemPrio));
-//				index++;
-//			}else{
-//				if(elemPrio < )
-//			}
-//			
-//			
-//		}
-		
-		
-		lister(moinsPrio.depart(), "QUALIFICATIONS");
+		//lister(moinsPrio.depart(), "QUALIFICATIONS");
 		
 		
 		int[] tabDegre  = new int[10];
@@ -444,8 +429,11 @@ public class DossMath12 {
 		int index = 0;
 		if(it.hasNext()){
 			tabElem[0] = it.next();
-			//tabDegre[0] = moinsPrio.degreDEntree(tabElem[0]);
-			System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(tabElem[0]));
+			int degre =moinsPrio.degreDeSortie(tabElem[0]);
+			//System.out.println("degré :"+degre);
+			tabDegre[0] = degre;
+			//System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(tabElem[0]));
+			//System.out.println("tabElem :"+tabDegre[0]);
 			index++;
 		}
 		 
@@ -458,7 +446,7 @@ public class DossMath12 {
 		while(it.hasNext()){
 			
 			Elt elemPrio = it.next();
-			System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(elemPrio));
+			//System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(elemPrio));
 			
 			// Agrandissement de la table
 			if(index == tabDegre.length){
@@ -478,28 +466,28 @@ public class DossMath12 {
 			
 			// Algorithme de tri et d'insertion dans la table (pourri)
 			for(int i = index-1; i>=0; i--){
-				System.out.println("i :"+i);
-				String reponse = "";
-				for(int j = 0; j<index; j++){
-					
-					reponse += " "+ tabDegre[j];
-					
-				}
-				System.out.println("tabElem :"+reponse);
+//				System.out.println("i :"+i);
+//				String reponse = "";
+//				for(int j = 0; j<index; j++){
+//					
+//					reponse += " "+ tabDegre[j];
+//					
+//				}
+//				System.out.println("tabDegre :"+reponse);
 				if(tabDegre[i]<= moinsPrio.degreDeSortie(elemPrio)){
 					tabDegre[i+1] = tabDegre[i];
-					//tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
+					tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
 				}else{
 					tabDegre[i+1] = moinsPrio.degreDeSortie(elemPrio);
-					System.out.println("index :"+index);
-					//tabElem[i+1] = new Elt(elemPrio);
+					//System.out.println("index :"+index);
+					tabElem[i+1] = new Elt(elemPrio);
 					index++;
 					break;
 				}
 				
 				if(i == 0){
 					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
-					//tabElem[i] = new Elt(elemPrio);
+					tabElem[i] = new Elt(elemPrio);
 					index++;
 				}
 			}
@@ -507,13 +495,19 @@ public class DossMath12 {
 		}
 		
 		// Affichage du tableau (Pas parfait)
-		
+		int degrePrio = 1;
+		boolean afficherDegreDePriorite = true;
 		for(int i =0; i <index; i++){
-			int degrePrio = 1;
-			System.out.println("Qualification de priorité "+degrePrio);
-			//lister(new Ensemble(tabElem[i]), "QUALIFICATIONS");
-			System.out.println("tabDegre :"+tabDegre[i]);
-			if(tabDegre[i+1] < tabDegre[i]) degrePrio ++;
+			if(afficherDegreDePriorite){
+				System.out.println("Qualification de priorité "+degrePrio);
+				afficherDegreDePriorite = false;
+			}
+			lister(new Ensemble(tabElem[i]), "QUALIFICATIONS");
+			//System.out.println("tabDegre :"+tabDegre[i]);
+			if(tabDegre[i+1] < tabDegre[i]){
+				afficherDegreDePriorite = true;
+				degrePrio++;
+			}
 		}
 		
 	}
