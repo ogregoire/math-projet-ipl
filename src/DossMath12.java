@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DossMath12 {
@@ -26,6 +27,7 @@ public class DossMath12 {
 	
 	private static Relation PSF;
 	private static Ordre hierarchie;
+	private static Ordre test;
 	
 	public static void main(String[] args) throws MathException {
 			question1();
@@ -33,7 +35,7 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
-//			test();
+			test();
 			question6();
 			question7();
 	} // main
@@ -302,6 +304,44 @@ public class DossMath12 {
 			
 			
 		}
+		
+		
+		System.out.println("Réponse question 5.3");
+		it = SUP.depart().iterator();
+		double salaire = 0, prime = 0, bonus =0;
+		while(it.hasNext()){
+			Elt membre = it.next();
+			salaire += BASE * Math.pow(DELTA, supChemin(membre)-1); // Ligne OK les patrons on comme salaire 3800
+			prime += or.minor(new Ensemble(membre)).moins(new Ensemble(membre)).cardinal()*PRIME; // la prime me semble ok
+			bonus += bonus(membre);
+		}
+		
+		salaire = salaire * 12 + prime + bonus;
+		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ salaire);
+		
+		System.out.println("Réponse question 5.4");
+		double max = 0;
+		Elt bestInvest= null;
+		Relation COLTemp = COL.clone();
+		
+		//FINTemp.arrivee().enlever(FIN.imageDirecte(numéro("BISTRO Alonzo", "PERSONNELS")));
+		 it = COLTemp.arrivee().iterator();
+		while(it.hasNext()){
+			Elt proj = it.next();
+			// calcule du bonus pour ce projet là
+			double nbCollabo = COL.imageReciproque(proj).cardinal();
+			double nbFinancier = FIN.imageReciproque(proj).cardinal() +1 ;
+			if(nbFinancier == 0) nbFinancier = 1;
+				double bonusCourant = (250*nbCollabo) / nbFinancier;
+				//System.out.println("Bonus courant :" + bonusCourant);
+				//lister(new Ensemble(proj), "PROJETS");
+				if(bonusCourant > max){
+					max = bonusCourant;
+					bestInvest = new Elt(proj);
+			}
+		}
+		
+		lister(new Ensemble(bestInvest), "PROJETS");
 	}
 
 
@@ -324,13 +364,13 @@ public class DossMath12 {
 	}
 	
 	public static void test(){
-		Iterator<Couple> it = SUP.iterator();
+		Iterator<Couple> it = hierarchie.iterator();
 		while(it.hasNext()){
 			Couple c = it.next();
 			System.out.println("Relation de " + c.getx().val() + " vers " + c.gety().val());
 		}
 		
-		Iterator<Elt> ite = SUP.depart().iterator();
+		Iterator<Elt> ite = hierarchie.depart().iterator();
 		while(ite.hasNext()){
 			Elt elem = ite.next();
 			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
@@ -343,6 +383,7 @@ public class DossMath12 {
 		System.out.println("Nombre de somment entre 9 et 9 " + hierarchie.nombreDeSommetEntre(new Elt(9), new Elt(9)));
 		System.out.println("Nombre de somment entre 8 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(8), new Elt(15)));
 		System.out.println("Nombre de somment entre 4 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(4), new Elt(15)));
+		System.out.println("Chemin de 12 vers 9 :"+hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(9)));
 		
 
 
@@ -377,12 +418,92 @@ public class DossMath12 {
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
 		System.out.println("Réponse 6.3 : ");
+		//Stratégie : Plus le dégré d'entrée est grand, plus l'élément est prioritaire, l'inverse marche aussi, plus le degrée de sortie est faible, plus l'élément est le moins prioritaire.
 		
+		it = moinsPrio.arrivee().iterator();
+//		ArrayList<Ensemble> ens = new ArrayList<Ensemble>();
+//		int index = 0; // = la priorité
+//		while(it.hasNext()){
+//			Elt elemPrio = it.next();
+//			if(index == 0){
+//				ens.add(1,new Ensemble(elemPrio));
+//				index++;
+//			}else{
+//				if(elemPrio < )
+//			}
+//			
+//			
+//		}
+		
+		
+		lister(moinsPrio.depart(), "QUALIFICATIONS");
+		
+		
+		int[] tabDegre  = new int[10];
+		Elt[] tabElem = new Elt[10];
+		int index = 0;
+		if(it.hasNext()){
+			tabElem[0] = it.next();
+			tabDegre[0] = moinsPrio.degreDEntree(tabElem[0]);
+			System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(tabElem[0]));
+			index++;
+		}
+		 
+		
+		/** Je crois effectivement qu'il faut utilisé les degré de sortie (même si j'aurais cru qu'on aurait du utilisé ceux d'entrée) car ils correspondent parfaitement aux réponses.
+		 * Par contre mon algorithme de tri est à chié xD Et je le referais demain :) Mais pour ce soir, c'est fini !
+		 * 
+		 */
+		
+		while(it.hasNext()){
+			
+			Elt elemPrio = it.next();
+			System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(elemPrio));
+			if(index == tabDegre.length){
+				int[] bufferInt = new int[index*2];
+				Elt[] bufferElt = new Elt[index*2];
+				for(int i = 0; i < index; i++){
+					bufferInt[i] = tabDegre[i];
+					bufferElt[i] = new Elt(tabElem[i]);
+				}
+				
+				tabDegre = new int[index*2];
+				tabElem = new Elt[index*2];
+				
+			}
+			for(int i = index-1; i>=0; i--){
+				if(tabDegre[i]<= moinsPrio.degreDeSortie(elemPrio)){
+					tabDegre[i+1] = tabDegre[i];
+					tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
+				}else{
+					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
+					tabElem[i+1] = new Elt(elemPrio);
+					index++;
+					break;
+				}
+				
+				if(index == 0){
+					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
+					tabElem[i] = new Elt(elemPrio);
+					index++;
+				}
+			}
+			
+		}
+		
+		for(int i =0; i <index; i++){
+			int degrePrio = 1;
+			System.out.println("Qualification de priorité "+degrePrio);
+			lister(new Ensemble(tabElem[i]), "QUALIFICATIONS");
+			System.out.println("tabDegre :"+tabDegre[i]);
+			if(tabDegre[i+1] < tabDegre[i]) degrePrio ++;
+		}
 		
 	}
 	
+	
 	public static int supChemin(Elt elem){
-	  /*  int min= 100;
+	    int niveau = 0;
 	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
 	    	return 1;
 	    }
@@ -390,17 +511,15 @@ public class DossMath12 {
 	        ens = ens.moins(new Ensemble(elem));
 	        Iterator<Elt> it = ens.iterator();
 	        while(it.hasNext()){
-	            Elt el = it.next();   
-	            int niveau = supChemin(el);
-	            if(niveau < min){
-	            	min = niveau;
-	            }
+	             Elt el = it.next();   
+	            niveau = supChemin(el);
 	        }
-	        return 1 +min;*/
-		int min = Integer.MAX_VALUE;
-		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
-		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
-		return min;
+	 
+	        return 1 +niveau;
+//		int min = Integer.MAX_VALUE;
+//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
+//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
+//		return min;
 	}
 	
 
@@ -416,7 +535,6 @@ public class DossMath12 {
 //		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
 		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL", "PROJETS"))),"PROJETS");
-		// TO DO
 	}
 	
 	
