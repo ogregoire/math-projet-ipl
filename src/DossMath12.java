@@ -375,7 +375,10 @@ public class DossMath12 {
 			Elt elem = ite.next();
 			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
 		}
-		
+		System.out.println("Majorant :");
+		lister(hierarchie.major(new Ensemble(new Elt(12))),"PERSONNELS");
+		System.out.println("Suprenum");
+		lister(new Ensemble(hierarchie.supremum(hierarchie.major(new Ensemble(new Elt(12))))),"PERSONNELS");
 		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
 		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
 		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
@@ -524,6 +527,7 @@ public class DossMath12 {
 	        while(it.hasNext()){
 	             Elt el = it.next();   
 	            niveau = supChemin(el);
+	            
 	        }
 	 
 	        return 1 +niveau;
@@ -531,6 +535,39 @@ public class DossMath12 {
 //		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
 //		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
 //		return min;
+	
+//		int[] tab = new int[100];
+//		if(hierarchie.major(new Ensemble(elem)).cardinal()() == 1){
+//			return 1;
+//		}
+//		
+//		Ensemble ens = hierarchie.major(new Ensemble(elem));
+//		Iterator<Elt> it = ens.iterator();
+//		int i = 0;
+//		
+//		while(it.hasNext()){
+//			Elt el = it.next();
+//			tab[i] = supChemin(elem);
+//		}
+
+		
+//	    int niveau = 0;
+//	    int min = 100;
+//	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+//	    	return 1;
+//	    }
+//	        Ensemble ens = hierarchie.major(new Ensemble(elem));
+//	        ens = ens.moins(new Ensemble(elem));
+//	        Iterator<Elt> it = ens.iterator();
+//	        while(it.hasNext()){
+//	             Elt el = it.next();   
+//	            niveau = supChemin(el);
+//	            if(niveau < min){
+//	            	min = niveau;
+//	            }
+//	        }
+//	 
+//	        return min+1;
 	}
 	
 
