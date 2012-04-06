@@ -363,6 +363,61 @@ public class DossMath12 {
 		return bonus;
 	}
 	
+	public static int supChemin(Elt elem){
+	    int niveau = 0;
+	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+	    	return 1;
+	    }
+	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
+	        ens = ens.moins(new Ensemble(elem));
+	        Iterator<Elt> it = ens.iterator();
+	        while(it.hasNext()){
+	             Elt el = it.next();   
+	            niveau = supChemin(el);
+	            
+	        }
+	 
+	        return 1 +niveau;
+//		int min = Integer.MAX_VALUE;
+//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
+//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
+//		return min;
+	
+//		int[] tab = new int[100];
+//		if(hierarchie.major(new Ensemble(elem)).cardinal()() == 1){
+//			return 1;
+//		}
+//		
+//		Ensemble ens = hierarchie.major(new Ensemble(elem));
+//		Iterator<Elt> it = ens.iterator();
+//		int i = 0;
+//		
+//		while(it.hasNext()){
+//			Elt el = it.next();
+//			tab[i] = supChemin(elem);
+//		}
+
+//		
+//	    int niveau = 0;
+//	    int min = 100;
+//	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+//	    	return 1;
+//	    }
+//	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
+//	        ens = ens.moins(new Ensemble(elem));
+//	        Iterator<Elt> it = ens.iterator();
+//	        while(it.hasNext()){
+//	             Elt el = it.next();   
+//	            niveau = supChemin(el);
+//	            if(niveau < min){
+//	            	min = niveau;
+//	            }
+//	        }
+//	 
+//	        return min+1;
+	}
+	
+	
 	public static void test(){
 		Iterator<Couple> it = hierarchie.iterator();
 		while(it.hasNext()){
@@ -378,6 +433,12 @@ public class DossMath12 {
 		System.out.println("Majorant :");
 		lister(hierarchie.major(new Ensemble(new Elt(12))),"PERSONNELS");
 		System.out.println("Suprenum");
+		
+		//lister(new Ensemble(hierarchie.supremum(hierarchie.major(new Ensemble(new Elt(12))))),"PERSONNELS");
+		Elt element = hierarchie.supremum(hierarchie.major(new Ensemble(new Elt(12))));
+		if(element == null) System.out.println("LOOOOL");
+		
+		//lister(new Ensemble(element), "PERSONNELS");
 
 		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
 		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
@@ -416,7 +477,7 @@ public class DossMath12 {
 			}
 		}
 		prio.cloTrans();
-		Ordre moinsPrio = new Ordre(prio);
+		Ordre moinsPrio = new Ordre(prio.reciproque());
 		System.out.println("Ordre initialisé !");
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
@@ -447,59 +508,6 @@ public class DossMath12 {
 	}
 	
 	
-	public static int supChemin(Elt elem){
-	    int niveau = 0;
-	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
-	    	return 1;
-	    }
-	        Ensemble ens = hierarchie.major(new Ensemble(elem));
-	        ens = ens.moins(new Ensemble(elem));
-	        Iterator<Elt> it = ens.iterator();
-	        while(it.hasNext()){
-	             Elt el = it.next();   
-	            niveau = supChemin(el);
-	            
-	        }
-	 
-	        return 1 +niveau;
-//		int min = Integer.MAX_VALUE;
-//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
-//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
-//		return min;
-	
-//		int[] tab = new int[100];
-//		if(hierarchie.major(new Ensemble(elem)).cardinal()() == 1){
-//			return 1;
-//		}
-//		
-//		Ensemble ens = hierarchie.major(new Ensemble(elem));
-//		Iterator<Elt> it = ens.iterator();
-//		int i = 0;
-//		
-//		while(it.hasNext()){
-//			Elt el = it.next();
-//			tab[i] = supChemin(elem);
-//		}
-
-		
-//	    int niveau = 0;
-//	    int min = 100;
-//	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
-//	    	return 1;
-//	    }
-//	        Ensemble ens = hierarchie.major(new Ensemble(elem));
-//	        ens = ens.moins(new Ensemble(elem));
-//	        Iterator<Elt> it = ens.iterator();
-//	        while(it.hasNext()){
-//	             Elt el = it.next();   
-//	            niveau = supChemin(el);
-//	            if(niveau < min){
-//	            	min = niveau;
-//	            }
-//	        }
-//	 
-//	        return min+1;
-	}
 	
 
 
