@@ -36,8 +36,8 @@ public class DossMath12 {
 			question4();
 			question5();
 //			test();
-			question6();
-			question7();
+//			question6();
+//			question7();
 	} // main
 	
 	public static void question1(){
@@ -364,29 +364,29 @@ public class DossMath12 {
 	}
 	
 	public static int supChemin(Elt elem){
-	    int niveau = 0;
-	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem))).cardinal()==1){
-	    	System.out.println("Marjor :");
-	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
-	    	System.out.println("Major moins");
-	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
-	    	System.out.println("Minimaux");
-	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem))),"PERSONNELS");
-	    	System.out.println("minimaux moins");
-	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem).moins(new Ensemble(elem)))),"PERSONNELS");
-	    	return 1;
-	    }
-	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
-	        ens = ens.moins(new Ensemble(elem));
-	        lister(ens,"PERSONNELS");
-	        Iterator<Elt> it = ens.iterator();
-	        while(it.hasNext()){
-	             Elt el = it.next();   
-	            niveau = supChemin(el);
-	            
-	        }
-	 
-	        return 1 +niveau;
+		//	    int niveau = 0;
+//	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem))).cardinal()==1){
+//	    	System.out.println("Marjor :");
+//	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
+//	    	System.out.println("Major moins");
+//	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
+//	    	System.out.println("Minimaux");
+//	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem))),"PERSONNELS");
+//	    	System.out.println("minimaux moins");
+//	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)))),"PERSONNELS");
+//	    	return 1;
+//	    }
+//	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
+//	        ens = ens.moins(new Ensemble(elem));
+//	        lister(ens,"PERSONNELS");
+//	        Iterator<Elt> it = ens.iterator();
+//	        while(it.hasNext()){
+//	             Elt el = it.next();   
+//	            niveau = supChemin(el);
+//	            
+//	        }
+//	 
+//	        return 1 +niveau;
 //		int min = Integer.MAX_VALUE;
 //		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
 //		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
@@ -424,6 +424,8 @@ public class DossMath12 {
 //	        }
 //	 
 //	        return min+1;
+		
+		return 1;
 	}
 	
 	
@@ -449,15 +451,15 @@ public class DossMath12 {
 		
 		//lister(new Ensemble(element), "PERSONNELS");
 
-		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
-		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
-		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
-		System.out.println("Nombre de somment entre 12 et 33 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(33)));
-		System.out.println("Nombre de somment entre 9 et 9 " + hierarchie.nombreDeSommetEntre(new Elt(9), new Elt(9)));
-		System.out.println("Nombre de somment entre 8 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(8), new Elt(15)));
-		System.out.println("Nombre de somment entre 4 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(4), new Elt(15)));
-		System.out.println("Chemin de 12 vers 9 :"+hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(9)));
-		
+//		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
+//		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
+//		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
+//		System.out.println("Nombre de somment entre 12 et 33 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(33)));
+//		System.out.println("Nombre de somment entre 9 et 9 " + hierarchie.nombreDeSommetEntre(new Elt(9), new Elt(9)));
+//		System.out.println("Nombre de somment entre 8 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(8), new Elt(15)));
+//		System.out.println("Nombre de somment entre 4 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(4), new Elt(15)));
+//		System.out.println("Chemin de 12 vers 9 :"+hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(9)));
+//		
 
 
 		
@@ -526,7 +528,8 @@ public class DossMath12 {
 		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétriquet et transitive. Ce qui est le cas de la relation 'proche'");
 		System.out.println("Réponse question 7.2");
 		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
-//		lister(EST_PROCHE_DE.depart(), "PROJETS");
+		Equivalence EPD = new Equivalence(EST_PROCHE_DE);
+		//		lister(EST_PROCHE_DE.depart(), "PROJETS");
 //		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
 		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL", "PROJETS"))),"PROJETS");
