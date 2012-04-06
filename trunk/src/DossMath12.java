@@ -35,7 +35,7 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
-			test();
+//			test();
 			question6();
 			question7();
 	} // main
@@ -458,26 +458,25 @@ public class DossMath12 {
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse 6.1 : ");
-		Relation prio = new Relation(CPT.arrivee(),CPT.arrivee());
-		Iterator<Elt> it = prio.depart().iterator();
+		Ordre moinsPrio = new Ordre(CPT.arrivee());
+		Iterator<Elt> it = moinsPrio.depart().iterator();
 		while(it.hasNext()){
 			Elt elem = it.next();
 			double priorite = (double) CCN.imageReciproque(elem).cardinal()/CPT.imageReciproque(elem).cardinal();
-			Iterator<Elt> it2 = prio.depart().iterator();
+			Iterator<Elt> it2 = moinsPrio.depart().iterator();
 			while(it2.hasNext()){
 				Elt elem2 = it2.next();
 				double priorite2 = (double) CCN.imageReciproque(elem2).cardinal()/CPT.imageReciproque(elem2).cardinal();
 				
 				if(priorite<priorite2){
-					prio.ajouter(elem,elem2);
+					moinsPrio.ajouter(new Couple(elem,elem2));
 				}
 				if(priorite2<priorite){
-					prio.ajouter(elem2,elem);
+					moinsPrio.ajouter(new Couple(elem2,elem));
 				}
 			}
 		}
-		prio.cloTrans();
-		Ordre moinsPrio = new Ordre(prio.reciproque());
+		
 		System.out.println("Ordre initialisé !");
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
