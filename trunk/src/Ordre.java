@@ -258,5 +258,17 @@ public int degreDEntree(Elt x){
 	}
 	return compteur;
 }
+/** Ex 10.4a infimum */
+public Elt infimum(EnsembleInterface b)
+{
+	Ensemble minor = this.minor(b);
+	return (minor == null) ? null : this.maximum(minor);
+}
 
+/** Ex 10.4b supremum */
+public Elt supremum(EnsembleInterface b)
+{
+	Ensemble major = this.major(b);
+	return (major == null) ? null : this.minimum(major);
+}
 }
