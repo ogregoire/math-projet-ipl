@@ -459,6 +459,8 @@ public class DossMath12 {
 			
 			Elt elemPrio = it.next();
 			System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(elemPrio));
+			
+			// Agrandissement de la table
 			if(index == tabDegre.length){
 				int[] bufferInt = new int[index*2];
 				Elt[] bufferElt = new Elt[index*2];
@@ -467,34 +469,40 @@ public class DossMath12 {
 					bufferElt[i] = new Elt(tabElem[i]);
 				}
 				
-				tabDegre = new int[index*2];
-				tabElem = new Elt[index*2];
+//				tabDegre = new int[index*2];
+//				tabElem = new Elt[index*2];
+				tabDegre = bufferInt;
+				tabElem = bufferElt;
 				
 			}
+			
+			// Algorithme de tri et d'insertion dans la table (pourri)
 			for(int i = index-1; i>=0; i--){
 				if(tabDegre[i]<= moinsPrio.degreDeSortie(elemPrio)){
 					tabDegre[i+1] = tabDegre[i];
-					tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
+					//tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
 				}else{
 					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
-					tabElem[i+1] = new Elt(elemPrio);
+					//tabElem[i+1] = new Elt(elemPrio);
 					index++;
 					break;
 				}
 				
 				if(index == 0){
 					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
-					tabElem[i] = new Elt(elemPrio);
+					//tabElem[i] = new Elt(elemPrio);
 					index++;
 				}
 			}
 			
 		}
 		
+		// Affichage du tableau (Pas parfait)
+		
 		for(int i =0; i <index; i++){
 			int degrePrio = 1;
 			System.out.println("Qualification de priorité "+degrePrio);
-			lister(new Ensemble(tabElem[i]), "QUALIFICATIONS");
+			//lister(new Ensemble(tabElem[i]), "QUALIFICATIONS");
 			System.out.println("tabDegre :"+tabDegre[i]);
 			if(tabDegre[i+1] < tabDegre[i]) degrePrio ++;
 		}
