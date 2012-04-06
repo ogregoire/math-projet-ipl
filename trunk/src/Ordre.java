@@ -102,8 +102,7 @@ public class Ordre implements RelationInterface {
 
 	@Override
 	public Iterator<Couple> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return or.iterator();
 	}
 	
 	// ajoute x à l'ensemble sous-jacent de la relation d'ordre, ne fait rien si x est déjà dans l'ensemble sous jacent
@@ -237,6 +236,27 @@ public boolean comparable(Elt x, Elt y)
 	return this.or.contient(x, y) || this.or.contient(y, x);
 }
 
+
+/** Renvoie le degré de sortie de x pour la Relation courante */
+public int degreDeSortie(Elt x) {
+	if(!this.depart().contient(x)) throw new MathException("L'élément n'est pas dans l'ensemble de départ");
+	int compteur = 0;
+	Iterator<Elt> it = this.arrivee().iterator(); 
+	while(it.hasNext()){  
+		if(this.contient(new Couple(x, it.next()))) compteur ++; 
+	} 
+	return compteur; 
 }
 
+/** Renvoie le degré d'entrée de x pour la Relation courante */
+public int degreDEntree(Elt x){
+	if(!this.arrivee().contient(x)) throw new MathException("L'élément n'est pas dans l'ensemble d'arrivée");
+	int compteur = 0;
+	Iterator<Elt> it = this.depart().iterator(); 
+	while(it.hasNext()){
+		if(this.contient(new Couple(it.next(), x))) compteur++;
+	}
+	return compteur;
+}
 
+}
