@@ -365,11 +365,20 @@ public class DossMath12 {
 	
 	public static int supChemin(Elt elem){
 	    int niveau = 0;
-	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem))).cardinal()==1){
+	    	System.out.println("Marjor :");
+	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
+	    	System.out.println("Major moins");
+	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
+	    	System.out.println("Minimaux");
+	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem))),"PERSONNELS");
+	    	System.out.println("minimaux moins");
+	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem).moins(new Ensemble(elem)))),"PERSONNELS");
 	    	return 1;
 	    }
 	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
 	        ens = ens.moins(new Ensemble(elem));
+	        lister(ens,"PERSONNELS");
 	        Iterator<Elt> it = ens.iterator();
 	        while(it.hasNext()){
 	             Elt el = it.next();   
@@ -400,7 +409,7 @@ public class DossMath12 {
 //		
 //	    int niveau = 0;
 //	    int min = 100;
-//	    if(hierarchie.major(new Ensemble(elem)).cardinal()==1){
+//	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem))).cardinal()==1){
 //	    	return 1;
 //	    }
 //	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
