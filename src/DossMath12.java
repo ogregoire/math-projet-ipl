@@ -444,7 +444,7 @@ public class DossMath12 {
 		int index = 0;
 		if(it.hasNext()){
 			tabElem[0] = it.next();
-			tabDegre[0] = moinsPrio.degreDEntree(tabElem[0]);
+			//tabDegre[0] = moinsPrio.degreDEntree(tabElem[0]);
 			System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(tabElem[0]));
 			index++;
 		}
@@ -466,7 +466,7 @@ public class DossMath12 {
 				Elt[] bufferElt = new Elt[index*2];
 				for(int i = 0; i < index; i++){
 					bufferInt[i] = tabDegre[i];
-					bufferElt[i] = new Elt(tabElem[i]);
+					bufferElt[i] = tabElem[i];
 				}
 				
 //				tabDegre = new int[index*2];
@@ -478,17 +478,26 @@ public class DossMath12 {
 			
 			// Algorithme de tri et d'insertion dans la table (pourri)
 			for(int i = index-1; i>=0; i--){
+				System.out.println("i :"+i);
+				String reponse = "";
+				for(int j = 0; j<index; j++){
+					
+					reponse += " "+ tabDegre[j];
+					
+				}
+				System.out.println("tabElem :"+reponse);
 				if(tabDegre[i]<= moinsPrio.degreDeSortie(elemPrio)){
 					tabDegre[i+1] = tabDegre[i];
 					//tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
 				}else{
-					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
+					tabDegre[i+1] = moinsPrio.degreDeSortie(elemPrio);
+					System.out.println("index :"+index);
 					//tabElem[i+1] = new Elt(elemPrio);
 					index++;
 					break;
 				}
 				
-				if(index == 0){
+				if(i == 0){
 					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
 					//tabElem[i] = new Elt(elemPrio);
 					index++;
