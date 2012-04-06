@@ -378,7 +378,7 @@ public class DossMath12 {
 		System.out.println("Majorant :");
 		lister(hierarchie.major(new Ensemble(new Elt(12))),"PERSONNELS");
 		System.out.println("Suprenum");
-		lister(new Ensemble(hierarchie.supremum(hierarchie.major(new Ensemble(new Elt(12))))),"PERSONNELS");
+
 		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
 		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
 		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
@@ -416,7 +416,7 @@ public class DossMath12 {
 			}
 		}
 		prio.cloTrans();
-		Ordre moinsPrio = new Ordre(prio.reciproque());
+		Ordre moinsPrio = new Ordre(prio);
 		System.out.println("Ordre initialisé !");
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
@@ -425,93 +425,24 @@ public class DossMath12 {
 		
 		it = moinsPrio.arrivee().iterator();
 		//lister(moinsPrio.depart(), "QUALIFICATIONS");
-		
-		
-		int[] tabDegre  = new int[10];
-		Elt[] tabElem = new Elt[10];
-		int index = 0;
-		if(it.hasNext()){
-			tabElem[0] = it.next();
-			int degre =moinsPrio.degreDeSortie(tabElem[0]);
-			//System.out.println("degré :"+degre);
-			tabDegre[0] = degre;
-			//System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(tabElem[0]));
-			//System.out.println("tabElem :"+tabDegre[0]);
-			index++;
-		}
-		 
-		
-		/** Je crois effectivement qu'il faut utilisé les degré de sortie (même si j'aurais cru qu'on aurait du utilisé ceux d'entrée) car ils correspondent parfaitement aux réponses.
-		 * Par contre mon algorithme de tri est à chié xD Et je le referais demain :) Mais pour ce soir, c'est fini !
-		 * 
-		 */
-		
-		while(it.hasNext()){
+		int compteur = 1 ;
+		Ensemble max = moinsPrio.maximaux(moinsPrio.arrivee());
+		while(!max.estVide()){
+			System.out.println("Priorité N°" + compteur);
+			lister(max, "QUALIFICATIONS");
+			Ensemble ancienmax = max.clone();
 			
-			Elt elemPrio = it.next();
-			//System.out.println("Degré d'entré d'elemPrio :"+moinsPrio.degreDeSortie(elemPrio));
-			
-			// Agrandissement de la table
-			if(index == tabDegre.length){
-				int[] bufferInt = new int[index*2];
-				Elt[] bufferElt = new Elt[index*2];
-				for(int i = 0; i < index; i++){
-					bufferInt[i] = tabDegre[i];
-					bufferElt[i] = tabElem[i];
-				}
-				
-//				tabDegre = new int[index*2];
-//				tabElem = new Elt[index*2];
-				tabDegre = bufferInt;
-				tabElem = bufferElt;
-				
+			max = moinsPrio.minor(max);
+			if(max==null){
+				break;
 			}
+			max.enlever(ancienmax);
+			max = moinsPrio.maximaux(max);
 			
-			// Algorithme de tri et d'insertion dans la table (pourri)
-			for(int i = index-1; i>=0; i--){
-//				System.out.println("i :"+i);
-//				String reponse = "";
-//				for(int j = 0; j<index; j++){
-//					
-//					reponse += " "+ tabDegre[j];
-//					
-//				}
-//				System.out.println("tabDegre :"+reponse);
-				if(tabDegre[i]<= moinsPrio.degreDeSortie(elemPrio)){
-					tabDegre[i+1] = tabDegre[i];
-					tabElem[i+1] = new Elt(tabElem[i]);// Plus très sur de ma manip  
-				}else{
-					tabDegre[i+1] = moinsPrio.degreDeSortie(elemPrio);
-					//System.out.println("index :"+index);
-					tabElem[i+1] = new Elt(elemPrio);
-					index++;
-					break;
-				}
-				
-				if(i == 0){
-					tabDegre[i] = moinsPrio.degreDeSortie(elemPrio);
-					tabElem[i] = new Elt(elemPrio);
-					index++;
-				}
-			}
-			
+			compteur++;
 		}
 		
-		// Affichage du tableau (Pas parfait)
-		int degrePrio = 1;
-		boolean afficherDegreDePriorite = true;
-		for(int i =0; i <index; i++){
-			if(afficherDegreDePriorite){
-				System.out.println("Qualification de priorité "+degrePrio);
-				afficherDegreDePriorite = false;
-			}
-			lister(new Ensemble(tabElem[i]), "QUALIFICATIONS");
-			//System.out.println("tabDegre :"+tabDegre[i]);
-			if(tabDegre[i+1] < tabDegre[i]){
-				afficherDegreDePriorite = true;
-				degrePrio++;
-			}
-		}
+		
 		
 	}
 	
