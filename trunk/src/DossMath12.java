@@ -377,10 +377,12 @@ public class DossMath12 {
 				while(it2.hasNext()){
 					Elt elem2 = it2.next();
 					 try {
+						 if(SUP.contient(elemt, elem2)){
+							 patrons.ajouter(elem2);
+							 if(elem2.val()==elem.val()) return compteur+1;
+						 }
 							 sub.enlever(new Couple(elem2,elemt));
-							 if(SUP.contient(elemt, elem2)){
-								 patrons.ajouter(elem2);
-							 }
+							 
 					 }
 					 catch (MathException e) {
 					 }	
@@ -389,6 +391,7 @@ public class DossMath12 {
 			}
 			patrons.ajouter(sub.maximaux(SUP.depart()));
 			compteur++;
+			
 		}
 		return compteur;
 		//	    int niveau = 0;
@@ -561,8 +564,11 @@ public class DossMath12 {
 			}else{
 				System.out.println("Salaire de " +elem.val()+ " :" + salaire + " : incorrect !" + sal[elem.val()]);
 			}
+			if(elem.val()==32) System.out.println("Je suis le truc qui bug ! : " + (salaire-prime-bonus)+ " "+ prime + " " + bonus);
 		}	
 		System.out.println("Il y a : " + compteur + " reponses correctes " + hierarchie.depart().cardinal());
+		
+		if(SUP.contient(new Elt(8), new Elt(32))) System.out.println("MEGA LOOOL");
 	}
 	
 	public static void question6(){
