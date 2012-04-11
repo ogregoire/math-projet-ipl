@@ -67,7 +67,31 @@ public class Ordre implements RelationInterface {
 	@Override
 	public void enlever(Couple c) {
 		
+		this.enlever(c.getx(), c.gety());
 	}
+
+		/** Tente d'enlever le couple x-y à la relation */
+		public void enlever(Elt x, Elt y)
+		{
+			if (!this.estUneAreteDeHasse(x, y))
+			{
+				throw new MathException("Enlever impossible : pas une arrete de Hasse.");
+			}
+			
+			Ensemble ey = this.or.imageDirecte(y);
+			Ensemble ex = this.or.imageReciproque(x);
+			Iterator<Elt> itx = ex.iterator();
+			while (itx.hasNext())
+			{
+				Elt ix = itx.next();
+				Iterator<Elt> ity = ey.iterator();
+				while (ity.hasNext())
+				{
+					this.or.enlever(ix, ity.next());
+				}
+			}
+			this.or.cloTrans();
+		}
 
 	public boolean estUneAreteDeHasse(Elt x, Elt y){
 		if(!this.or.contient(x, y)){
