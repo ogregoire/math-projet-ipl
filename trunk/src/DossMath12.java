@@ -35,7 +35,8 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
-//			test();
+		testSal();
+		test();
 //			question6();
 //			question7();
 	} // main
@@ -253,7 +254,7 @@ public class DossMath12 {
 		System.out.println("Réponse 4.1 : ");
 		
 		Relation aPourChef = new Relation(COL.arrivee(), COL.depart());
-		hierarchie = new Ordre(SUP.reciproque());
+		hierarchie = new Ordre(SUP);
 		Iterator<Elt> it = COL.arrivee().iterator();
          while(it.hasNext()){
              Elt elem = it.next();
@@ -364,6 +365,32 @@ public class DossMath12 {
 	}
 	
 	public static int supChemin(Elt elem){
+		
+		int compteur = 1;
+		Ensemble patrons = 	hierarchie.maximaux(SUP.depart());
+		Ordre sub = new Ordre(hierarchie);
+		while(!patrons.contient(elem)){
+			Iterator<Elt> it = patrons.clone().iterator();
+			while(it.hasNext()){
+				Elt elemt = it.next();
+				Iterator<Elt> it2 = sub.depart().iterator();
+				while(it2.hasNext()){
+					Elt elem2 = it2.next();
+					 try {
+							 sub.enlever(new Couple(elem2,elemt));
+							 if(SUP.contient(elemt, elem2)){
+								 patrons.ajouter(elem2);
+							 }
+					 }
+					 catch (MathException e) {
+					 }	
+				
+				}
+			}
+			patrons.ajouter(sub.maximaux(SUP.depart()));
+			compteur++;
+		}
+		return compteur;
 		//	    int niveau = 0;
 //	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem))).cardinal()==1){
 //	    	System.out.println("Marjor :");
@@ -425,12 +452,11 @@ public class DossMath12 {
 //	 
 //	        return min+1;
 		
-		return 1;
 	}
 	
 	
 	public static void test(){
-		Iterator<Couple> it = hierarchie.iterator();
+		Iterator<Couple> it = SUP.iterator();
 		while(it.hasNext()){
 			Couple c = it.next();
 			System.out.println("Relation de " + c.getx().val() + " vers " + c.gety().val());
@@ -465,6 +491,80 @@ public class DossMath12 {
 		
 	}
 	
+	public static void testSal(){
+		Iterator<Elt> itS = hierarchie.arrivee().iterator();
+		int compteur=0;
+		int[] sal = new int[hierarchie.depart().cardinal()+2];
+		sal[1] = 3485;
+		sal[2] = 2473;
+		sal[3] = 2603;
+		sal[4] = 1202;
+		sal[5] = 826;
+		sal[6] = 2053;
+		sal[7] = 826;
+		sal[8] = 3277;
+		sal[9] = 6559;
+		sal[10] = 3250;
+		sal[11] = 2137;
+		sal[12] = 3385;
+		sal[13] = 1869;
+		sal[14] = 1936;
+		sal[15] = 6357;
+		sal[16] = 4407;
+		sal[17] = 2003;
+		sal[18] = 876;
+		sal[19] = 1352;
+		sal[20] = 1903;
+		sal[21] = 2403;
+		sal[22] = 3200;
+		sal[23] = 826;
+		sal[24] = 1552;
+		sal[25] = 1309;
+		sal[26] = 2950;
+		sal[27] = 2038;
+		sal[28] = 1936;
+		sal[29] = 5033;
+		sal[30] = 2837;
+		sal[31] = 2328;
+		sal[32] = 1869;
+		sal[33] = 1569;
+		sal[34] = 2137;
+		sal[35] = 2477;
+		sal[36] = 3207;
+		sal[37] = 2837;
+		sal[38] = 1101;
+		sal[39] = 1576;
+		sal[40] = 2137;
+		sal[41] = 2153;
+		sal[42] = 1535;
+		sal[43] = 1302;
+		sal[44] = 3138;
+		sal[45] = 2187;
+		sal[46] = 1653;
+		sal[47] = 1603;
+		sal[48] = 1337;
+		sal[49] = 1202;
+		
+			
+		Ordre or =  new Ordre(SUP.reciproque());
+		while(itS.hasNext()){
+			double salaire = 0, prime = 0, bonus =0;
+			Elt elem = itS.next();
+			salaire += BASE * Math.pow(DELTA, supChemin(elem)-1); // Ligne OK les patrons on comme salaire 3800
+			prime += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME; // la prime me semble ok
+			bonus += bonus(elem);
+			salaire+=prime+bonus;
+			salaire = Math.floor(salaire);
+			if(salaire==sal[elem.val()]){
+				compteur++;
+				System.out.println("Salaire de " +elem.val()+ " :" + salaire + " : correct ! " + sal[elem.val()] );
+			}else{
+				System.out.println("Salaire de " +elem.val()+ " :" + salaire + " : incorrect !" + sal[elem.val()]);
+			}
+		}	
+		System.out.println("Il y a : " + compteur + " reponses correctes " + hierarchie.depart().cardinal());
+	}
+	
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
@@ -492,10 +592,7 @@ public class DossMath12 {
 		System.out.println("Réponse 6.2 : ");
 		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
 		System.out.println("Réponse 6.3 : ");
-		//Stratégie : Plus le dégré d'entrée est grand, plus l'élément est prioritaire, l'inverse marche aussi, plus le degrée de sortie est faible, plus l'élément est le moins prioritaire.
-		
-		it = moinsPrio.arrivee().iterator();
-		//lister(moinsPrio.depart(), "QUALIFICATIONS");
+
 		int compteur = 1 ;
 		Ensemble max = moinsPrio.maximaux(moinsPrio.arrivee());
 		while(!max.estVide()){
