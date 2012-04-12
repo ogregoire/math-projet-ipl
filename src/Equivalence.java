@@ -161,7 +161,11 @@ public class Equivalence implements RelationInterface
 			while (it.hasNext())
 			{
 				Elt y = it.next();
-				if (this.contient(x, y)) cx.ajouter(y);
+				if (this.contient(x, y)){
+					System.out.println(y.val());
+					cx.ajouter(y);
+				}
+			
 			}
 			return cx;
 		}
