@@ -20,7 +20,7 @@ public class Equivalence implements RelationInterface
 
 	public Equivalence(RelationInterface r)
 	{
-		if (!r.depart().equals(r.arrivee())) throw new MathException("Construction impossible");
+		if (!r.depart().estEgalA(r.arrivee())) throw new MathException("Construction impossible");
 		this.sousjac = (Ensemble) r.depart();
 		this.tabRep = new Elt[MAX + 1];
 		if (!sousjac.estVide())
@@ -77,7 +77,7 @@ public class Equivalence implements RelationInterface
 			Elt ry = tabRep[y.val()];
 			for (int i = 1; i <= MAX; i++)
 			{
-				if (sousjac.contient(new Elt(i)) && tabRep[i].equals(rx)) tabRep[i] = ry;
+				if (sousjac.contient(new Elt(i)) && tabRep[i].estEgalA(rx)) tabRep[i] = ry;
 			}
 		}
 		else if (sousjac.contient(x))
