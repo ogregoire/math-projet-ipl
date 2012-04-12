@@ -35,33 +35,91 @@ public class DossMath12 {
 	private static Ordre test;
 	
 	public static void main(String[] args) throws MathException {
-//			question1();
-//			question2();
-//			question3();
-//			question4();
-//			question5();
-//		//testSal();
-//		//test();
-//			question6();
+			question1();
+			question2();
+			question3();
+			question4();
+			question5();
+		//testSal();
+		//test();
+			question6();
 			question7();
 	} // main
 	
 	public static void question1(){
 		System.out.println("Question 1");
 		System.out.println("******************************************************************************************");
+		
 		System.out.println("Réponse 1.1");
-		lister(COL.depart().moins(COL.domaine()), "PERSONNELS");
+		question11();
+		
 		System.out.println("Réponse 1.2");
-		lister(CPT.arrivee().moins(CPT.image()), "QUALIFICATIONS");
+		question12();
+		
 		System.out.println("Réponse 1.3");
+		question13();
+		
+		System.out.println("Réponse 1.4");
+		question14();
+		
+		System.out.println("Réponse 1.5");
+		question15("Antoinet");
+		
+		System.out.println("Réponse 1.6");
+		question16();
+		
+		System.out.println("Réponse 1.7");
+		question17();
+	}
+	
+	/**
+	 * Membres ne participant pas à au moins un projet
+	 */
+	private static void question11(){
+		Ensemble  ensemble = COL.depart().moins(COL.domaine());
+		if(ensemble.estVide())
+			System.out.println("Tous les membres du personnel collaborent au moins à un projet.");
+		else
+			lister(ensemble, "PERSONNELS");
+	}
+	/**
+	 * TODO com
+	 */
+	private static void question12(){
+		Ensemble  ensemble = CPT.arrivee().moins(CPT.image());
+		if(ensemble.estVide())
+			System.out.println("Pour toute qualification, on peut trouver un membre du personnel compétent.");
+		else
+			lister(ensemble, "QUALIFICATIONS");
+	
+	}
+	/**
+	 * Question 1.3
+	 * Enoncé : Vérifiez que la relation Sup est acyclique.
+	 */
+	private static void question13(){
 		if(SUP.acyclique()) System.out.println("La relation SUP est acyclique");
 		else System.out.println("La relation SUP n'est pas acyclique");
-		System.out.println("Réponse 1.4");
-		LAP = (CCN.reciproque()).apres(CPT); // Pas sur
-		System.out.println("Réponse 1.5");
-		lister(LAP.imageReciproque(new Elt(numéro("Antoinet", "PROJETS"))), "PERSONNELS");
-		//Question 1.6, je m'en charge mtn ! (24/03/2012)
-		System.out.println("Réponse 1.6");
+	}
+	
+	/**
+	 * TODO Com
+	 */
+	private static void question14(){
+		LAP = (CCN.reciproque()).apres(CPT);
+	}
+	/**
+	 * TODO com
+	 * @param projet
+	 */
+	private static void question15(String projet){
+		System.out.println("Personnel affectable au projet "+projet);
+		lister(LAP.imageReciproque(new Elt(numéro(projet, "PROJETS"))), "PERSONNELS");
+	}
+	/**
+	 * TODO com
+	 */
+	private static void question16(){
 		int max = 0;
 		Iterator<Elt> itMax = LAP.domaine().iterator();
 		while(itMax.hasNext()){
@@ -73,10 +131,13 @@ public class DossMath12 {
 			Elt elem = itMax.next();
 			if(LAP.degreDeSortie(elem) == max) ens.ajouter(elem);
 		}
-		System.out.println("Membres du personnel ayant le maximum d'affectations possibles");
+		System.out.println("Membres du personnel ayant le maximum d'affectations possibles:");
 		lister(ens, "PERSONNELS");
-		
-		System.out.println("Réponse 1.7");
+	}
+	/**
+	 * TODO com
+	 */
+	private static void question17(){
 		affImpossible = COL.clone();
 		affImpossible.enlever(LAP);
 		if(affImpossible.cardinal()!=0){
@@ -92,7 +153,6 @@ public class DossMath12 {
 			System.out.println("Aucun membre du personnel ne collabore à un projet ne faisant pas partie de ses affectations possibles.");
 		}
 	}
-	
 	public static void question2(){
 		System.out.println("\nQuestion 2");
 		System.out.println("******************************************************************************************");
@@ -398,68 +458,7 @@ public class DossMath12 {
 			compteur++;
 			
 		}
-		return compteur;
-		//	    int niveau = 0;
-//	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem))).cardinal()==1){
-//	    	System.out.println("Marjor :");
-//	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
-//	    	System.out.println("Major moins");
-//	    	lister(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)), "PERSONNELS");
-//	    	System.out.println("Minimaux");
-//	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem))),"PERSONNELS");
-//	    	System.out.println("minimaux moins");
-//	    	lister(hierarchie.minimaux(hierarchie.major(new Ensemble(elem)).moins(new Ensemble(elem)))),"PERSONNELS");
-//	    	return 1;
-//	    }
-//	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
-//	        ens = ens.moins(new Ensemble(elem));
-//	        lister(ens,"PERSONNELS");
-//	        Iterator<Elt> it = ens.iterator();
-//	        while(it.hasNext()){
-//	             Elt el = it.next();   
-//	            niveau = supChemin(el);
-//	            
-//	        }
-//	 
-//	        return 1 +niveau;
-//		int min = Integer.MAX_VALUE;
-//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(16)), hierarchie.nombreDeSommetEntre(elem, new Elt(15)));
-//		min = Math.min(hierarchie.nombreDeSommetEntre(elem, new Elt(9)), min);
-//		return min;
-	
-//		int[] tab = new int[100];
-//		if(hierarchie.major(new Ensemble(elem)).cardinal()() == 1){
-//			return 1;
-//		}
-//		
-//		Ensemble ens = hierarchie.major(new Ensemble(elem));
-//		Iterator<Elt> it = ens.iterator();
-//		int i = 0;
-//		
-//		while(it.hasNext()){
-//			Elt el = it.next();
-//			tab[i] = supChemin(elem);
-//		}
-
-//		
-//	    int niveau = 0;
-//	    int min = 100;
-//	    if(hierarchie.minimaux(hierarchie.major(new Ensemble(elem))).cardinal()==1){
-//	    	return 1;
-//	    }
-//	        Ensemble ens = hierarchie.minimaux(hierarchie.major(new Ensemble(elem)));
-//	        ens = ens.moins(new Ensemble(elem));
-//	        Iterator<Elt> it = ens.iterator();
-//	        while(it.hasNext()){
-//	             Elt el = it.next();   
-//	            niveau = supChemin(el);
-//	            if(niveau < min){
-//	            	min = niveau;
-//	            }
-//	        }
-//	 
-//	        return min+1;
-		
+		return compteur;	
 	}
 	
 	
@@ -637,12 +636,11 @@ public class DossMath12 {
 		System.out.println("Réponse question 7.2");
 		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
 		//System.out.println(EST_PROCHE_DE.depart().estEgalA(EST_PROCHE_DE.arrivee()));
-		//Equivalence eq = new Equivalence(CCN.depart());
 		Equivalence EPD = new Equivalence(EST_PROCHE_DE);
-		//		lister(EST_PROCHE_DE.depart(), "PROJETS");
+//		lister(EST_PROCHE_DE.depart(), "PROJETS");
 //		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
-		//lister(EPD.(new Elt(numéro("PAMAL", "PROJETS"))),"PROJETS");
+		lister(EPD.classe(new Elt(numéro("PAMAL", "PROJETS"))),"PROJETS");
 	}
 	
 	
