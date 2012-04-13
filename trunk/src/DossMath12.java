@@ -35,12 +35,12 @@ public class DossMath12 {
 	private static Ordre test;
 	
 	public static void main(String[] args) throws MathException {
-			question1();
-			question2();
-			question3();
-			question4();
-			question5();
-			question6();
+//			question1();
+//			question2();
+//			question3();
+//			question4();
+//			question5();
+//			question6();
 			question7();
 	} // main
 	
@@ -557,7 +557,10 @@ public class DossMath12 {
 		System.out.println("Réponse question 7.2");
 		//System.out.println(EST_PROCHE_DE.depart().estEgalA(EST_PROCHE_DE.arrivee()));
 		Equivalence EPD = new Equivalence(CCN.reciproque().apres(CCN).clone());
-//		lister(EST_PROCHE_DE.depart(), "PROJETS");
+		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
+		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL","PROJETS"))), "PROJETS");
+		
+		//		lister(EST_PROCHE_DE.depart(), "PROJETS");
 //		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
 		Ensemble[] test = EPD.quotient();
