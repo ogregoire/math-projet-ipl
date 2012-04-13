@@ -40,8 +40,6 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
-		//testSal();
-		//test();
 			question6();
 			question7();
 	} // main
@@ -330,7 +328,6 @@ public class DossMath12 {
 	private static void peutSuivreLaFormationEnInitialisation(){
 		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
 		Iterator<Couple> itCol = COL.iterator();
-		//Iterator<Couple> it = CCN.iterator();
 		
 
 		while(itCol.hasNext()){
@@ -396,18 +393,15 @@ public class DossMath12 {
 		hierarchie = new Ordre(SUP.reciproque());
 		lister(hierarchie.maximaux(SUP.depart()),"PERSONNELS");
 		System.out.println("Réponse 5.2 : ");
-		// TO DO
 		Iterator<Elt> it = SUP.depart().iterator();
 		String[] t = tPers;
 		Ordre or =  new Ordre(SUP.reciproque());
 		while(it.hasNext()){
 			Elt elem = it.next();
-			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1); // Ligne OK les patrons on comme salaire 3800
-			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME; // la prime me semble ok
+			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
+			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME;
 			salaire += bonus(elem);
-			
-			//lister(new Ensemble(elem), "PERSONNELS");
-			System.out.println("Salaire de " +t[elem.val()]+" : "+ salaire);
+			System.out.println("Salaire de " +t[elem.val()]+" : "+ Math.floor(salaire));
 			
 			
 		}
@@ -418,13 +412,13 @@ public class DossMath12 {
 		double salaire = 0, prime = 0, bonus =0;
 		while(it.hasNext()){
 			Elt membre = it.next();
-			salaire += BASE * Math.pow(DELTA, supChemin(membre)-1); // Ligne OK les patrons on comme salaire 3800
-			prime += or.minor(new Ensemble(membre)).moins(new Ensemble(membre)).cardinal()*PRIME; // la prime me semble ok
+			salaire += BASE * Math.pow(DELTA, supChemin(membre)-1); 
+			prime += or.minor(new Ensemble(membre)).moins(new Ensemble(membre)).cardinal()*PRIME; 
 			bonus += bonus(membre);
 		}
 		
-		salaire = salaire * 12 + prime + bonus;
-		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ salaire);
+		salaire = (salaire + prime)* 12 + bonus;
+		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ Math.floor(salaire));
 		
 		System.out.println("Réponse question 5.4");
 		double max = 0;
@@ -502,120 +496,6 @@ public class DossMath12 {
 		return compteur;	
 	}
 	
-	
-	public static void test(){
-		Iterator<Couple> it = SUP.iterator();
-		while(it.hasNext()){
-			Couple c = it.next();
-			System.out.println("Relation de " + c.getx().val() + " vers " + c.gety().val());
-		}
-		
-		Iterator<Elt> ite = hierarchie.depart().iterator();
-		while(ite.hasNext()){
-			Elt elem = ite.next();
-			System.out.println("Sup Chemin de " + elem.val() + "-> " + supChemin(elem));
-		}
-		System.out.println("Majorant :");
-		lister(hierarchie.major(new Ensemble(new Elt(12))),"PERSONNELS");
-		System.out.println("Suprenum");
-		
-		//lister(new Ensemble(hierarchie.supremum(hierarchie.major(new Ensemble(new Elt(12))))),"PERSONNELS");
-		Elt element = hierarchie.supremum(hierarchie.major(new Ensemble(new Elt(12))));
-		if(element == null) System.out.println("LOOOOL");
-		
-		//lister(new Ensemble(element), "PERSONNELS");
-
-//		System.out.println("Nombre de somment entre 12 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(15)));
-//		System.out.println("Nombre de somment entre 12 et 1 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(1)));
-//		System.out.println("Nombre de somment entre 12 et 16 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(16)));
-//		System.out.println("Nombre de somment entre 12 et 33 " + hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(33)));
-//		System.out.println("Nombre de somment entre 9 et 9 " + hierarchie.nombreDeSommetEntre(new Elt(9), new Elt(9)));
-//		System.out.println("Nombre de somment entre 8 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(8), new Elt(15)));
-//		System.out.println("Nombre de somment entre 4 et 15 " + hierarchie.nombreDeSommetEntre(new Elt(4), new Elt(15)));
-//		System.out.println("Chemin de 12 vers 9 :"+hierarchie.nombreDeSommetEntre(new Elt(12), new Elt(9)));
-//		
-
-
-		
-	}
-	
-	public static void testSal(){
-		Iterator<Elt> itS = hierarchie.arrivee().iterator();
-		int compteur=0;
-		int[] sal = new int[hierarchie.depart().cardinal()+2];
-		sal[1] = 3485;
-		sal[2] = 2473;
-		sal[3] = 2603;
-		sal[4] = 1202;
-		sal[5] = 826;
-		sal[6] = 2053;
-		sal[7] = 826;
-		sal[8] = 3277;
-		sal[9] = 6559;
-		sal[10] = 3250;
-		sal[11] = 2137;
-		sal[12] = 3385;
-		sal[13] = 1869;
-		sal[14] = 1936;
-		sal[15] = 6357;
-		sal[16] = 4407;
-		sal[17] = 2003;
-		sal[18] = 876;
-		sal[19] = 1352;
-		sal[20] = 1903;
-		sal[21] = 2403;
-		sal[22] = 3200;
-		sal[23] = 826;
-		sal[24] = 1552;
-		sal[25] = 1309;
-		sal[26] = 2950;
-		sal[27] = 2038;
-		sal[28] = 1936;
-		sal[29] = 5033;
-		sal[30] = 2837;
-		sal[31] = 2328;
-		sal[32] = 1869;
-		sal[33] = 1569;
-		sal[34] = 2137;
-		sal[35] = 2477;
-		sal[36] = 3207;
-		sal[37] = 2837;
-		sal[38] = 1101;
-		sal[39] = 1576;
-		sal[40] = 2137;
-		sal[41] = 2153;
-		sal[42] = 1535;
-		sal[43] = 1302;
-		sal[44] = 3138;
-		sal[45] = 2187;
-		sal[46] = 1653;
-		sal[47] = 1603;
-		sal[48] = 1337;
-		sal[49] = 1202;
-		
-			
-		Ordre or =  new Ordre(SUP.reciproque());
-		while(itS.hasNext()){
-			double salaire = 0, prime = 0, bonus =0;
-			Elt elem = itS.next();
-			salaire += BASE * Math.pow(DELTA, supChemin(elem)-1); // Ligne OK les patrons on comme salaire 3800
-			prime += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME; // la prime me semble ok
-			bonus += bonus(elem);
-			salaire+=prime+bonus;
-			salaire = Math.floor(salaire);
-			if(salaire==sal[elem.val()]){
-				compteur++;
-				System.out.println("Salaire de " +elem.val()+ " :" + salaire + " : correct ! " + sal[elem.val()] );
-			}else{
-				System.out.println("Salaire de " +elem.val()+ " :" + salaire + " : incorrect !" + sal[elem.val()]);
-			}
-			if(elem.val()==32) System.out.println("Je suis le truc qui bug ! : " + (salaire-prime-bonus)+ " "+ prime + " " + bonus);
-		}	
-		System.out.println("Il y a : " + compteur + " reponses correctes " + hierarchie.depart().cardinal());
-		
-		if(SUP.contient(new Elt(8), new Elt(32))) System.out.println("MEGA LOOOL");
-	}
-	
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
@@ -641,7 +521,7 @@ public class DossMath12 {
 		
 		System.out.println("Ordre initialisé !");
 		System.out.println("Réponse 6.2 : ");
-		System.out.println("Cet ordre peut ne pas être total. Si deux qualifications ont les mêmes proportions, aucune ne sera moins prioritaires que l'une que l'autre. Elles n'auraient donc pas de lien entre elles.");
+		System.out.println("Cet ordre n'est pas total. Deux qualifications ont les mêmes proportions, elles ne sont donc pas comparables.\nPar contre, avec d'autres données, il est possible que cet ordre soit total.");
 		System.out.println("Réponse 6.3 : ");
 
 		int compteur = 1 ;
@@ -675,13 +555,21 @@ public class DossMath12 {
 		System.out.println("Réponse question 7.1");
 		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétriquet et transitive. Ce qui est le cas de la relation 'proche'");
 		System.out.println("Réponse question 7.2");
-		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
 		//System.out.println(EST_PROCHE_DE.depart().estEgalA(EST_PROCHE_DE.arrivee()));
-		Equivalence EPD = new Equivalence(EST_PROCHE_DE);
+		Equivalence EPD = new Equivalence(CCN.reciproque().apres(CCN).clone());
 //		lister(EST_PROCHE_DE.depart(), "PROJETS");
 //		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
-		lister(EPD.classe(new Elt(numéro("PAMAL", "PROJETS"))),"PROJETS");
+		Ensemble[] test = EPD.quotient();
+		Elt elem = new Elt(numéro("PAMAL", "PROJETS"));
+		for(int i=0;i<test.length;i++){
+			System.out.println("test : " + i);
+			
+			if(test[i].contient(elem)){
+				lister(test[i].moins(new Ensemble(elem)), "PROJETS");
+				break;
+			}
+		}
 	}
 	
 	
