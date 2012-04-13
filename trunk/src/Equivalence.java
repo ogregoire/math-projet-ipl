@@ -122,7 +122,8 @@ public class Equivalence implements RelationInterface
 
 	public boolean contient(Elt x, Elt y)
 	{
-		return this.tabRep[x.val()] == this.tabRep[y.val()];
+		return this.tabRep[x.val()].estEgalA(this.tabRep[y.val()]);
+		//return this.tabRep[x.val()] == this.tabRep[y.val()];
 	}
 
 	@Override
@@ -162,7 +163,6 @@ public class Equivalence implements RelationInterface
 			{
 				Elt y = it.next();
 				if (this.contient(x, y)){
-					System.out.println(y.val());
 					cx.ajouter(y);
 				}
 			
@@ -171,7 +171,7 @@ public class Equivalence implements RelationInterface
 		}
 		else return null;
 	}
-
+	
 	public int nbreClasses()
 	{
 		Ensemble dejaVu = new Ensemble();
