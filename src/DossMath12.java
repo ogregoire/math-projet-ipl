@@ -264,17 +264,51 @@ public class DossMath12 {
 		}
 		
 	}
+	
+//	private static void question21(){
+//		
+//	}
+//	
+//	private static void question22(){
+//		
+//	}
 
+	/**
+	 * TODO com
+	 */
 	public static void question3(){
 		System.out.println("\nQuestion 3");
 		System.out.println("******************************************************************************************");
-		// TO DO
 		System.out.println("Question 3.1");
-		peutSuivreLaFormationEnInit();
-		System.out.println("peut suivre la formation en (Relation PSF) Initialisé");
+		question31();
+		
 		System.out.println("Question 3.2");
-		lister(PSF.imageDirecte(numéro("KOEKELBERG Basile", "PERSONNELS")), "QUALIFICATIONS");
+		question32("KOEKELBERG Basile");
+		
 		System.out.println("Question 3.3");
+		question33();
+	}
+	/**
+	 * TODO com
+	 */
+	private static void question31(){
+		peutSuivreLaFormationEnInitialisation();
+		System.out.println("peut suivre la formation en (Relation PSF) Initialisé");
+	}
+	
+	/**
+	 * TODO com
+	 * @param personnel
+	 */
+	private static void question32(String personnel){
+		System.out.println("Formation(s) que peut suivre "+ personnel +" :");
+		lister(PSF.imageDirecte(numéro(personnel, "PERSONNELS")), "QUALIFICATIONS");
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question33(){
 		Ensemble quest33 = new Ensemble();
 		Iterator<Elt> it = PSF.depart().iterator();
 		while(it.hasNext()){
@@ -283,11 +317,17 @@ public class DossMath12 {
 				quest33.ajouter(el);
 			}
 		}
-		lister(quest33,"PERSONNELS");
+		if(!quest33.estVide()){
+			System.out.println("Membre(s) du personnel qui ne peut(vent) pas suivre de formation : ");
+			lister(quest33,"PERSONNELS");
+		}else System.out.println("Aucun membre du personnel ne doit suivre une formation");
+		
 	}
 	
-	
-	private static void peutSuivreLaFormationEnInit(){
+	/**
+	 * TODO com
+	 */
+	private static void peutSuivreLaFormationEnInitialisation(){
 		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
 		Iterator<Couple> itCol = COL.iterator();
 		//Iterator<Couple> it = CCN.iterator();
@@ -313,6 +353,7 @@ public class DossMath12 {
 		}
 	}
 
+	
 	public static void question4(){
 		System.out.println("\nQuestion 4");
 		System.out.println("******************************************************************************************");
