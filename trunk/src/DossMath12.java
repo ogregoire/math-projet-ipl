@@ -389,11 +389,35 @@ public class DossMath12 {
 	public static void question5(){
 		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
-		System.out.println("Réponse 5.1 : ");
+		
 		hierarchie = new Ordre(SUP.reciproque());
-		lister(hierarchie.maximaux(SUP.depart()),"PERSONNELS");
+		
+		System.out.println("Réponse 5.1 : ");
+		question51();
+		
 		System.out.println("Réponse 5.2 : ");
+		question52();
+		
+		System.out.println("Réponse question 5.3");
+		question53();
+		
+		System.out.println("Réponse question 5.4");
+		question54();
+	}
+	/**
+	 * TODO com 
+	 */
+	private static void question51(){
+		System.out.println("Liste des patrons :");
+		lister(hierarchie.maximaux(SUP.depart()),"PERSONNELS");
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question52(){
 		Iterator<Elt> it = SUP.depart().iterator();
+		
 		String[] t = tPers;
 		Ordre or =  new Ordre(SUP.reciproque());
 		while(it.hasNext()){
@@ -405,10 +429,14 @@ public class DossMath12 {
 			
 			
 		}
-		
-		
-		System.out.println("Réponse question 5.3");
-		it = SUP.depart().iterator();
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question53(){
+		Iterator <Elt> it = SUP.depart().iterator();
+		Ordre or =  new Ordre(SUP.reciproque());
 		double salaire = 0, prime = 0, bonus =0;
 		while(it.hasNext()){
 			Elt membre = it.next();
@@ -419,14 +447,19 @@ public class DossMath12 {
 		
 		salaire = (salaire + prime)* 12 + bonus;
 		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ Math.floor(salaire));
-		
-		System.out.println("Réponse question 5.4");
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question54(){
 		double max = 0;
 		Elt bestInvest= null;
 		Relation COLTemp = COL.clone();
 		
 		//FINTemp.arrivee().enlever(FIN.imageDirecte(numéro("BISTRO Alonzo", "PERSONNELS")));
-		 it = COLTemp.arrivee().iterator();
+		
+		Iterator<Elt> it = COLTemp.arrivee().iterator();
 		while(it.hasNext()){
 			Elt proj = it.next();
 			// calcule du bonus pour ce projet là
@@ -444,8 +477,12 @@ public class DossMath12 {
 		
 		lister(new Ensemble(bestInvest), "PROJETS");
 	}
-
-
+	
+	/**
+	 * TODO com
+	 * @param elem
+	 * @return
+	 */
 	public static double bonus(Elt elem){
 		double bonus = 0;
 		double temp=0;
@@ -464,6 +501,11 @@ public class DossMath12 {
 		return bonus;
 	}
 	
+	/**
+	 * TODO com
+	 * @param elem
+	 * @return
+	 */
 	public static int supChemin(Elt elem){
 		
 		int compteur = 1;
@@ -560,7 +602,7 @@ public class DossMath12 {
 		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
 		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL","PROJETS"))), "PROJETS");
 		
-		//		lister(EST_PROCHE_DE.depart(), "PROJETS");
+//		lister(EST_PROCHE_DE.depart(), "PROJETS");
 //		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
 		Ensemble[] test = EPD.quotient();
@@ -573,6 +615,8 @@ public class DossMath12 {
 				break;
 			}
 		}
+		System.out.println("####");
+		lister(EPD.classe(new Elt(numéro("PAMAL", "PROJETS"))), "PROJETS");
 	}
 	
 	
