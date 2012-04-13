@@ -34,13 +34,17 @@ public class DossMath12 {
 	private static Ordre hierarchie;
 	private static Ordre test;
 	
+	private static Relation aPourChef;
+	
+	private static Ordre moinsPrio;
+	
 	public static void main(String[] args) throws MathException {
-//			question1();
-//			question2();
-//			question3();
-//			question4();
-//			question5();
-//			question6();
+			question1();
+			question2();
+			question3();
+			question4();
+			question5();
+			question6();
 			question7();
 	} // main
 	
@@ -151,6 +155,10 @@ public class DossMath12 {
 			System.out.println("Aucun membre du personnel ne collabore à un projet ne faisant pas partie de ses affectations possibles.");
 		}
 	}
+	
+	/**
+	 * TODO com
+	 */
 	public static void question2(){
 		System.out.println("\nQuestion 2");
 		System.out.println("******************************************************************************************");
@@ -354,9 +362,19 @@ public class DossMath12 {
 	public static void question4(){
 		System.out.println("\nQuestion 4");
 		System.out.println("******************************************************************************************");
-		System.out.println("Réponse 4.1 : ");
 		
-		Relation aPourChef = new Relation(COL.arrivee(), COL.depart());
+		System.out.println("Réponse 4.1 : ");
+		question41();
+
+		System.out.println("Réponse 4.2 : ");
+		question42();
+		
+		System.out.println("Réponse 4.3 : ");
+		question43();
+	}
+	
+	private static void question41(){
+		aPourChef = new Relation(COL.arrivee(), COL.depart());
 		hierarchie = new Ordre(SUP);
 		Iterator<Elt> it = COL.arrivee().iterator();
          while(it.hasNext()){
@@ -366,11 +384,13 @@ public class DossMath12 {
                  aPourChef.ajouter(elem,max);
              }
          }
-		
-		
-		System.out.println("Réponse 4.2 : ");
+	}
+	
+	private static void question42(){
 		lister(COL.arrivee().moins(aPourChef.domaine()),"PROJETS");
-		System.out.println("Réponse 4.3 : ");
+	}
+	
+	private static void question43(){
 		Iterator<Elt> itMP = aPourChef.image().iterator();
 		boolean chefPlPro = true;
 		while(itMP.hasNext()){
@@ -385,7 +405,7 @@ public class DossMath12 {
 		}
 		if(!chefPlPro) System.out.println("Il n'y a pas de membre du personnel chef de plusieurs projets");
 	}
-
+	
 	public static void question5(){
 		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
@@ -456,9 +476,6 @@ public class DossMath12 {
 		double max = 0;
 		Elt bestInvest= null;
 		Relation COLTemp = COL.clone();
-		
-		//FINTemp.arrivee().enlever(FIN.imageDirecte(numéro("BISTRO Alonzo", "PERSONNELS")));
-		
 		Iterator<Elt> it = COLTemp.arrivee().iterator();
 		while(it.hasNext()){
 			Elt proj = it.next();
@@ -467,8 +484,6 @@ public class DossMath12 {
 			double nbFinancier = FIN.imageReciproque(proj).cardinal() +1 ;
 			if(nbFinancier == 0) nbFinancier = 1;
 				double bonusCourant = (250*nbCollabo) / nbFinancier;
-				//System.out.println("Bonus courant :" + bonusCourant);
-				//lister(new Ensemble(proj), "PROJETS");
 				if(bonusCourant > max){
 					max = bonusCourant;
 					bestInvest = new Elt(proj);
@@ -483,7 +498,7 @@ public class DossMath12 {
 	 * @param elem
 	 * @return
 	 */
-	public static double bonus(Elt elem){
+	private static double bonus(Elt elem){
 		double bonus = 0;
 		double temp=0;
 		if(FIN.depart().contient(elem)){
@@ -506,7 +521,7 @@ public class DossMath12 {
 	 * @param elem
 	 * @return
 	 */
-	public static int supChemin(Elt elem){
+	private static int supChemin(Elt elem){
 		
 		int compteur = 1;
 		Ensemble patrons = 	hierarchie.maximaux(SUP.depart());
@@ -538,11 +553,33 @@ public class DossMath12 {
 		return compteur;	
 	}
 	
+	/**
+	 * TODO com
+	 */
 	public static void question6(){
 		System.out.println("Question 6");
 		System.out.println("******************************************************************************************");
+		
 		System.out.println("Réponse 6.1 : ");
-		Ordre moinsPrio = new Ordre(CPT.arrivee());
+		question61();
+		
+		System.out.println("Réponse 6.2 : ");
+		question62();
+		
+		System.out.println("Réponse 6.3 : ");
+		question63();
+
+		
+		
+		
+		
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question61(){
+		moinsPrio = new Ordre(CPT.arrivee());
 		Iterator<Elt> it = moinsPrio.depart().iterator();
 		while(it.hasNext()){
 			Elt elem = it.next();
@@ -562,10 +599,20 @@ public class DossMath12 {
 		}
 		
 		System.out.println("Ordre initialisé !");
-		System.out.println("Réponse 6.2 : ");
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question62(){
 		System.out.println("Cet ordre n'est pas total. Deux qualifications ont les mêmes proportions, elles ne sont donc pas comparables.\nPar contre, avec d'autres données, il est possible que cet ordre soit total.");
-		System.out.println("Réponse 6.3 : ");
 
+	}
+	
+	/**
+	 * TODO com
+	 */
+	private static void question63(){
 		int compteur = 1 ;
 		Ensemble max = moinsPrio.maximaux(moinsPrio.arrivee());
 		while(!max.estVide()){
@@ -582,14 +629,7 @@ public class DossMath12 {
 			
 			compteur++;
 		}
-		
-		
-		
 	}
-	
-	
-	
-
 
 	public static void question7(){
 		System.out.println("Question 7");
