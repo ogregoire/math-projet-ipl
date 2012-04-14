@@ -375,7 +375,7 @@ public class DossMath12 {
 	
 	private static void question41(){
 		aPourChef = new Relation(COL.arrivee(), COL.depart());
-		hierarchie = new Ordre(SUP);
+		hierarchie = new Ordre(SUP.reciproque());
 		Iterator<Elt> it = COL.arrivee().iterator();
          while(it.hasNext()){
              Elt elem = it.next();
@@ -635,28 +635,12 @@ public class DossMath12 {
 		System.out.println("Question 7");
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse question 7.1");
-		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétriquet et transitive. Ce qui est le cas de la relation 'proche'");
+		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétrique et et transitive. Ce qui n'est pas le cas de la relation 'proche', qui n'est pas transitive.");
+		System.out.println("Un projet A peut concerner deux qualifications D et E, si le projet B concerne la qual D et le projet C concerne la qual E, cela voudrait dire que B et C sont proches, ce qui ne devrait pas être le cas");
 		System.out.println("Réponse question 7.2");
-		//System.out.println(EST_PROCHE_DE.depart().estEgalA(EST_PROCHE_DE.arrivee()));
-		Equivalence EPD = new Equivalence(CCN.reciproque().apres(CCN).clone());
 		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
-		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL","PROJETS"))), "PROJETS");
-		
-//		lister(EST_PROCHE_DE.depart(), "PROJETS");
-//		lister(EST_PROCHE_DE.arrivee(),"PROJETS");
 		System.out.println("Réponse question 7.3");
-		Ensemble[] test = EPD.quotient();
-		Elt elem = new Elt(numéro("PAMAL", "PROJETS"));
-		for(int i=0;i<test.length;i++){
-			System.out.println("test : " + i);
-			
-			if(test[i].contient(elem)){
-				lister(test[i].moins(new Ensemble(elem)), "PROJETS");
-				break;
-			}
-		}
-		System.out.println("####");
-		lister(EPD.classe(new Elt(numéro("PAMAL", "PROJETS"))), "PROJETS");
+		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL","PROJETS"))), "PROJETS");
 	}
 	
 	

@@ -26,17 +26,19 @@ public class Equivalence implements RelationInterface
 		if (!sousjac.estVide())
 		{
 			Relation rr = ((Relation) r).clone();
+			rr.cloReflex();
 			rr.cloSym();
 			rr.cloTrans();
-			rr.cloReflex();
+			
 			Iterator<Elt> it = sousjac.iterator();
 			while (it.hasNext())
 			{
 				Elt x = it.next();
 				Elt rep = new Elt(MAX);
-				do
+				do{
 					rep = rep.succ(); // recherche du représentant
-				while (!rr.contient(x, rep)); // de la classe de x
+					System.out.println("test  rep : " + rep.val());
+				}while (rr.contient(x, rep)); // de la classe de x
 				this.tabRep[x.val()] = rep;
 			}
 		}
@@ -71,32 +73,17 @@ public class Equivalence implements RelationInterface
 
 	public void ajouter(Elt x, Elt y)
 	{
-		if (sousjac.contient(x) && sousjac.contient(y))
-		{
-			Elt rx = tabRep[x.val()];
-			Elt ry = tabRep[y.val()];
-			for (int i = 1; i <= MAX; i++)
-			{
-				if (sousjac.contient(new Elt(i)) && tabRep[i].estEgalA(rx)) tabRep[i] = ry;
-			}
-		}
-		else if (sousjac.contient(x))
-		{
-			sousjac.ajouter(y);
-			tabRep[y.val()] = tabRep[x.val()];
-		}
-		else if (sousjac.contient(y))
-		{
-			sousjac.ajouter(x);
-			tabRep[x.val()] = tabRep[y.val()];
-		}
-		else
-		{
-			sousjac.ajouter(x);
-			sousjac.ajouter(y);
-			tabRep[x.val()] = x;
-			tabRep[y.val()] = x;
-		}
+		if (!sousjac.contient(x)) throw new MathException();
+		   if (!sousjac.contient(y)) throw new MathException();
+		   if (!this.contient(x,y)){
+		      Elt rx = tabRep[x.val()];
+		      Iterator<Elt> itS = sousjac.iterator();
+		      while (itS.hasNext()){
+		         Elt e = itS.next();
+		         if (tabRep[e.val()].estEgalA(rx))
+		             tabRep[e.val()] = tabRep[y.val()];
+		      }	
+		   }
 	}
 
 	public void ajouterSommet(Elt x)
@@ -122,8 +109,10 @@ public class Equivalence implements RelationInterface
 
 	public boolean contient(Elt x, Elt y)
 	{
-		return this.tabRep[x.val()].estEgalA(this.tabRep[y.val()]);
-		//return this.tabRep[x.val()] == this.tabRep[y.val()];
+		  if (!sousjac.contient(x)) throw new MathException();
+		  if (!sousjac.contient(y)) throw new MathException();
+		  return tabRep[x.val()].estEgalA(tabRep[y.val()]);
+
 	}
 
 	@Override
@@ -140,11 +129,10 @@ public class Equivalence implements RelationInterface
 
 	public void enlever(Elt x, Elt y)
 	{
-		if (this.contient(x, y) && this.classe(x).cardinal() == 2)
-		{
-			this.tabRep[x.val()] = x;
-			this.tabRep[y.val()] = y;
+		 if (this.contient(x,y) && this.classe(x).cardinal() == 2){
+			 this.tabRep[x.val()] = x; this.tabRep[y.val()] = y;   
 		}
+		   else throw new MathException();
 	}
 
 	@Override
@@ -236,4 +224,29 @@ public class Equivalence implements RelationInterface
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void ajouterAuSousJacent(Elt x){
+		if (!sousjac.contient(x)){      
+			this.sousjac.ajouter(x);     
+			this.tabRep[x.val()] = x;   
+		}	
+	}
+
+	public void enleverDuSousJacent(Elt x){
+	   if (!sousjac.contient(x)) return;
+	   if (this.tabRep[x.val()].estEgalA(x)){
+	      Ensemble classe = this.classe(x);
+	      classe.enlever(x);
+	      if (!classe.estVide()){
+	         Elt rep = classe.unElement();
+	         Iterator<Elt> it = classe.iterator();
+	         while(it.hasNext()){
+	            this.tabRep[it.next().val()] = rep;
+	         }
+	      } 
+	   }
+	   this.tabRep[x.val()] = null;
+	   this.sousjac.enlever(x);   
+	}
+
 }
