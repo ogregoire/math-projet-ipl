@@ -596,7 +596,7 @@ public class DossMath12 {
 	 * Question 6
 	 */
 	public static void question6(){
-		System.out.println("Question 6");
+		System.out.println("\nQuestion 6");
 		System.out.println("******************************************************************************************");
 		
 		System.out.println("Réponse 6.1 : ");
@@ -676,7 +676,7 @@ public class DossMath12 {
 	 * Question 7
 	 */
 	public static void question7(){
-		System.out.println("Question 7");
+		System.out.println("\nQuestion 7");
 		System.out.println("******************************************************************************************");
 		
 		System.out.println("Réponse question 7.1");
