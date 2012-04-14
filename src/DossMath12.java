@@ -218,12 +218,16 @@ public class DossMath12 {
 		
 		
 		System.out.println("Catégorie 1 : ");
+		System.out.println("Aucun financement");
 		lister(cat1, "PERSONNELS");
 		System.out.println("Catégorie 2 : ");
+		System.out.println("Aucun soutien financier lucide");
 		lister(cat2, "PERSONNELS");
 		System.out.println("Catégorie 3 : ");
+		System.out.println("Des soutiens financiers lucides et des autres");
 		lister(cat3, "PERSONNELS");
 		System.out.println("Catégorie 4 : ");
+		System.out.println("Que des soutiens financiers lucides");
 		lister(cat4, "PERSONNELS");
 		
 		System.out.println("Réponse 2.2");
@@ -690,7 +694,7 @@ public class DossMath12 {
 	 * Enoncé : Est-ce-que la relation « est proche de » est, à priori, une équivalence ? Justifiez votre réponse !
 	 */
 	private static void question71(){
-		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétrique et et transitive. Ce qui n'est pas le cas de la relation 'proche', qui n'est pas transitive.");
+		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétrique et transitive. Ce qui n'est pas le cas de la relation 'proche', qui n'est pas transitive.");
 		System.out.println("Un projet A peut concerner deux qualifications D et E, si le projet B concerne la qualification D et le projet C concerne la qualification E, cela voudrait dire que les projets B et C sont proches, ce qui ne devrait pas être le cas");
 	}
 	
