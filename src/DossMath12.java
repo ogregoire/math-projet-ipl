@@ -38,6 +38,9 @@ public class DossMath12 {
 	
 	private static Ordre moinsPrio;
 	
+	static double coutSal =0;
+	static double bonusTot = 0;
+	
 	public static void main(String[] args) throws MathException {
 			question1();
 			question2();
@@ -444,6 +447,7 @@ public class DossMath12 {
 			Elt elem = it.next();
 			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
 			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME;
+			coutSal+=salaire;
 			salaire += bonus(elem);
 			System.out.println("Salaire de " +t[elem.val()]+" : "+ Math.floor(salaire));
 			
@@ -456,17 +460,14 @@ public class DossMath12 {
 	 */
 	private static void question53(){
 		Iterator <Elt> it = SUP.depart().iterator();
-		Ordre or =  new Ordre(SUP.reciproque());
-		double salaire = 0, prime = 0, bonus =0;
+		double bonus =0;
 		while(it.hasNext()){
 			Elt membre = it.next();
-			salaire += BASE * Math.pow(DELTA, supChemin(membre)-1); 
-			prime += or.minor(new Ensemble(membre)).moins(new Ensemble(membre)).cardinal()*PRIME; 
 			bonus += bonus(membre);
 		}
 		
-		salaire = (salaire + prime)* 12 + bonus;
-		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ Math.floor(salaire));
+		coutSal = (coutSal)* 12 + bonus;
+		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ Math.floor(coutSal));
 	}
 	
 	/**
@@ -479,7 +480,6 @@ public class DossMath12 {
 		Iterator<Elt> it = COLTemp.arrivee().iterator();
 		while(it.hasNext()){
 			Elt proj = it.next();
-			// calcule du bonus pour ce projet là
 			double nbCollabo = COL.imageReciproque(proj).cardinal();
 			double nbFinancier = FIN.imageReciproque(proj).cardinal() +1 ;
 			if(nbFinancier == 0) nbFinancier = 1;
@@ -588,7 +588,6 @@ public class DossMath12 {
 			while(it2.hasNext()){
 				Elt elem2 = it2.next();
 				double priorite2 = (double) CCN.imageReciproque(elem2).cardinal()/CPT.imageReciproque(elem2).cardinal();
-				
 				if(priorite<priorite2){
 					moinsPrio.ajouter(new Couple(elem,elem2));
 				}
@@ -636,11 +635,12 @@ public class DossMath12 {
 		System.out.println("******************************************************************************************");
 		System.out.println("Réponse question 7.1");
 		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétrique et et transitive. Ce qui n'est pas le cas de la relation 'proche', qui n'est pas transitive.");
-		System.out.println("Un projet A peut concerner deux qualifications D et E, si le projet B concerne la qual D et le projet C concerne la qual E, cela voudrait dire que B et C sont proches, ce qui ne devrait pas être le cas");
+		System.out.println("Un projet A peut concerner deux qualifications D et E, si le projet B concerne la qualification D et le projet C concerne la qualification E, cela voudrait dire que les projets B et C sont proches, ce qui ne devrait pas être le cas");
 		System.out.println("Réponse question 7.2");
 		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
 		System.out.println("Réponse question 7.3");
-		lister(EST_PROCHE_DE.imageReciproque(new Elt(numéro("PAMAL","PROJETS"))), "PROJETS");
+		Elt pamal = new Elt(numéro("PAMAL","PROJETS"));
+		lister(EST_PROCHE_DE.imageReciproque(pamal).moins(new Ensemble(pamal)), "PROJETS");
 	}
 	
 	
