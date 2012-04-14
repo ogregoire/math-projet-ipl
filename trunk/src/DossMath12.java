@@ -23,10 +23,10 @@ public class DossMath12 {
 	private static final int nbQual = Integer.parseInt(tQual[0]);// nombre de cours
 	
 	
-	/**
-	 * 
-	 */
 	
+	/**
+	 * LAP => 
+	 */
 	private static Relation LAP;
 	private static Relation affImpossible;
 	
@@ -37,6 +37,8 @@ public class DossMath12 {
 	private static Relation aPourChef;
 	
 	private static Ordre moinsPrio;
+	
+	private static Relation EST_PROCHE_DE;
 	
 	static double coutSal =0;
 	static double bonusTot = 0;
@@ -88,7 +90,8 @@ public class DossMath12 {
 			lister(ensemble, "PERSONNELS");
 	}
 	/**
-	 * TODO com
+	 * Question 1.2
+	 * Enoncé : Vérifiez que, pour chaque qualification, on peut trouver un membre du personnel compétent.
 	 */
 	private static void question12(){
 		Ensemble  ensemble = CPT.arrivee().moins(CPT.image());
@@ -108,13 +111,15 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO Com
+	 * Question 1.4
+	 * Enoncé : Créez la relation qui lie les membres du personnel à la liste de leurs affectations possibles.
 	 */
 	private static void question14(){
 		LAP = (CCN.reciproque()).apres(CPT);
 	}
 	/**
-	 * TODO com
+	 * Question 1.5
+	 * Enoncé : Quels sont les membres du personnel qui peuvent être affectés au projet «Antoinet» ?
 	 * @param projet
 	 */
 	private static void question15(String projet){
@@ -122,7 +127,8 @@ public class DossMath12 {
 		lister(LAP.imageReciproque(new Elt(numéro(projet, "PROJETS"))), "PERSONNELS");
 	}
 	/**
-	 * TODO com
+	 * Question 1.6
+	 * Enoncé : Trouvez le(s) membre(s) du personnel qui ont le plus grand nombre d’affectations possibles.
 	 */
 	private static void question16(){
 		int max = 0;
@@ -140,7 +146,11 @@ public class DossMath12 {
 		lister(ens, "PERSONNELS");
 	}
 	/**
-	 * TODO com
+	 * Question 1.7
+	 * Enoncé : 1.7	Un membre du personnel ne peut pas collaborer à un projet si celui-ci ne fait pas
+	 *  partie de ses affectations possibles. Vérifiez qu’il en est bien ainsi. Si ce n’est pas le cas,
+	 *  affichez la liste des membres du personnel qui ne satisfont pas la condition avec, pour chaque membre, 
+	 *  la liste des projets auxquels il collabore mais ne faisant pas partie de ses affectations possibles.
 	 */
 	private static void question17(){
 		affImpossible = COL.clone();
@@ -160,7 +170,7 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 2
 	 */
 	public static void question2(){
 		System.out.println("\nQuestion 2");
@@ -283,7 +293,8 @@ public class DossMath12 {
 //	}
 
 	/**
-	 * TODO com
+	 * Question 3
+	 * 
 	 */
 	public static void question3(){
 		System.out.println("\nQuestion 3");
@@ -298,7 +309,8 @@ public class DossMath12 {
 		question33();
 	}
 	/**
-	 * TODO com
+	 * Question 3.1
+	 * Enoncé : Créez la relation « peut suivre la formation en » des membres du personnels vers les qualifications.
 	 */
 	private static void question31(){
 		peutSuivreLaFormationEnInitialisation();
@@ -306,7 +318,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 3.2
+	 * Enoncé : Quelle formation peut suivre KOEKELBERG Basile ?
 	 * @param personnel
 	 */
 	private static void question32(String personnel){
@@ -315,7 +328,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 3.3
+	 * Enoncé : Y-a-t-il des membres du personnel qui ne peuvent suivre aucune formation ? Si oui, lesquels ?
 	 */
 	private static void question33(){
 		Ensemble quest33 = new Ensemble();
@@ -361,7 +375,9 @@ public class DossMath12 {
 		}
 	}
 
-	
+	/**
+	 * Question 4
+	 */
 	public static void question4(){
 		System.out.println("\nQuestion 4");
 		System.out.println("******************************************************************************************");
@@ -375,7 +391,10 @@ public class DossMath12 {
 		System.out.println("Réponse 4.3 : ");
 		question43();
 	}
-	
+	/**
+	 * Quesiton 4.1
+	 * Enoncé : Créez la relation « aPourChef » de l’ensemble des projets vers l’ensemble des membres du personnel
+	 */
 	private static void question41(){
 		aPourChef = new Relation(COL.arrivee(), COL.depart());
 		hierarchie = new Ordre(SUP.reciproque());
@@ -389,10 +408,18 @@ public class DossMath12 {
          }
 	}
 	
+	/**
+	 * Question 4.2
+	 * Enoncé : Donnez la liste des projets qui n’ont pas de chef.
+	 */
 	private static void question42(){
 		lister(COL.arrivee().moins(aPourChef.domaine()),"PROJETS");
 	}
 	
+	/**
+	 * Question 4.3
+	 * Enoncé : Existe-t-il un membre du personnel qui est chef de plusieurs projets ?
+	 */
 	private static void question43(){
 		Iterator<Elt> itMP = aPourChef.image().iterator();
 		boolean chefPlPro = true;
@@ -409,6 +436,9 @@ public class DossMath12 {
 		if(!chefPlPro) System.out.println("Il n'y a pas de membre du personnel chef de plusieurs projets");
 	}
 	
+	/**
+	 * Question 5
+	 */
 	public static void question5(){
 		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
@@ -428,7 +458,8 @@ public class DossMath12 {
 		question54();
 	}
 	/**
-	 * TODO com 
+	 * Question 5.1 
+	 * Enoncé : onnez la liste des patrons.
 	 */
 	private static void question51(){
 		System.out.println("Liste des patrons :");
@@ -436,7 +467,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 5.2
+	 * Enoncé : Calculez le traitement des membres du personnel pour le mois de décembre.
 	 */
 	private static void question52(){
 		Iterator<Elt> it = SUP.depart().iterator();
@@ -456,7 +488,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 5.3
+	 * Enoncé : Calculez le coût salarial total annuel de l’entreprise PROSPEC.
 	 */
 	private static void question53(){
 		Iterator <Elt> it = SUP.depart().iterator();
@@ -471,7 +504,9 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 5.4
+	 * Enoncé : M. « BISTRO Alonzo » décide de soutenir financièrement 
+	 * un projet (en plus de ceux qu’il soutient déjà). Avec les données actuelles, parmi quels projets peut-il choisir afin d’avoir le plus grand bonus ?
 	 */
 	private static void question54(){
 		double max = 0;
@@ -554,7 +589,7 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 6
 	 */
 	public static void question6(){
 		System.out.println("Question 6");
@@ -576,7 +611,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 6.1
+	 * Enoncé : Créez la relation « est moins prioritaire que » sur l’ensemble des qualifications.
 	 */
 	private static void question61(){
 		moinsPrio = new Ordre(CPT.arrivee());
@@ -601,7 +637,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 6.2
+	 * Enoncé : A priori, cet ordre est-il total ? Justifiez !
 	 */
 	private static void question62(){
 		System.out.println("Cet ordre n'est pas total. Deux qualifications ont les mêmes proportions, elles ne sont donc pas comparables.\nPar contre, avec d'autres données, il est possible que cet ordre soit total.");
@@ -609,7 +646,8 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Question 6.3
+	 * Enoncé : Etablissez un classement par niveau de priorité des qualifications (en commençant par les plus prioritaires).
 	 */
 	private static void question63(){
 		int compteur = 1 ;
@@ -630,21 +668,48 @@ public class DossMath12 {
 		}
 	}
 
+	/**
+	 * Question 7
+	 */
 	public static void question7(){
 		System.out.println("Question 7");
 		System.out.println("******************************************************************************************");
+		
 		System.out.println("Réponse question 7.1");
+		question71();
+		
+		System.out.println("Réponse question 7.2");
+		question72();
+		
+		System.out.println("Réponse question 7.3");
+		question73();
+	}
+	
+	/**
+	 * Question 7.1
+	 * Enoncé : Est-ce-que la relation « est proche de » est, à priori, une équivalence ? Justifiez votre réponse !
+	 */
+	private static void question71(){
 		System.out.println("Pour qu'une relation soit une équivalence il faut qu'elle soit réfléxive, symétrique et et transitive. Ce qui n'est pas le cas de la relation 'proche', qui n'est pas transitive.");
 		System.out.println("Un projet A peut concerner deux qualifications D et E, si le projet B concerne la qualification D et le projet C concerne la qualification E, cela voudrait dire que les projets B et C sont proches, ce qui ne devrait pas être le cas");
-		System.out.println("Réponse question 7.2");
-		Relation EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
-		System.out.println("Réponse question 7.3");
+	}
+	
+	/**
+	 * Question 7.2
+	 * Enoncé : Créez, sur l’ensemble des projets, la relation «est proche de». 
+	 */
+	private static void question72(){
+		EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
+	}
+	
+	/**
+	 * Question 7.3
+	 * Donnez la liste des projets qui sont proches du projet « PAMAL ».
+	 */
+	private static void question73(){
 		Elt pamal = new Elt(numéro("PAMAL","PROJETS"));
 		lister(EST_PROCHE_DE.imageReciproque(pamal).moins(new Ensemble(pamal)), "PROJETS");
 	}
-	
-	
-
 
 	// affiche à l'écran les éléments de e, interprétés selon contexte
 	private static void lister(EnsembleInterface e, String contexte)
