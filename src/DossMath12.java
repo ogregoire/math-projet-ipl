@@ -25,23 +25,45 @@ public class DossMath12 {
 	
 	
 	/**
-	 * LAP => 
+	 * LAP => Relation des listes des affections possible
 	 */
 	private static Relation LAP;
+	
+	/**
+	 * affImpossible => Relation des listes des affectations impossible 
+	 */
 	private static Relation affImpossible;
 	
+	/**
+	 * PSF => Relation peut suivre la formation en 
+	 */
 	private static Relation PSF;
+	
+	/**
+	 * hierarchie => Ordre contenant la hiearchie des membres de PROSPEC
+	 */
 	private static Ordre hierarchie;
-	private static Ordre test;
-	
+
+	/**
+	 * aPourChef => Relation " à Pour Chef "
+	 */
 	private static Relation aPourChef;
-	
+	/**
+	 * moinsPrio => Ordre "est moins prioritaire que" sur l'ensemble des qualifications
+	 */
 	private static Ordre moinsPrio;
 	
+	/**
+	 * EST_PROCHE_DE => On dit que deux projets sont "proches" s'ils concernent une même qualification
+	 */
 	private static Relation EST_PROCHE_DE;
 	
+	/**
+	 * coutSal et bonusTot sont deux variables utilisées dans la question 5. Elles servent à calculé le salaire plus rapidement.
+	 */
 	static double coutSal =0;
 	static double bonusTot = 0;
+	
 	
 	public static void main(String[] args) throws MathException {
 			question1();
@@ -51,7 +73,7 @@ public class DossMath12 {
 			question5();
 			question6();
 			question7();
-	} // main
+	} 
 	
 	public static void question1(){
 		System.out.println("Question 1");
@@ -352,7 +374,7 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
+	 * Initiallisation du @param PSF 
 	 */
 	private static void peutSuivreLaFormationEnInitialisation(){
 		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
@@ -533,9 +555,9 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
-	 * @param elem
-	 * @return
+	 * Calcul le bonus du membres qu'il reçois en paramètre
+	 * @param elem Est le membres pour lequel on calcul le bonus
+	 * @return le bonus du elem
 	 */
 	private static double bonus(Elt elem){
 		double bonus = 0;
@@ -556,9 +578,9 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * TODO com
-	 * @param elem
-	 * @return
+	 * Calcul le plus court sup-chemin pour l'élément passé en argument
+	 * @param elem Est le membres pour lequel on calcul son niveau
+	 * @return le niveau du membres
 	 */
 	private static int supChemin(Elt elem){
 		
