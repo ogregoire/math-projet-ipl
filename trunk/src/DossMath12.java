@@ -1,5 +1,11 @@
 import java.util.Iterator;
-
+/**
+ * 
+ * @author Erwan Corbisier
+ * @author Mathieu Steenput
+ * @title Dossier de mathématique 2012
+ *
+ */
 public class DossMath12 {
 	private static final double BASE = 3800;
 	private static final double PRIME = 50;
