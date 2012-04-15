@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DossMath12 {
@@ -568,7 +567,7 @@ public class DossMath12 {
 			Iterator<Elt> it = proj.iterator();
 			while(it.hasNext()){
 				Elt el = it.next();
-				temp = 250 * COL.imageReciproque(el).cardinal();
+				temp = BONUS * COL.imageReciproque(el).cardinal();
 				if(FIN.imageReciproque(el).cardinal() !=0){
 					bonus += temp / (FIN.imageReciproque(el).cardinal());
 				}
