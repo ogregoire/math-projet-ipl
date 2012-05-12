@@ -730,7 +730,7 @@ public class DossMath12 {
 	 * Enoncé : Créez, sur l’ensemble des projets, la relation «est proche de». 
 	 */
 	private static void question72(){
-		EST_PROCHE_DE = CCN.reciproque().apres(CCN).clone();
+		EST_PROCHE_DE = CCN.reciproque().apres(CCN);
 	}
 	
 	/**
