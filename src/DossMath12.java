@@ -26,7 +26,7 @@ public class DossMath12 {
 	
 	private static final String[] tQual = Io.chargerDta("Qual.dta");
 	private static final int nbQual = Integer.parseInt(tQual[0]);// nombre de cours
-	
+	private static int[] tableau;
 	
 	
 	/**
@@ -71,13 +71,14 @@ public class DossMath12 {
 	
 	
 	public static void main(String[] args) throws MathException {
+		
 			question1();
 			question2();
 			question3();
 			question4();
 			question5();
-			question6();
-			question7();
+//			question6();
+//			question7();
 	} 
 	
 	public static void question1(){
@@ -481,12 +482,12 @@ public class DossMath12 {
 		
 		System.out.println("Réponse 5.2 : ");
 		question52();
-		
-		System.out.println("Réponse question 5.3");
-		question53();
-		
-		System.out.println("Réponse question 5.4");
-		question54();
+//		
+//		System.out.println("Réponse question 5.3");
+//		question53();
+//		
+//		System.out.println("Réponse question 5.4");
+//		question54();
 	}
 	/**
 	 * Question 5.1 
@@ -506,10 +507,11 @@ public class DossMath12 {
 		
 		String[] t = tPers;
 		Ordre or =  new Ordre(SUP.reciproque());
+		supChemin();
 		while(it.hasNext()){
 			Elt elem = it.next();
-			double salaire = BASE * Math.pow(DELTA, supChemin(elem)-1);
-			salaire += or.minor(new Ensemble(elem)).moins(new Ensemble(elem)).cardinal()*PRIME;
+			double salaire = BASE * Math.pow(DELTA, tableau[elem.val()-1]);
+			salaire += or.minor(new Ensemble(elem)).cardinal()-1*PRIME;
 			coutSal+=salaire;
 			salaire += bonus(elem);
 			System.out.println("Salaire de " +t[elem.val()]+" : "+ Math.floor(salaire));
@@ -587,36 +589,40 @@ public class DossMath12 {
 	 * @param elem Est le membres pour lequel on calcul son niveau
 	 * @return le niveau du membres
 	 */
-	private static int supChemin(Elt elem){
-		
-		int compteur = 1;
-		Ensemble patrons = 	hierarchie.maximaux(SUP.depart());
-		Ordre sub = new Ordre(hierarchie);
-		while(!patrons.contient(elem)){
-			Iterator<Elt> it = patrons.clone().iterator();
+	private static void supChemin(){
+		tableau = new int[nbPers];
+		int compteur = nbPers;
+		System.out.println(nbPers);
+		int niveau = 1;
+		Ensemble superieur = hierarchie.maximaux(SUP.depart());
+		Iterator<Elt> itSup = superieur.iterator();
+		while(itSup.hasNext()){ // les grands patrons
+			Elt elementSup = itSup.next();
+			if(tableau[elementSup.val()-1]==0){
+				tableau[elementSup.val()-1]=niveau;
+				compteur--;
+			}
+		}
+		niveau++;
+		while(compteur!=0){ // les employés
+			Ensemble subordonnes = SUP.imageDirecte(superieur);
+			Iterator<Elt> it = subordonnes.iterator();
 			while(it.hasNext()){
-				Elt elemt = it.next();
-				Iterator<Elt> it2 = sub.depart().iterator();
-				while(it2.hasNext()){
-					Elt elem2 = it2.next();
-					 try {
-						 if(SUP.contient(elemt, elem2)){
-							 patrons.ajouter(elem2);
-							 if(elem2.val()==elem.val()) return compteur+1;
-						 }
-							 sub.enlever(new Couple(elem2,elemt));
-							 
-					 }
-					 catch (MathException e) {
-					 }	
-				
+				Elt element = it.next();
+				if(tableau[element.val()-1]==0){
+					tableau[element.val()-1]=niveau;
+					compteur--;
 				}
 			}
-			patrons.ajouter(sub.maximaux(SUP.depart()));
-			compteur++;
-			
+			niveau++;
+			superieur = subordonnes.clone();
 		}
-		return compteur;	
+		
+		
+		System.out.println("test");
+		for(int i=0;i<nbPers;i++){
+			System.out.println("Indice " +(i+1)+" : " +  tableau[i]);
+		}
 	}
 	
 	/**
