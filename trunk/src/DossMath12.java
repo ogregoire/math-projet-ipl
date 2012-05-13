@@ -504,19 +504,19 @@ public class DossMath12 {
 	 */
 	private static void question52(){
 		Iterator<Elt> it = SUP.depart().iterator();
-		
-		String[] t = tPers;
+		// Encore faire tableau pour Salaire & bonus ( question 5.3 )
+		// Refaire bonus???
+		// Modifier pour ne pas utiliser hierarchie?
+		// en 5.1, creer un ensemble avec SUP avec le pers où le degré d'entrée = 0 (--> Patrons )
 		Ordre or =  new Ordre(SUP.reciproque());
 		supChemin();
 		while(it.hasNext()){
 			Elt elem = it.next();
-			double salaire = BASE * Math.pow(DELTA, tableau[elem.val()-1]);
-			salaire += or.minor(new Ensemble(elem)).cardinal()-1*PRIME;
+			double salaire = BASE * Math.pow(DELTA, tableau[elem.val()-1]-1);
+			salaire += (or.minor(new Ensemble(elem)).cardinal()-1)*PRIME;
 			coutSal+=salaire;
 			salaire += bonus(elem);
-			System.out.println("Salaire de " +t[elem.val()]+" : "+ Math.floor(salaire));
-			
-			
+			System.out.println("Salaire de " +tPers[elem.val()]+" : "+ Math.floor(salaire));
 		}
 	}
 	
@@ -592,7 +592,6 @@ public class DossMath12 {
 	private static void supChemin(){
 		tableau = new int[nbPers];
 		int compteur = nbPers;
-		System.out.println(nbPers);
 		int niveau = 1;
 		Ensemble superieur = hierarchie.maximaux(SUP.depart());
 		Iterator<Elt> itSup = superieur.iterator();
@@ -616,12 +615,6 @@ public class DossMath12 {
 			}
 			niveau++;
 			superieur = subordonnes.clone();
-		}
-		
-		
-		System.out.println("test");
-		for(int i=0;i<nbPers;i++){
-			System.out.println("Indice " +(i+1)+" : " +  tableau[i]);
 		}
 	}
 	
