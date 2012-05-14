@@ -69,6 +69,17 @@ public class DossMath12 {
 	static double coutSal =0;
 	static double bonusTot = 0;
 	
+	/**
+	 *  L'ensemble patrons regroupe les membres du personnel n'ayant pas de supérieur.
+	 */
+	
+	static Ensemble patrons;
+	
+	/**
+	 * Ce tableau retient le salaire et le bonus des membres du personnel pour la question 5.3, il est rempli a la question 5
+	 */
+	
+	static double[][] tabSal;
 	
 	public static void main(String[] args) throws MathException {
 		
@@ -475,27 +486,26 @@ public class DossMath12 {
 		System.out.println("\nQuestion 5");
 		System.out.println("******************************************************************************************");
 		
-		hierarchie = new Ordre(SUP.reciproque());
-		
 		System.out.println("Réponse 5.1 : ");
 		question51();
 		
 		System.out.println("Réponse 5.2 : ");
 		question52();
-//		
-//		System.out.println("Réponse question 5.3");
-//		question53();
+	
+		System.out.println("Réponse question 5.3");
+		question53();
 //		
 //		System.out.println("Réponse question 5.4");
 //		question54();
 	}
 	/**
 	 * Question 5.1 
-	 * Enoncé : onnez la liste des patrons.
+	 * Enoncé : Donnez la liste des patrons.
 	 */
 	private static void question51(){
 		System.out.println("Liste des patrons :");
-		lister(hierarchie.maximaux(SUP.depart()),"PERSONNELS");
+		patrons = new Ensemble(SUP.depart().moins(SUP.image()));
+		lister(patrons,"PERSONNELS");
 	}
 	
 	/**
@@ -503,20 +513,23 @@ public class DossMath12 {
 	 * Enoncé : Calculez le traitement des membres du personnel pour le mois de décembre.
 	 */
 	private static void question52(){
-		Iterator<Elt> it = SUP.depart().iterator();
-		// Encore faire tableau pour Salaire & bonus ( question 5.3 )
+		
 		// Refaire bonus???
-		// Modifier pour ne pas utiliser hierarchie?
-		// en 5.1, creer un ensemble avec SUP avec le pers où le degré d'entrée = 0 (--> Patrons )
+		// Modifier pour ne pas utiliser or?
+		tabSal = new double[nbPers][2];
 		Ordre or =  new Ordre(SUP.reciproque());
 		supChemin();
+		Iterator<Elt> it = SUP.depart().iterator();
 		while(it.hasNext()){
 			Elt elem = it.next();
-			double salaire = BASE * Math.pow(DELTA, tableau[elem.val()-1]-1);
-			salaire += (or.minor(new Ensemble(elem)).cardinal()-1)*PRIME;
-			coutSal+=salaire;
-			salaire += bonus(elem);
-			System.out.println("Salaire de " +tPers[elem.val()]+" : "+ Math.floor(salaire));
+			int numero = elem.val();
+			double salaire = BASE * Math.pow(DELTA, tableau[numero-1]-1);
+			salaire += (or.minor(new Ensemble(elem)).cardinal()-1)*PRIME; // A modif!
+			tabSal[numero-1][0] = salaire;
+			double bonus = bonus(elem);
+			tabSal[numero-1][1] = bonus;
+			salaire += bonus;
+			System.out.println("Salaire de " +tPers[numero]+" : "+ Math.floor(salaire));
 		}
 	}
 	
@@ -526,13 +539,12 @@ public class DossMath12 {
 	 */
 	private static void question53(){
 		Iterator <Elt> it = SUP.depart().iterator();
-		double bonus =0;
+		double coutSal=0;
 		while(it.hasNext()){
 			Elt membre = it.next();
-			bonus += bonus(membre);
+			coutSal += tabSal[membre.val()-1][0]*12;
+			coutSal += tabSal[membre.val()-1][1];
 		}
-		
-		coutSal = (coutSal)* 12 + bonus;
 		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ Math.floor(coutSal));
 	}
 	
@@ -593,8 +605,7 @@ public class DossMath12 {
 		tableau = new int[nbPers];
 		int compteur = nbPers;
 		int niveau = 1;
-		Ensemble superieur = hierarchie.maximaux(SUP.depart());
-		Iterator<Elt> itSup = superieur.iterator();
+		Iterator<Elt> itSup = patrons.iterator();
 		while(itSup.hasNext()){ // les grands patrons
 			Elt elementSup = itSup.next();
 			if(tableau[elementSup.val()-1]==0){
@@ -604,7 +615,7 @@ public class DossMath12 {
 		}
 		niveau++;
 		while(compteur!=0){ // les employés
-			Ensemble subordonnes = SUP.imageDirecte(superieur);
+			Ensemble subordonnes = SUP.imageDirecte(patrons);
 			Iterator<Elt> it = subordonnes.iterator();
 			while(it.hasNext()){
 				Elt element = it.next();
@@ -614,7 +625,7 @@ public class DossMath12 {
 				}
 			}
 			niveau++;
-			superieur = subordonnes.clone();
+			patrons = subordonnes.clone();
 		}
 	}
 	
