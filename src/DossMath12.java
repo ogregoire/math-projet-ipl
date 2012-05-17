@@ -225,10 +225,13 @@ public class DossMath12 {
 			}
 		}
 		
-		Ensemble cat1 = FIN.depart().clone();
-		cat1.enlever(FIN.domaine());
+//		Ensemble cat1 = FIN.depart().clone();
+		Ensemble cat1 = new Ensemble();
+		Ensemble domFIN = FIN.domaine();
 		
-		Ensemble cat2 = FIN.domaine().clone();
+		cat1.enlever(domFIN.clone());
+		
+		Ensemble cat2 = domFIN.clone();
 		Iterator<Couple> it = FIN.iterator();
 		while(it.hasNext()){
 			Couple c = it.next();
@@ -270,70 +273,78 @@ public class DossMath12 {
 		lister(cat4, "PERSONNELS");
 		
 		System.out.println("Réponse 2.2");
-		
-		double compteur1f =0;
-		double compteur2f =0;
-		double compteur3f =0;
-		double compteur4f =0;
-		
 		Elt femme = new Elt(2);
 		Iterator<Couple> itSex = SEX.iterator();
+
+		Ensemble [] ensTab = new Ensemble[4];
+		String [] message = new String[4];
+		int tempCompteur = 0;
+		if(!cat1.estVide()) {
+			ensTab[tempCompteur] = cat1;
+			message[tempCompteur] =" Catégorie 1 : Aucun financement ";
+			tempCompteur++;
+		}
+		
+		if(!cat2.estVide()) {
+			ensTab[tempCompteur] = cat2;
+			message[tempCompteur] ="Catégorie 2 : Aucun soutien financier lucide";
+			tempCompteur++;
+			
+		}
+		
+		if(!cat3.estVide()) {
+			ensTab[tempCompteur] = cat3;
+			message[tempCompteur] ="Catégorie 3 : Des soutiens financiers lucides et d'autres soutiens financiers ";
+			tempCompteur++;
+			
+		}
+		
+		if(!cat4.estVide()) {
+			ensTab[tempCompteur] = cat4;
+			message[tempCompteur] ="Catégorie 3 : Des soutiens financiers lucides et d'autres soutiens financiers"; 
+			tempCompteur++;
+			
+		}
+		
+		double compteurfTab[] = new double[tempCompteur];
+		
 		while(itSex.hasNext()){
 			Couple c = itSex.next();
-			if(cat1.contient(c.getx())){
-				if(c.gety().estEgalA(femme)){
-					compteur1f++;
-				}
-			}else{
-				if(cat2.contient(c.getx())){
+		
+			for(int i = 0; i<tempCompteur; i++){
+				
+				if(ensTab[i].contient(c.getx())){
 					if(c.gety().estEgalA(femme)){
-						compteur2f++;
-					}
-				}else{
-					if(cat3.contient(c.getx())){
-						if(c.gety().estEgalA(femme)){
-							compteur3f++;
-						}
-					}else{
-						if(cat4.contient(c.getx())){
-							if(c.gety().estEgalA(femme)){
-								compteur4f++;
-							}
-						}
+						compteurfTab[i]++;
+						break;
 					}
 				}
+		
 			}
 		}
 		
-		compteur1f = compteur1f/cat1.cardinal();
-		compteur2f = compteur2f/cat2.cardinal();
-		compteur3f = compteur3f/cat3.cardinal();
-		compteur4f = compteur4f/cat4.cardinal();
 		
+		for(int i = 0; i < compteurfTab.length ; i++){
+			compteurfTab[i] = compteurfTab[i]/ensTab[i].cardinal(); 
+		}
+
 		System.out.println("La/les catégorie(s) comportant la plus grande proportion de femmes est/sont : ");
-		double max = Math.max(Math.max(Math.max(compteur1f, compteur2f), compteur3f), compteur4f);
-		if(compteur1f==max){
-			System.out.println("Catégorie 1 : Aucun financement ");
+		
+		double max = 0;
+		
+		for(int i = 0; i < tempCompteur; i++){
+			if(compteurfTab[i] > max){
+				max = compteurfTab[i];
+			}
 		}
-		if(compteur2f==max){
-			System.out.println("Catégorie 2 : Aucun soutien financier lucide");
+		
+		for(int i = 0; i <tempCompteur; i++){
+			if(compteurfTab[i] == max)
+				System.out.println(message[i]);
 		}
-		if(compteur3f==max){
-			System.out.println("Catégorie 3 : Des soutiens financiers lucides et d'autres soutiens financiers ");
-		}
-		if(compteur4f==max){
-			System.out.println("Catégorie 4 : Seulement des soutiens financiers lucides");
-		}
+		
 		
 	}
-	
-//	private static void question21(){
-//		
-//	}
-//	
-//	private static void question22(){
-//		
-//	}
 
 	/**
 	 * Question 3
