@@ -451,14 +451,14 @@ public class DossMath12 {
 	 * Enoncé : Créez la relation « aPourChef » de l’ensemble des projets vers l’ensemble des membres du personnel
 	 */
 	private static void question41(){
-		aPourChef = new Relation(COL.arrivee(), COL.depart());
-		hierarchie = new Ordre(SUP.reciproque());
-		Iterator<Elt> it = COL.arrivee().iterator();
+		aPourChef = new Relation(COL.arrivee(), COL.depart()); // On a besoin des projets avec des collaborateurs et des collaborateurs en question .
+		hierarchie = new Ordre(SUP.reciproque()); // Il faut créer une hiérachie pour savoir quel membre est supérieur à un autre. On la créer avec un Ordre car ont ses méthodes seront utile.
+		Iterator<Elt> it = COL.arrivee().iterator(); 
          while(it.hasNext()){
              Elt elem = it.next();
-             Elt max = hierarchie.maximum(COL.imageReciproque(elem));
+             Elt max = hierarchie.maximum(COL.imageReciproque(elem)); // Cette ligne permet de savoir qui est le chef de "elem" qui est un projet.
              if( max != null){
-                 aPourChef.ajouter(elem,max);
+                 aPourChef.ajouter(elem,max); 
              }
          }
 	}
@@ -476,12 +476,12 @@ public class DossMath12 {
 	 * Enoncé : Existe-t-il un membre du personnel qui est chef de plusieurs projets ?
 	 */
 	private static void question43(){
-		Iterator<Elt> itMP = aPourChef.image().iterator();
-		boolean chefPlPro = true;
+		Iterator<Elt> itMP = aPourChef.image().iterator(); //Ensemble des chefs de chaque projet ayant un chef
+		boolean chefPlPro = false; // Initialisé à false car si l'ensemble des chefs est vide il rentre dans le dernier "if" de la méthode
 		while(itMP.hasNext()){
-			if(aPourChef.degreDEntree(itMP.next())>1){
+			if(aPourChef.degreDEntree(itMP.next())>1){ // Si un chef est chef de plusieurs projet, sont degré d'entrée sera plus grand que 1
 				System.out.println("Il existe un membre du personnel chef de plusieurs projets");
-				chefPlPro = true;
+				chefPlPro = true; // Mis à true pour ne pas rentré dans le dernier "if" de la méthode
 				break;
 			}else{
 				chefPlPro = false;
