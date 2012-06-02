@@ -413,16 +413,16 @@ public class DossMath12 {
 		while(itCol.hasNext()){
 			Couple couple = itCol.next();
 			Elt pers = couple.getx();
-			Elt projet = couple.gety(); // y désigne le domaine de qualification
-			// Regarde les qualifications demandés pour le projet
+			Elt projet = couple.gety(); // "y" désigne le domaine de qualification
+			// Regarde les qualifications demandés pour le projet "projet"
 			Ensemble qualifProjet = CCN.imageDirecte(projet);
-			// Regarde les qualifications du personnel
+			// Regarde les qualifications du personnel "pers"
 			Ensemble qualifPers = CPT.imageDirecte(pers);
-			Iterator<Elt> itQualifProjet = qualifProjet.iterator();
+			Iterator<Elt> itQualifProjet = qualifProjet.iterator(); //Itérateur sur les qualifications du "projet"
 			while(itQualifProjet.hasNext()){
 				Elt x = itQualifProjet.next();
-				if(!qualifPers.contient(x)){
-					PSF.ajouter(pers, x);
+				if(!qualifPers.contient(x)){ // S'il la qualification x du projet "projet" n'est pas contenue dans l'ensemble des qualifications de "pers" 
+					PSF.ajouter(pers, x); // On ajoute le personnel "pers" et la qualification "x"
 				}
 				
 			}
