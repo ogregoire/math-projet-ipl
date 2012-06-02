@@ -82,7 +82,8 @@ public class DossMath12 {
 	static double[][] tabSal;
 	
 	public static void main(String[] args) throws MathException {
-		
+			
+
 			question1();
 			question2();
 			question3();
@@ -225,7 +226,6 @@ public class DossMath12 {
 			}
 		}
 		
-//		Ensemble cat1 = FIN.depart().clone();
 		Ensemble cat1 = new Ensemble();
 		Ensemble domFIN = FIN.domaine();
 		
@@ -506,9 +506,9 @@ public class DossMath12 {
 	
 		System.out.println("Réponse question 5.3");
 		question53();
-//		
-//		System.out.println("Réponse question 5.4");
-//		question54();
+		
+		System.out.println("Réponse question 5.4");
+		question54();
 	}
 	/**
 	 * Question 5.1 
@@ -526,8 +526,6 @@ public class DossMath12 {
 	 */
 	private static void question52(){
 		
-		// Refaire bonus???
-		// Modifier pour ne pas utiliser or?
 		tabSal = new double[nbPers][2];
 		Ordre or =  new Ordre(SUP.reciproque());
 		supChemin();
@@ -568,21 +566,25 @@ public class DossMath12 {
 	private static void question54(){
 		double max = 0;
 		Elt bestInvest= null;
-		Relation COLTemp = COL.clone();
-		Iterator<Elt> it = COLTemp.arrivee().iterator();
+		Iterator<Elt> it = COL.arrivee().moins(COL.imageDirecte(numéro("BISTRO Alonzo","PERSONNELS"))).iterator(); // On parcourt les projets qui ne sont déjà pas financés par Monsieur BISTRO Alonzo
 		while(it.hasNext()){
 			Elt proj = it.next();
 			double nbCollabo = COL.imageReciproque(proj).cardinal();
-			double nbFinancier = FIN.imageReciproque(proj).cardinal() +1 ;
-			if(nbFinancier == 0) nbFinancier = 1;
-				double bonusCourant = (250*nbCollabo) / nbFinancier;
-				if(bonusCourant > max){
-					max = bonusCourant;
-					bestInvest = new Elt(proj);
+			if(nbCollabo != 0){
+				double nbFinancier = FIN.imageReciproque(proj).cardinal() +1 ;
+				if(nbFinancier == 0) nbFinancier = 1;
+					double bonusCourant = (250*nbCollabo) / nbFinancier;
+					if(bonusCourant > max){
+						max = bonusCourant;
+						bestInvest = new Elt(proj);
+				}
 			}
 		}
-		
-		lister(new Ensemble(bestInvest), "PROJETS");
+		if(bestInvest==null){
+			System.out.println("Aucun projet interessant !");
+		}else{
+			lister(new Ensemble(bestInvest), "PROJETS");
+		}
 	}
 	
 	/**
@@ -609,14 +611,13 @@ public class DossMath12 {
 	}
 	
 	/**
-	 * Calcul le plus court sup-chemin pour l'élément passé en argument
-	 * @param elem Est le membres pour lequel on calcul son niveau
-	 * @return le niveau du membres
+	 * Calcul les sup chemins de tous les employés
+	 * Met dans tableau le plus court sup chemin de l'employé correspondant à l'indice de ce tableau
 	 */
 	private static void supChemin(){
 		tableau = new int[nbPers];
 		int compteur = nbPers;
-		int niveau = 1;
+		int niveau = 1; // Niveau de base
 		Iterator<Elt> itSup = patrons.iterator();
 		while(itSup.hasNext()){ // les grands patrons
 			Elt elementSup = itSup.next();
@@ -626,7 +627,7 @@ public class DossMath12 {
 			}
 		}
 		niveau++;
-		while(compteur!=0){ // les employés
+		while(compteur!=0){ // Les employés
 			Ensemble subordonnes = SUP.imageDirecte(patrons);
 			Iterator<Elt> it = subordonnes.iterator();
 			while(it.hasNext()){
@@ -637,7 +638,7 @@ public class DossMath12 {
 				}
 			}
 			niveau++;
-			patrons = subordonnes.clone();
+			patrons = subordonnes;
 		}
 	}
 	
@@ -695,7 +696,6 @@ public class DossMath12 {
 	 */
 	private static void question62(){
 		System.out.println("Cet ordre n'est pas total. Deux qualifications ont les mêmes proportions, elles ne sont donc pas comparables.\nPar contre, avec d'autres données, il est possible que cet ordre soit total.");
-
 	}
 	
 	/**
@@ -708,7 +708,7 @@ public class DossMath12 {
 		while(!max.estVide()){
 			System.out.println("Priorité N°" + compteur);
 			lister(max, "QUALIFICATIONS");
-			Ensemble ancienmax = max.clone();
+			Ensemble ancienmax = max;
 			
 			max = moinsPrio.minor(max);
 			if(max==null){
