@@ -88,8 +88,8 @@ public class DossMath12 {
 			question3();
 			question4();
 			question5();
-//			question6();
-//			question7();
+			question6();
+			question7();
 	} 
 	
 	public static void question1(){
@@ -403,9 +403,10 @@ public class DossMath12 {
 	
 	/**
 	 * Initiallisation du @param PSF 
+	 * 
 	 */
 	private static void peutSuivreLaFormationEnInitialisation(){
-		PSF = new Relation(COL.depart().clone(), CCN.arrivee().clone());
+		PSF = new Relation(COL.depart(), CCN.arrivee()); // les 2 clone() ont été retiré
 		Iterator<Couple> itCol = COL.iterator();
 		
 
@@ -413,9 +414,9 @@ public class DossMath12 {
 			Couple couple = itCol.next();
 			Elt pers = couple.getx();
 			Elt projet = couple.gety(); // y désigne le domaine de qualification
-			// Regarder les qualifications demandés pour le projet
+			// Regarde les qualifications demandés pour le projet
 			Ensemble qualifProjet = CCN.imageDirecte(projet);
-			// Regarder les qualifications du personnel
+			// Regarde les qualifications du personnel
 			Ensemble qualifPers = CPT.imageDirecte(pers);
 			Iterator<Elt> itQualifProjet = qualifProjet.iterator();
 			while(itQualifProjet.hasNext()){
