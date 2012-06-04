@@ -516,7 +516,7 @@ public class DossMath12 {
 	 */
 	private static void question51(){
 		System.out.println("Liste des patrons :");
-		patrons = new Ensemble(SUP.depart().moins(SUP.image()));
+		patrons = new Ensemble(SUP.depart().moins(SUP.image())); // Un patron ne sera pas dans l'ensemble image puisque personne n'est au-dessus de lui
 		lister(patrons,"PERSONNELS");
 	}
 	
@@ -526,7 +526,7 @@ public class DossMath12 {
 	 */
 	private static void question52(){
 		
-		tabSal = new double[nbPers][2];
+		tabSal = new double[nbPers][2]; //En tabSal[...][0] = salaire, tabSal[...][1] = bonus
 		Ordre or =  new Ordre(SUP.reciproque());
 		supChemin();
 		Iterator<Elt> it = SUP.depart().iterator();
