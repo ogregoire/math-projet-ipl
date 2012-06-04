@@ -534,7 +534,7 @@ public class DossMath12 {
 			Elt elem = it.next();
 			int numero = elem.val();
 			double salaire = BASE * Math.pow(DELTA, tableau[numero-1]-1);
-			salaire += (or.minor(new Ensemble(elem)).cardinal()-1)*PRIME; // A modif!
+			salaire += (or.minor(new Ensemble(elem)).cardinal()-1)*PRIME;
 			tabSal[numero-1][0] = salaire;
 			double bonus = bonus(elem);
 			tabSal[numero-1][1] = bonus;
@@ -548,12 +548,10 @@ public class DossMath12 {
 	 * Enoncé : Calculez le coût salarial total annuel de l’entreprise PROSPEC.
 	 */
 	private static void question53(){
-		Iterator <Elt> it = SUP.depart().iterator();
 		double coutSal=0;
-		while(it.hasNext()){
-			Elt membre = it.next();
-			coutSal += tabSal[membre.val()-1][0]*12;
-			coutSal += tabSal[membre.val()-1][1];
+		for(int i=0;i<nbPers;i++){ // On parcourt tout le tableau et on rajoute le salaire et le bonus au cout salarial
+			coutSal += tabSal[i][0]*12;
+			coutSal += tabSal[i][1];
 		}
 		System.out.println("Coût salarial total annuel de l'entreprise PROSPEC :"+ Math.floor(coutSal));
 	}
