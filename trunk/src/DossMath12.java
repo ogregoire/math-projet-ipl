@@ -752,7 +752,7 @@ public class DossMath12 {
 	 * Enoncé : Créez, sur l’ensemble des projets, la relation «est proche de». 
 	 */
 	private static void question72(){
-		EST_PROCHE_DE = CCN.reciproque().apres(CCN);
+		EST_PROCHE_DE = CCN.reciproque().apres(CCN); // projet à projet 
 	}
 	
 	/**
@@ -761,7 +761,13 @@ public class DossMath12 {
 	 */
 	private static void question73(){
 		Elt pamal = new Elt(numéro("PAMAL","PROJETS"));
-		lister(EST_PROCHE_DE.imageReciproque(pamal).moins(new Ensemble(pamal)), "PROJETS");
+		Ensemble response = EST_PROCHE_DE.imageReciproque(pamal).moins(new Ensemble(pamal));//On récupère tout les projets proche de "PAMAL", et on le retire de l'ensemble car l'afficher serait inutile
+		if(response !=null){
+			System.out.println("Projet(s) proche(s) de PAMAL");
+			lister(response, "PROJETS");
+		}else{
+			System.out.println("Pas de projet proche de PAMAL");
+		}
 	}
 
 	// affiche à l'écran les éléments de e, interprétés selon contexte
