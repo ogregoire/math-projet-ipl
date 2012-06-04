@@ -229,7 +229,7 @@ public class DossMath12 {
 		Ensemble cat1 = new Ensemble();
 		Ensemble domFIN = FIN.domaine();
 		
-		cat1.enlever(domFIN.clone());
+		cat1 = FIN.depart().moins(domFIN);
 		
 		Ensemble cat2 = domFIN.clone();
 		Iterator<Couple> it = FIN.iterator();
