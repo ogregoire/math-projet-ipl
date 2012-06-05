@@ -1,0 +1,21 @@
+L'ensemble des méthodes ont été commenté
+
+Question 2 :
+	Optimisation de la question 2 en évitant de faire des conditions inutile grace au boucle
+Question 4 :
+	Methode PSFInitialisation :
+		.clone() inutile dans le constructeur enlevé
+Question5 :
+	Méthode supChemin :
+		Algorithme sans Ordre
+Question 52 :
+	Amélioration des salaires, le salaire et le bonus de chaque emploié est stocker dans un tableau
+Question 53 :
+	Utilisation du tableau précédament cité dans la question 5.2. Les salaires et les bonus ne doivent donc pas être recalculé
+Question 5.4
+	Correction de la question et clone() inutile retiré
+	Amélioration de la méthode
+Question 7.2
+Correction du clone
+Question 7.3
+Ajout d'une condition pour gérer le cas où il n'y aurait aucun projet proche de PAMAL
