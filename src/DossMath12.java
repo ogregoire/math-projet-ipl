@@ -664,22 +664,26 @@ public class DossMath12 {
 	/**
 	 * Question 6.1
 	 * Enoncé : Créez la relation « est moins prioritaire que » sur l’ensemble des qualifications.
+	 * est moins prioritaire que : Une qualification est classée moins prioritaire qu'une autre si la proportion entre
+	 * le nombre de projet concernant cette qualification et le nombre de collaborateurs compétent dans cette 
+	 * qualification est strictement inférieure à celle de l'autre
 	 */
 	private static void question61(){
-		moinsPrio = new Ordre(CPT.arrivee());
+		moinsPrio = new Ordre(CPT.arrivee()); // CPT.arrivee() => Ensemble des qualifications 
 		Iterator<Elt> it = moinsPrio.depart().iterator();
 		while(it.hasNext()){
-			Elt elem = it.next();
-			double priorite = (double) CCN.imageReciproque(elem).cardinal()/CPT.imageReciproque(elem).cardinal();
+			Elt qualif = it.next(); 
+			double priorite = (double) CCN.imageReciproque(qualif).cardinal()/CPT.imageReciproque(qualif).cardinal(); // projet(s) / personnel(s)
 			Iterator<Elt> it2 = moinsPrio.depart().iterator();
 			while(it2.hasNext()){
-				Elt elem2 = it2.next();
-				double priorite2 = (double) CCN.imageReciproque(elem2).cardinal()/CPT.imageReciproque(elem2).cardinal();
-				if(priorite<priorite2){
-					moinsPrio.ajouter(new Couple(elem,elem2));
-				}
-				if(priorite2<priorite){
-					moinsPrio.ajouter(new Couple(elem2,elem));
+				Elt qualif2 = it2.next();
+				double priorite2 = (double) CCN.imageReciproque(qualif2).cardinal()/CPT.imageReciproque(qualif2).cardinal(); //projet(s) / personnel(s)
+				if(priorite<priorite2){ //qualif est moins prioritaire que qualif2
+					moinsPrio.ajouter(new Couple(qualif,qualif2));
+				}else {
+					if(priorite2<priorite){ // qualif2 est moins prioritaire que qualif
+						moinsPrio.ajouter(new Couple(qualif2,qualif));
+					}
 				}
 			}
 		}
@@ -701,7 +705,7 @@ public class DossMath12 {
 	 */
 	private static void question63(){
 		int compteur = 1 ;
-		Ensemble max = moinsPrio.maximaux(moinsPrio.arrivee());
+		Ensemble max = moinsPrio.maximaux (moinsPrio.arrivee());
 		while(!max.estVide()){
 			System.out.println("Priorité N°" + compteur);
 			lister(max, "QUALIFICATIONS");
