@@ -1,9 +1,9 @@
-L'ensemble des méthodes ont été commenté
+L'ensemble des méthodes ont été commentées
 
 Question 2 :
-	Optimisation de la question 2 en évitant de faire des conditions inutile grace au boucle
+	Optimisation de la question 2 en évitant de faire des conditions inutiles grace aux boucles
 Question 4 :
-	Methode PSFInitialisation :
+	Méthode PSFInitialisation :
 		.clone() inutile dans le constructeur enlevé
 Question5 :
 	Méthode supChemin :
@@ -11,9 +11,10 @@ Question5 :
 Question 52 :
 	Amélioration des salaires, le salaire et le bonus de chaque emploié est stocker dans un tableau
 Question 53 :
-	Utilisation du tableau précédament cité dans la question 5.2. Les salaires et les bonus ne doivent donc pas être recalculé
+	Utilisation du tableau précédemment cité dans la question 5.2. Les salaires et les bonus ne doivent donc pas être recalculés
 Question 5.4
-	Correction de la question et clone() inutile retiré
+	Correction de la question afin de ne donner comme résultat que les projets n'étant déjà pas soutenus
+	et clone() inutile retiré
 	Amélioration de la méthode
 Question 6.1 :
 	L'Elt elem à été renommé en "qualif" pour une meilleur lecture du code
