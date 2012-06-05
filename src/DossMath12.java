@@ -590,17 +590,17 @@ public class DossMath12 {
 	 * @return le bonus du elem
 	 */
 	private static double bonus(Elt elem){
-		double bonus = 0;
-		double temp=0;
+		double bonus = 0; // Bonus total de elem
+		double temp=0; // Bonus temporaire d'un des projets soutenu par elem
 		if(FIN.depart().contient(elem)){ 
-			Ensemble proj = FIN.imageDirecte(elem);
+			Ensemble proj = FIN.imageDirecte(elem); // On récupère l'ensemble des projets financer par elem
 			
 			Iterator<Elt> it = proj.iterator();
 			while(it.hasNext()){
 				Elt el = it.next();
-				temp = BONUS * COL.imageReciproque(el).cardinal();
+				temp = BONUS * COL.imageReciproque(el).cardinal(); // Pour chaque projet, on regarde le nombre de collabo qu'on multiplie par BONUS
 				if(FIN.imageReciproque(el).cardinal() !=0){
-					bonus += temp / (FIN.imageReciproque(el).cardinal());
+					bonus += temp / (FIN.imageReciproque(el).cardinal()); // on divise le bonus de el par le nombre de financier du projet
 				}
 			}	
 		}
