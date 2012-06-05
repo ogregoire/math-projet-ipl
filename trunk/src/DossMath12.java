@@ -704,7 +704,7 @@ public class DossMath12 {
 	 * Enoncé : Etablissez un classement par niveau de priorité des qualifications (en commençant par les plus prioritaires).
 	 */
 	private static void question63(){
-		int compteur = 1 ;
+		int compteur = 1 ; //Le compteur affichera les niveaux. Il est initialisé à 1 car le niveau 0 n'existe pas
 		Ensemble max = moinsPrio.maximaux (moinsPrio.arrivee());
 		while(!max.estVide()){
 			System.out.println("Priorité N°" + compteur);
