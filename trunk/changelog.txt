@@ -15,6 +15,10 @@ Question 53 :
 Question 5.4
 	Correction de la question et clone() inutile retiré
 	Amélioration de la méthode
+Question 6.1 :
+	L'Elt elem à été renommé en "qualif" pour une meilleur lecture du code
+	L'Elt elem2 à été renommé en "qualif2" pour une meilleur lecture du code
+	légère optimisation du code en ajoutant un else au "if(priorite<priorite2)"
 Question 7.2
 Correction du clone
 Question 7.3
