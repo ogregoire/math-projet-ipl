@@ -390,7 +390,7 @@ public class DossMath12 {
 		Iterator<Elt> it = PSF.depart().iterator();
 		while(it.hasNext()){
 			Elt el = it.next();
-			if(PSF.degreDeSortie(el) == 0){
+			if(PSF.degreDeSortie(el) == 0){ // Si il ne suit pas de formation
 				quest33.ajouter(el);
 			}
 		}
@@ -570,11 +570,10 @@ public class DossMath12 {
 			double nbCollabo = COL.imageReciproque(proj).cardinal();
 			if(nbCollabo != 0){
 				double nbFinancier = FIN.imageReciproque(proj).cardinal() +1 ;
-				if(nbFinancier == 0) nbFinancier = 1;
-					double bonusCourant = (250*nbCollabo) / nbFinancier;
-					if(bonusCourant > max){
-						max = bonusCourant;
-						bestInvest = new Elt(proj);
+				double bonusCourant = (250*nbCollabo) / nbFinancier;
+				if(bonusCourant > max){ // Si le bonus apporté par le projet est plus grand que l'ancien
+					max = bonusCourant;
+					bestInvest = new Elt(proj);
 				}
 			}
 		}
@@ -593,7 +592,7 @@ public class DossMath12 {
 	private static double bonus(Elt elem){
 		double bonus = 0;
 		double temp=0;
-		if(FIN.depart().contient(elem)){
+		if(FIN.depart().contient(elem)){ 
 			Ensemble proj = FIN.imageDirecte(elem);
 			
 			Iterator<Elt> it = proj.iterator();
@@ -630,7 +629,7 @@ public class DossMath12 {
 			Iterator<Elt> it = subordonnes.iterator();
 			while(it.hasNext()){
 				Elt element = it.next();
-				if(tableau[element.val()-1]==0){
+				if(tableau[element.val()-1]==0){ // Si un sup chemin plus court n'a pas été trouvé pour cet employé
 					tableau[element.val()-1]=niveau;
 					compteur--;
 				}
